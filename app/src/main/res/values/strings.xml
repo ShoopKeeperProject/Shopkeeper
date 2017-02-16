@@ -10,4 +10,11 @@
     <string name="Ok">ok</string>
     <string name="EnterEmailAdd">Enter you E-mail Adresse</string>
     <string name="forgetUserName">forget user name</string>
+    <string name="EnterUserName">Enter User Name</string>
+    <string name="EnterPassword">Enter Password</string>
+    <string name="ReEnterPassword">ReEnter Password</string>
+    <string name="makeSell">Make Sell</string>
+    <string name="editCatalog">Edit Catalog</string>
+    <string name="makeReport">Make Report</string>
+    <string name="setting">Setting</string>
 </resources>
