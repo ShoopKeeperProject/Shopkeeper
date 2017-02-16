@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Shopkeeper</string>
+    <string name="customer">customer</string>
+    <string name="seller">seller</string>
+    <string name="register">register</string>
+    <string name="forgetPassword">forget Password</string>
+    <string name="userName">user name</string>
+    <string name="Password">Password</string>
+    <string name="Login">Login</string>
+    <string name="Ok">ok</string>
+    <string name="EnterEmailAdd">Enter you E-mail Adresse</string>
+    <string name="forgetUserName">forget user name</string>
 </resources>
