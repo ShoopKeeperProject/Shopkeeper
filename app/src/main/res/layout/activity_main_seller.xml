@@ -8,8 +8,7 @@
         android:layout_width="300dp"
         android:layout_height="140dp"
         android:layout_gravity="center_horizontal"
-        android:paddingBottom="10dp"
-        android:src="@drawable/logo" />
+        android:paddingBottom="10dp" />
     <Button android:id="@+id/makeSell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
