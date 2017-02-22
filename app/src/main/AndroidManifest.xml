@@ -18,7 +18,8 @@
         <activity android:name=".Activity.Login" />
         <activity android:name=".Activity.ForgetPassword" />
         <activity android:name=".Activity.Register" />
-        <activity android:name=".Activity.MainSeller"></activity>
+        <activity android:name=".Activity.MainSeller" />
+        <activity android:name=".Activity.CatalogMakeSaleMain"></activity>
     </application>
 
 </manifest>

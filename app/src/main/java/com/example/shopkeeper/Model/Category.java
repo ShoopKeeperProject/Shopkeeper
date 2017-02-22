@@ -6,9 +6,15 @@ package com.example.shopkeeper.Model;
 
 public class Category {
 
-    private String mName;
-    private String mId;
-    private String mParentId;
+    protected String mName;
+    protected String mId;
+    protected String mParentId;
+    protected String mImageURL;
+
+    public Category(String mName)
+    {
+        this.mName = mName;
+    }
 
     public String getmName() {
         return mName;
@@ -32,5 +38,13 @@ public class Category {
 
     public void setmParentId(String mParentId) {
         this.mParentId = mParentId;
+    }
+
+    public String getmImageURL() {
+        return mImageURL;
+    }
+
+    public void setmImageURL(String mImageURL) {
+        this.mImageURL = mImageURL;
     }
 }
