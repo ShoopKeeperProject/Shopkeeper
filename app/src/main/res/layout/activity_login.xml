@@ -25,12 +25,18 @@
         android:layout_height="wrap_content"
         android:text="@string/Password"
         android:textSize="20sp" />
-    <EditText android:id="@+id/Password"
+    <EditText android:id="@+id/password"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:text=""
         android:layout_marginBottom="10dp" />
+    <CheckBox android:id="@+id/RemeberMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/RemeberMe"
+        android:onClick="onCheckboxClicked"/>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -56,15 +62,13 @@
             android:backgroundTint="#2828d4"
             android:text="@string/Login"/>
     </RelativeLayout>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:layout_height="wrap_content">
         <Button android:id="@+id/forgetPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
 
             android:textAlignment="center"
             android:textColor="#000000"
@@ -73,8 +77,8 @@
         <Button android:id="@+id/forgetUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_toRightOf="@id/forgetPassword"
             android:textAlignment="center"
             android:textColor="#000000"

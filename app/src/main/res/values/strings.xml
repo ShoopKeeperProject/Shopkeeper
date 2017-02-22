@@ -17,4 +17,9 @@
     <string name="editCatalog">Edit Catalog</string>
     <string name="makeReport">Make Report</string>
     <string name="setting">Setting</string>
+    <string name="IncorrectLogin">Incorrect Login</string>
+    <string name="WrongName">Wrong Name</string>
+    <string name="WrongPassword">Wrong Password</string>
+    <string name="WrongPasswordOrName">Wrong Password or Wrong username</string>
+    <string name="RemeberMe">Remeber Me</string>
 </resources>
