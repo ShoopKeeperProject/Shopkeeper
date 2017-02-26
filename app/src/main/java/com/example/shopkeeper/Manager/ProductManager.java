@@ -1,9 +1,8 @@
-package com.example.shopkeeper.Repository;
+package com.example.shopkeeper.Manager;
 
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.shopkeeper.Model.Category;
 import com.example.shopkeeper.Model.Product;
 
 import java.util.ArrayList;
@@ -13,23 +12,23 @@ import java.util.List;
  * Created by Tony on 2017/2/18.
  */
 
-public class ProductRepository {
+public class ProductManager {
 
-    private static ProductRepository sProductRepo;
+    private static ProductManager sProductRepo;
     private Handler mHandler;
 
-    public ProductRepository(){
+    private ProductManager(){
         mHandler = new Handler(Looper.getMainLooper());
     }
 
-    public synchronized static ProductRepository getInstance(){
+    public synchronized static ProductManager getInstance(){
         if (sProductRepo == null){
-            sProductRepo = new ProductRepository();
+            sProductRepo = new ProductManager();
         }
         return sProductRepo;
     }
 
-    public void get(int parentId, final CallBack<List<Category>> callBack){
+    public void get(String parentId, final CallBack<List<Product>> callBack){
         if (callBack == null){
             return;
         }
@@ -37,10 +36,10 @@ public class ProductRepository {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                ArrayList<Category> products = new ArrayList<>();
-                products.add(new Product(1, 0, "Wine",1, "", "Red wine"));
-                products.add(new Product(2, 0, "Beer",1, "", "ABC brand"));
-                products.add(new Product(3, 0, "Hello",1, "", "Testing product"));
+                ArrayList<Product> products = new ArrayList<>();
+                products.add(new Product("0", null, "Wine", "", "Red wine"));
+                products.add(new Product("1", null, "Beer", "", "ABC brand"));
+                products.add(new Product("2", null, "Hello", "", "Testing product"));
                 callBack.onResponse(products, null);
             }
         });
