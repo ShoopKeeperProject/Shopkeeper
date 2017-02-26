@@ -1,4 +1,4 @@
-package com.example.shopkeeper.Repository;
+package com.example.shopkeeper.Manager;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -12,18 +12,18 @@ import java.util.List;
  * Created by Tony on 2017/2/18.
  */
 
-public class ProductRepository {
+public class ProductManager {
 
-    private static ProductRepository sProductRepo;
+    private static ProductManager sProductRepo;
     private Handler mHandler;
 
-    private ProductRepository(){
+    private ProductManager(){
         mHandler = new Handler(Looper.getMainLooper());
     }
 
-    public synchronized static ProductRepository getInstance(){
+    public synchronized static ProductManager getInstance(){
         if (sProductRepo == null){
-            sProductRepo = new ProductRepository();
+            sProductRepo = new ProductManager();
         }
         return sProductRepo;
     }

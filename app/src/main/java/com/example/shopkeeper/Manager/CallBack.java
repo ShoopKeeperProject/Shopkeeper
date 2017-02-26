@@ -1,4 +1,4 @@
-package com.example.shopkeeper.Repository;
+package com.example.shopkeeper.Manager;
 
 /**
  * Created by Tony on 2017/2/18.
