@@ -7,13 +7,26 @@ package com.example.shopkeeper.Model;
 public class Category {
 
     protected String mName;
-    protected String mId;
-    protected String mParentId;
+    protected int mId;
+    protected int mParentId;
     protected String mImageURL;
+    protected boolean product;
 
-    public Category(String mName)
-    {
+    public Category( int mId, int mParentId, String mName, String mImageURL){
+        this.mId = mId;
+        this.mParentId = mParentId;
+        this.mImageURL = mImageURL;
+        this.mParentId = mParentId;
         this.mName = mName;
+        this.product = false;
+    }
+
+    public String getmDescription() {
+        return "";
+    }
+
+    public boolean isProduct() {
+        return product;
     }
 
     public String getmName() {
@@ -24,19 +37,19 @@ public class Category {
         this.mName = mName;
     }
 
-    public String getmId() {
+    public int getmId() {
         return mId;
     }
 
-    public void setmId(String mId) {
+    public void setmId(int mId) {
         this.mId = mId;
     }
 
-    public String getmParentId() {
+    public int getmParentId() {
         return mParentId;
     }
 
-    public void setmParentId(String mParentId) {
+    public void setmParentId(int mParentId) {
         this.mParentId = mParentId;
     }
 
@@ -46,5 +59,9 @@ public class Category {
 
     public void setmImageURL(String mImageURL) {
         this.mImageURL = mImageURL;
+    }
+
+    public double getmPrice() {
+        return 0;
     }
 }

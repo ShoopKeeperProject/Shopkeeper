@@ -7,25 +7,25 @@ package com.example.shopkeeper.Model;
 public class Product extends Category{
 
     private String mDescription;
+    private double mPrice;
 
-    public Product(String mName) {
-        super(mName);
-    }
-
-    public Product( String mId, String mParentId, String mName, String mImageURL, String mDescription){
-        super(mName);
-        this.mId = mId;
-        this.mParentId = mParentId;
-        this.mImageURL = mImageURL;
-        this.mParentId = mParentId;
+    public Product( int mId, int mParentId, String mName,double mPrice, String mImageURL, String mDescription){
+        super(mId, mParentId, mName, mImageURL);
         this.mDescription = mDescription;
+        this.product = true;
+        this.mPrice = mPrice;
     }
-
+    @Override
     public String getmDescription() {
         return mDescription;
     }
 
     public void setmDescription(String mDescription) {
         this.mDescription = mDescription;
+    }
+
+    @Override
+    public double getmPrice() {
+        return mPrice;
     }
 }

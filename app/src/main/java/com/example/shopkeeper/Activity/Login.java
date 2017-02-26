@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.example.shopkeeper.Model.CheckPassword;
+import com.example.shopkeeper.Methode.CheckPassword;
 import com.example.shopkeeper.R;
 
 public class Login extends AppCompatActivity {

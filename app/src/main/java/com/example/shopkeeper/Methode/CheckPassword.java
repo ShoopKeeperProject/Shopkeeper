@@ -1,4 +1,4 @@
-package com.example.shopkeeper.Model;
+package com.example.shopkeeper.Methode;
 
 import java.util.Hashtable;
 

@@ -3,6 +3,7 @@ package com.example.shopkeeper.Repository;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.example.shopkeeper.Model.Category;
 import com.example.shopkeeper.Model.Product;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class ProductRepository {
     private static ProductRepository sProductRepo;
     private Handler mHandler;
 
-    private ProductRepository(){
+    public ProductRepository(){
         mHandler = new Handler(Looper.getMainLooper());
     }
 
@@ -28,7 +29,7 @@ public class ProductRepository {
         return sProductRepo;
     }
 
-    public void get(String parentId, final CallBack<List<Product>> callBack){
+    public void get(int parentId, final CallBack<List<Category>> callBack){
         if (callBack == null){
             return;
         }
@@ -36,10 +37,10 @@ public class ProductRepository {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                ArrayList<Product> products = new ArrayList<>();
-                products.add(new Product("0", null, "Wine", "", "Red wine"));
-                products.add(new Product("1", null, "Beer", "", "ABC brand"));
-                products.add(new Product("2", null, "Hello", "", "Testing product"));
+                ArrayList<Category> products = new ArrayList<>();
+                products.add(new Product(1, 0, "Wine",1, "", "Red wine"));
+                products.add(new Product(2, 0, "Beer",1, "", "ABC brand"));
+                products.add(new Product(3, 0, "Hello",1, "", "Testing product"));
                 callBack.onResponse(products, null);
             }
         });
