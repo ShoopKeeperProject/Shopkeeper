@@ -7,9 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.widget.ListView;
 
-import com.example.shopkeeper.Model.ItemMakeSellListVew;
-import com.example.shopkeeper.Model.MakeSaleListViewAdaptateur;
-import com.example.shopkeeper.Model.MakeSaleResiclerViewAdaptateur;
+import com.example.shopkeeper.Methode.ItemMakeSellListVew;
+import com.example.shopkeeper.Adapter.MakeSaleListViewAdaptateur;
+import com.example.shopkeeper.Adapter.MakeSaleResiclerViewAdaptateur;
 import com.example.shopkeeper.R;
 
 import java.util.ArrayList;

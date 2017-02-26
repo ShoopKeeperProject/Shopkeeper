@@ -1,4 +1,4 @@
-package com.example.shopkeeper.Model;
+package com.example.shopkeeper.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.shopkeeper.Methode.ItemMakeSellListVew;
 import com.example.shopkeeper.R;
 
 import java.util.List;

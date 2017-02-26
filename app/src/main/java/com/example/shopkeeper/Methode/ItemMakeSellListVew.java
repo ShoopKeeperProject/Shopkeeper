@@ -1,4 +1,4 @@
-package com.example.shopkeeper.Model;
+package com.example.shopkeeper.Methode;
 
 /**
  * Created by dedel on 22/02/2017.
