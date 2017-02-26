@@ -6,7 +6,6 @@ import android.os.Looper;
 import com.example.shopkeeper.Model.OrderItem;
 import com.example.shopkeeper.Model.Product;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +24,8 @@ public class ShoppingCartManager {
         mHandler = new Handler(Looper.getMainLooper());
         mOrderList = new ArrayList();
 
-        Product wine = new Product("0", "", "Wine", "", "Testing product");
-        Product apple = new Product("1", "", "Apple", "", "Testing product");
+        Product wine = new Product(1, 0, "Wine",1.0, "", "Testing product");
+        Product apple = new Product(2, 0, "Apple",1.0, "", "Testing product");
 
         mOrderList.add(new OrderItem("0", wine, 3));
         mOrderList.add(new OrderItem("1", apple, 1));

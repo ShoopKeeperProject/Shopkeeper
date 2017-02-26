@@ -3,7 +3,6 @@ package com.example.shopkeeper.Manager;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.shopkeeper.Model.OrderItem;
 import com.example.shopkeeper.Model.Product;
 import com.example.shopkeeper.Model.ProductHistoryRecord;
 import com.example.shopkeeper.Model.SellerHistoryRecord;
@@ -90,7 +89,7 @@ public class OrderHistoryManager {
 
     private ProductHistoryRecord createRecord(String name, String desc, String userName, long time, int qut){
 
-        Product product = new Product("", "", name, "", desc);
+        Product product = new Product(0, 1, name,1.0, "", desc); // need to be review
         ProductHistoryRecord productHistoryRecord = new ProductHistoryRecord("", userName, product, time, qut);
         return productHistoryRecord;
     }
