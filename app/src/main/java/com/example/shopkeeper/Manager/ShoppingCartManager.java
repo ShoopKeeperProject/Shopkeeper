@@ -24,8 +24,8 @@ public class ShoppingCartManager {
         mHandler = new Handler(Looper.getMainLooper());
         mOrderList = new ArrayList();
 
-        Product wine = new Product(1, 0, "Wine",1.0, "", "Testing product");
-        Product apple = new Product(2, 0, "Apple",1.0, "", "Testing product");
+        Product wine = new Product(1, 0, "Wine",1.0,20, "", "Testing product");
+        Product apple = new Product(2, 0, "Apple",1.0,20, "", "Testing product");
 
         mOrderList.add(new OrderItem("0", wine, 3));
         mOrderList.add(new OrderItem("1", apple, 1));

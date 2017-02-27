@@ -9,11 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.shopkeeper.Activity.CatalogMakeSaleMain;
+import com.example.shopkeeper.Activity.ProductPage;
 import com.example.shopkeeper.Model.Category;
 import com.example.shopkeeper.Model.ItemMakeSellListVew;
+import com.example.shopkeeper.Model.Product;
 import com.example.shopkeeper.R;
 
 import java.util.ArrayList;
@@ -87,19 +88,18 @@ public class MakeSaleResiclerViewAdaptateur extends RecyclerView.Adapter<MakeSal
             public boolean onLongClick(View v) {
                 int position = viewHolder.getAdapterPosition();
                 Category item2 = items.get(position);
-/*
+
                 if (item2.isProduct())
                 {
+                    Product item3 = (Product) item2;
+                    Intent intent = new Intent(mContext,ProductPage.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("product", item3);
+                    intent.putExtras(bundle);
+                    mContext.startActivity(intent);
 
                 }
-                Intent intent = new Intent(mContext,CatalogMakeSaleMain.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("parentId", item2.getmId());
-                intent.putExtras(bundle);
-                mContext.startActivity(intent);
-*/
-                Toast.makeText(mContext, item2.getmDescription() , Toast.LENGTH_SHORT).show();
-                return false;
+                return true;
             }
         });
 

@@ -37,9 +37,9 @@ public class ProductManager {
             @Override
             public void run() {
                 ArrayList<Product> products = new ArrayList<>();
-                products.add(new Product(2, 0, "Wine ",10.1, "", "Red wine"));
-                products.add(new Product(3, 0, "Beer ",1.2, "", "ABC brand"));
-                products.add(new Product(4, 0, "Hello ",3, "", "Testing product"));
+                products.add(new Product(2, 0, "Wine ",10.1,20, "", "Red wine"));
+                products.add(new Product(3, 0, "Beer ",1.2,20, "", "ABC brand"));
+                products.add(new Product(4, 0, "Hello ",3,20, "", "Testing product"));
                 callBack.onResponse(products, null);
             }
         });

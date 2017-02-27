@@ -19,7 +19,8 @@
         <activity android:name=".Activity.ForgetPassword" />
         <activity android:name=".Activity.Register" />
         <activity android:name=".Activity.MainSeller" />
-        <activity android:name=".Activity.CatalogMakeSaleMain"></activity>
+        <activity android:name=".Activity.CatalogMakeSaleMain" />
+        <activity android:name=".Activity.ProductPage"></activity>
     </application>
 
 </manifest>

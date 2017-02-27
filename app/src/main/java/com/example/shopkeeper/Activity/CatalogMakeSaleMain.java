@@ -13,6 +13,7 @@ import com.example.shopkeeper.Adapter.MakeSaleResiclerViewAdaptateur;
 import com.example.shopkeeper.Model.Category;
 import com.example.shopkeeper.Model.ItemMakeSellListVew;
 import com.example.shopkeeper.Model.Product;
+import com.example.shopkeeper.Model.ProductDescription;
 import com.example.shopkeeper.R;
 
 import java.util.ArrayList;
@@ -60,11 +61,15 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
           rep.get(parentId, CallBack< List<Category> > items) => please help*/
 
         items.add(new Category(1, parentId, "Alchool "+parentId, ""));
-        items.add(new Product(2, parentId, "Wine "+parentId,10.1, "", "Red wine"));
-        items.add(new Product(3, parentId, "Beer "+parentId,1.2, "", "ABC brand"));
-        items.add(new Product(4, parentId, "Hello "+parentId,3, "", "Testing product"));
+        items.add(new Product(2, parentId, "Wine "+parentId,10.1,20, "", "Red wine"));
+        items.add(new Product(3, parentId, "Beer "+parentId,1.2,20, "", "ABC brand"));
+        items.add(new Product(4, parentId, "Hello "+parentId,3,20, "", "Testing product"));
 
-
+        Product productTest = new Product(5, parentId, "test description "+parentId,3,20, "");
+        productTest.AddProductDescription(new ProductDescription("Le produit qui dechire","pour celement \n\t 1 oui celemenet 1 miliar de fucking euro\n\tun razour!!"));
+        productTest.AddProductDescription(new ProductDescription("carateristique","Composer d'un putain de lame tranchate,\n\tOui une seulle lame\nil vous permetra de tancher la gorge de vos enemy\ntest\n" +
+                 "test\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\n" ));
+        items.add(productTest);
 
         mResiclerView.setAdapter(new MakeSaleResiclerViewAdaptateur(this,items,adapter));
 
