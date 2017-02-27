@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -46,15 +48,15 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
 
         // editing list view, shoping kart
 
-        MakeSaleListViewAdaptateur adapter;
+        final MakeSaleListViewAdaptateur listViewAdaptateur;
         //Création et initialisation de l'Adapter pour les personnes
-        adapter = new MakeSaleListViewAdaptateur(this.getApplicationContext(), listP,(TextView) findViewById(R.id.FinalPrice));
+        listViewAdaptateur = new MakeSaleListViewAdaptateur(this.getApplicationContext(), listP,(TextView) findViewById(R.id.FinalPrice));
 
         //Récupération du composant ListView
         ListView listView = (ListView)findViewById(R.id.SellList);
 
         //Initialisation de la liste avec les données
-        listView.setAdapter(adapter);
+        listView.setAdapter(listViewAdaptateur);
 
         /*ProductRepository rep = new ProductRepository();
 
@@ -71,21 +73,46 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
                  "test\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\n" ));
         items.add(productTest);
 
-        mResiclerView.setAdapter(new MakeSaleResiclerViewAdaptateur(this,items,adapter));
+        mResiclerView.setAdapter(new MakeSaleResiclerViewAdaptateur(this,items,listViewAdaptateur));
 
-
-
-
+        Button submit = (Button) findViewById(R.id.Submit);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),shopKart.class);
+                Bundle bundle2 = new Bundle();
+                bundle2.putParcelableArrayList("Kart list",listViewAdaptateur.items );
+                intent.putExtras(bundle2);
+                startActivity(intent);
+            }
+        });
     }
 
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
+        if (parentId == 0)
+        {
+            Intent intent = new Intent(getApplicationContext(),MainSeller.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(getApplicationContext(),CatalogMakeSaleMain.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("parentId", 0);
+            bundle.putParcelableArrayList("Kart list",listP);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, 1);
+            finish();
+        }
+
         //super.onBackPressed();
-        Intent intent = new Intent();
+        /*Intent intent = new Intent();
         intent.putParcelableArrayListExtra("Kart list2", this.listP);
         setResult(RESULT_OK, intent);
-        finish();
+        finish();*/
     }
 
     @Override

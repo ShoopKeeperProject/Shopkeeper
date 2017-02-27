@@ -15,10 +15,10 @@ import com.example.shopkeeper.R;
 import java.util.ArrayList;
 
 /**
- * Created by dedel on 22/02/2017.
+ * Created by dedel on 27/02/2017.
  */
 
-public class MakeSaleListViewAdaptateur extends BaseAdapter {
+public class ShopKartListViewAdaptateur extends BaseAdapter {
 
     public ArrayList<ItemMakeSellListVew> items;
     //Le contexte dans lequel est présent notre adapter
@@ -27,33 +27,38 @@ public class MakeSaleListViewAdaptateur extends BaseAdapter {
     //Un mécanisme pour gérer l'affichage graphique depuis un layout XML
     private LayoutInflater mInflater;
     private final TextView mtotal;
+    private final TextView mtotalht;
     double dTotal;
+    double dtotalht;
 
-    public MakeSaleListViewAdaptateur(Context context, ArrayList<ItemMakeSellListVew> aListP, TextView total) {
+    public ShopKartListViewAdaptateur(Context context, ArrayList<ItemMakeSellListVew> aListP, TextView total, TextView mtotalht) {
         this.mContext = context;
         this.items = aListP;
         this.mInflater = LayoutInflater.from(mContext);
         this.mtotal = total;
+        this.mtotalht = mtotalht;
         dTotal = 0;
-        for (int i = 0; i < items.size(); i++)
-        {
-            dTotal += items.get(i).getPu()*items.get(i).getQt();
+        for (int i = 0; i < items.size(); i++) {
+            dTotal += items.get(i).getPu() * items.get(i).getQt();
+            dtotalht += items.get(i).getPu() * items.get(i).getQt() * (100 - items.get(i).getTaxe())/100;
         }
-        mtotal.setText(String.format("%.2f",dTotal));
+        mtotal.setText(String.format("%.2f", dTotal));
+        mtotalht.setText(String.format("%.2f", dtotalht));
     }
-/*
-    @Override
-    public void notifyDataSetChanged()
-    {
-        super.notifyDataSetChanged();
-        dTotal = 0;
-        for (int i = 0; i < items.size(); i++)
+
+    /*
+        @Override
+        public void notifyDataSetChanged()
         {
-            dTotal += items.get(i).getPu()*items.get(i).getQt();
+            super.notifyDataSetChanged();
+            dTotal = 0;
+            for (int i = 0; i < items.size(); i++)
+            {
+                dTotal += items.get(i).getPu()*items.get(i).getQt();
+            }
+            mtotal.setText(String.format("%.2f",dTotal));
         }
-        mtotal.setText(String.format("%.2f",dTotal));
-    }
-*/
+    */
     @Override
     public int getCount() {
         return items.size();
@@ -88,9 +93,9 @@ public class MakeSaleListViewAdaptateur extends BaseAdapter {
 
         //(3) : Renseignement des valeurs
         textItemName.setText(items.get(position).getName());
-        textPu.setText(String.format("%.2f",items.get(position).getPu()));
-        textqt.setText(String.format("%d",items.get(position).getQt()));
-        textPt.setText(String.format("%.2f",items.get(position).getPu()*items.get(position).getQt()));
+        textPu.setText(String.format("%.2f", items.get(position).getPu()));
+        textqt.setText(String.format("%d", items.get(position).getQt()));
+        textPt.setText(String.format("%.2f", items.get(position).getPu() * items.get(position).getQt()));
 
         Button reduceQt = (Button) layoutItem.findViewById(R.id.ReduceQt);
         Button increaseQt = (Button) layoutItem.findViewById(R.id.IncreaseQt);
@@ -101,58 +106,40 @@ public class MakeSaleListViewAdaptateur extends BaseAdapter {
 
                 int qt = items.get(position).getQt();
                 qt--;
-                dTotal -=items.get(position).getPu();
-                mtotal.setText(String.format("%.2f",dTotal));
-                if (qt == 0)
-                {
+                dTotal -= items.get(position).getPu();
+                mtotal.setText(String.format("%.2f", dTotal));
+                dtotalht -= items.get(position).getPu() * (100 - items.get(position).getTaxe())/100;
+                mtotalht.setText(String.format("%.2f", dtotalht));
+                if (qt == 0) {
                     items.remove(position);
                     notifyDataSetChanged();
-                }
-                else
-                {
+                } else {
                     items.get(position).setQt(qt);
-                    textqt.setText(String.format("%d",items.get(position).getQt()));
-                    textPt.setText(String.format("%.2f",items.get(position).getPu()*items.get(position).getQt()));
+                    textqt.setText(String.format("%d", items.get(position).getQt()));
+                    textPt.setText(String.format("%.2f", items.get(position).getPu() * items.get(position).getQt()));
 
                 }
 
             }
         });
 
-        increaseQt.setOnClickListener(new View.OnClickListener()
-        {
+        increaseQt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int qt = items.get(position).getQt();
                 qt++;
                 items.get(position).setQt(qt);
-                textqt.setText(String.format("%d",items.get(position).getQt()));
-                textPt.setText(String.format("%.2f",items.get(position).getPu()*items.get(position).getQt()));
-                dTotal +=items.get(position).getPu();
-                mtotal.setText(String.format("%.2f",dTotal));
+                textqt.setText(String.format("%d", items.get(position).getQt()));
+                textPt.setText(String.format("%.2f", items.get(position).getPu() * items.get(position).getQt()));
+                dTotal += items.get(position).getPu();
+                mtotal.setText(String.format("%.2f", dTotal));
+                dtotalht += items.get(position).getPu() * (100 - items.get(position).getTaxe())/100;
+                mtotalht.setText(String.format("%.2f", dtotalht));
             }
         });
 
-
         //On retourne l'item créé.
         return layoutItem;
-    }
-    
-    void add(ItemMakeSellListVew item)
-    {
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getName() == item.getName()) {
-                items.get(i).setQt(items.get(i).getQt()+item.getQt());
-                dTotal +=item.getPu()*item.getQt();
-                mtotal.setText(String.format("%.2f",dTotal));
-                notifyDataSetChanged();
-                return;
-            }
-        }
-        items.add(item);
-        dTotal +=item.getPu()*item.getQt();
-        mtotal.setText(String.format("%.2f",dTotal));
-        notifyDataSetChanged();
     }
 
 }

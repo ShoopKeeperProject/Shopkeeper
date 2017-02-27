@@ -11,13 +11,15 @@ public class ItemMakeSellListVew implements Parcelable {
     private String name;
     private int qt;
     private double pu;
+    private double taxe;
     private static int idnb = 0;
     private int uid;
 
-    public ItemMakeSellListVew(String name, int qt, double pu) {
+    public ItemMakeSellListVew(String name, int qt, double pu, double taxe) {
         this.name = name;
         this.qt = qt;
         this.pu = pu;
+        this.taxe = taxe;
         this.uid = this.idnb;
         this.idnb++;
 
@@ -28,6 +30,7 @@ public class ItemMakeSellListVew implements Parcelable {
         this.name = in.readString();
         this.qt = in.readInt();
         this.pu = in.readDouble();
+        this.taxe = in.readDouble();
         this.uid = in.readInt();
     }
 
@@ -36,6 +39,7 @@ public class ItemMakeSellListVew implements Parcelable {
         dest.writeString(this.name);
         dest.writeInt(this.qt);
         dest.writeDouble(this.pu);
+        dest.writeDouble(this.taxe);
         dest.writeInt(this.uid);
     }
 
@@ -50,6 +54,11 @@ public class ItemMakeSellListVew implements Parcelable {
             return new ItemMakeSellListVew[size];
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
     public int getId() {
 
@@ -80,12 +89,13 @@ public class ItemMakeSellListVew implements Parcelable {
         this.pu = pu;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public double getTaxe() {
+        return taxe;
     }
 
-
+    public void setTaxe(double taxe) {
+        this.taxe = taxe;
+    }
 
 
 }

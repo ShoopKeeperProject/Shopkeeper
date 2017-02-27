@@ -67,8 +67,8 @@ public class MakeSaleResiclerViewAdaptateur extends RecyclerView.Adapter<MakeSal
                 Category item2 = items.get(position);
                 if (item2.isProduct())
                 {
-
-                    listViewAdaptateur.add(new ItemMakeSellListVew(item2.getmName(), 1, item2.getmPrice()));
+                    Product item3 = (Product) item2;
+                    listViewAdaptateur.add(new ItemMakeSellListVew(item3.getmName(), 1, item3.getmPrice(),item3.getmTaxe()));
 
                 }
                 else
