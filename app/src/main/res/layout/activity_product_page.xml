@@ -13,13 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <ImageView
+            android:id="@+id/ProductSwitcher"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
 
+            />
+        <!--
         <ImageSwitcher
             android:id="@+id/ProductSwitcher"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true" />
+
         <Gallery
             android:id="@+id/ProductGallery"
             android:layout_width="match_parent"
@@ -29,6 +36,18 @@
             android:background="#55000000"
             android:gravity="center_vertical"
             android:spacing="16dp" />
+            -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#55000000">
+            <LinearLayout
+                android:id="@+id/ProductGallery"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+            </LinearLayout>
+        </HorizontalScrollView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

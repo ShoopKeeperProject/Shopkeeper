@@ -3,25 +3,20 @@ package com.example.shopkeeper.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.Gallery;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
-import com.example.shopkeeper.Adapter.ProductImageAdapter;
 import com.example.shopkeeper.Model.Product;
 import com.example.shopkeeper.Model.ProductDescription;
 import com.example.shopkeeper.R;
 
-public class ProductPage extends AppCompatActivity implements
-        AdapterView.OnItemSelectedListener, ViewSwitcher.ViewFactory {
+public class ProductPage extends AppCompatActivity {
 
-    private ImageSwitcher mSwitcher;
+    private ImageView mSwitcher;
 
     private Integer[] mImageIds = { R.drawable.logo,R.drawable.icon_128,R.drawable.logo, R.drawable.icon_128 };
     private Product product;
@@ -35,17 +30,44 @@ public class ProductPage extends AppCompatActivity implements
         Bundle bundle = getIntent().getExtras();
         this.product = bundle.getParcelable("product");
 
-        ///
 
+        mSwitcher = (ImageView) findViewById(R.id.ProductSwitcher);
+        mSwitcher.setImageResource(mImageIds[0]);
+        ///
+        /*
         mSwitcher = (ImageSwitcher) findViewById(R.id.ProductSwitcher);
         mSwitcher.setFactory(this);
         mSwitcher.setInAnimation(AnimationUtils.loadAnimation(this,android.R.anim.fade_in));
-        mSwitcher.setOutAnimation(AnimationUtils.loadAnimation(this,android.R.anim.fade_out));
-        Gallery g = (Gallery) findViewById(R.id.ProductGallery);
+        mSwitcher.setOutAnimation(AnimationUtils.loadAnimation(this,android.R.anim.fade_out));*/
+        /*Gallery g = (Gallery) findViewById(R.id.ProductGallery);
 
         g.setAdapter(new ProductImageAdapter(this.getApplicationContext()));
         g.setOnItemSelectedListener(this);
 
+        */
+
+
+        LinearLayout galery = (LinearLayout) findViewById(R.id.ProductGallery);
+        for (int i =0; i<4; i++)
+        {
+            ImageView Image = new ImageView(this);
+            Image.setImageResource(mImageIds[i]);
+            //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            //DisplayMetrics dm = Image.getResources().getDisplayMetrics();
+            //lp.setMargins(convertDpToPx(1, dm), convertDpToPx(1, dm), convertDpToPx(1, dm), convertDpToPx(1, dm));
+            //Image.setLayoutParams(lp);
+            Image.setScaleType(ImageView.ScaleType.FIT_START);
+            Image.setTag(new Integer(i));
+            Image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    int nb = (int) v.getTag();
+                    mSwitcher.setImageResource(mImageIds[nb]);
+                }
+            });
+            galery.addView(Image);
+        }
 
         LinearLayout ProductDescription = (LinearLayout) findViewById(R.id.ProductDescription);
         for(int i=0; i<this.product.GetProductDescriptionSize();i++)
@@ -71,24 +93,9 @@ public class ProductPage extends AppCompatActivity implements
 
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View v, int position, long id)
-    {
-        mSwitcher.setImageResource(mImageIds[position]);
+    private int convertDpToPx(int dp, DisplayMetrics displayMetrics) {
+        float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics);
+        return Math.round(pixels);
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent)
-    {
-
-    }
-
-    @Override
-    public View makeView() {
-        ImageView i = new ImageView(this);
-        i.setBackgroundColor(0xFF000000);
-        i.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        i.setLayoutParams(new ImageSwitcher.LayoutParams(ImageSwitcher.LayoutParams.MATCH_PARENT,ImageSwitcher.LayoutParams.MATCH_PARENT));
-        return i;
-    }
 }
