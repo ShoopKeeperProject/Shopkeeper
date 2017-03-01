@@ -21,24 +21,30 @@
         android:layout_height="20dp"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="name"
+            android:text="@string/ItemName"
             />
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="Pu"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/pu"
             />
         <TextView
-            android:layout_width="30dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Qt"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/qt"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pt"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/pt"
             />
     </LinearLayout>
     <ListView
@@ -57,7 +63,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="prix total"
+            android:text="@string/TotalPrice"
             android:textSize="20sp"
             />
         <TextView
@@ -70,17 +76,17 @@
             android:textStyle="bold"
             />
         <TextView
-            android:layout_width="50dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="euro"
+            android:text="@string/currency"
             android:textSize="20sp"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="ttc"
+            android:text="@string/ttc"
             android:textSize="20sp"
             />
     </LinearLayout>
@@ -88,5 +94,5 @@
         android:id="@+id/Submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="submit"/>
+        android:text="@string/Submit"/>
 </LinearLayout>

@@ -22,4 +22,19 @@
     <string name="WrongPassword">Wrong Password</string>
     <string name="WrongPasswordOrName">Wrong Password or Wrong username</string>
     <string name="RemeberMe">Remeber Me</string>
+    <string name="Warning">Warning</string>
+    <string name="WarningMessageBack">If you go back you will delete current order</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Price">price :</string>
+    <string name="currency">$</string>
+    <string name="ttc">ATI</string> <!-- All Taxes Include -->
+    <string name="ht">ET</string> <!-- Excluding Taxes -->
+    <string name="pt">TC</string> <!-- Total Cost -->
+    <string name="pu">U/P</string> <!-- Unite Price -->
+    <string name="qt">qt</string> <!-- quantity -->
+    <string name="taxe">taxe</string>
+    <string name="ItemName">Item Name</string>
+    <string name="TotalPrice">Total Price</string>
+    <string name="Confirm">confirm</string>
+    <string name="Submit">submit</string>
 </resources>

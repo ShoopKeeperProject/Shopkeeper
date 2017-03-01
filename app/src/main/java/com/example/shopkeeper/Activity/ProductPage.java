@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,11 +53,11 @@ public class ProductPage extends AppCompatActivity {
         {
             ImageView Image = new ImageView(this);
             Image.setImageResource(mImageIds[i]);
-            //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            //DisplayMetrics dm = Image.getResources().getDisplayMetrics();
-            //lp.setMargins(convertDpToPx(1, dm), convertDpToPx(1, dm), convertDpToPx(1, dm), convertDpToPx(1, dm));
-            //Image.setLayoutParams(lp);
-            Image.setScaleType(ImageView.ScaleType.FIT_START);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            DisplayMetrics dm = Image.getResources().getDisplayMetrics();
+            lp.setMargins(convertDpToPx(5, dm), convertDpToPx(1, dm), convertDpToPx(5, dm), convertDpToPx(1, dm));
+            Image.setLayoutParams(lp);
+            Image.setScaleType(ImageView.ScaleType.FIT_XY);
             Image.setTag(new Integer(i));
             Image.setOnClickListener(new View.OnClickListener() {
                 @Override

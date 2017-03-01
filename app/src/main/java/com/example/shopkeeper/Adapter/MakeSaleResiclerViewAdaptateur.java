@@ -78,8 +78,8 @@ public class MakeSaleResiclerViewAdaptateur extends RecyclerView.Adapter<MakeSal
                     bundle.putInt("parentId", item2.getmId());
                     bundle.putParcelableArrayList("Kart list",listViewAdaptateur.items);
                     intent.putExtras(bundle);
-                        mContext.startActivityForResult(intent, 1);
-                    //mContext.startActivity(intent);
+                        //mContext.startActivityForResult(intent, 1);
+                    mContext.startActivity(intent);
                 }
 
             }

@@ -43,7 +43,7 @@ public class shopKart extends AppCompatActivity {
         bundle.putInt("parentId", 0);
         bundle.putParcelableArrayList("Kart list",listP);
         intent.putExtras(bundle);
-        startActivityForResult(intent, 1);
+        startActivity(intent);
         finish();
     }
 }

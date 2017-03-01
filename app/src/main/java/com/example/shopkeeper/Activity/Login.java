@@ -151,4 +151,13 @@ public class Login extends AppCompatActivity {
                 remeberMe = checked;
 // TODO: Veggie sandwich
         }
-    }}
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+}

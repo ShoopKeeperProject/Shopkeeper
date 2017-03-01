@@ -1,5 +1,7 @@
 package com.example.shopkeeper.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -94,8 +96,26 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
     {
         if (parentId == 0)
         {
-            Intent intent = new Intent(getApplicationContext(),MainSeller.class);
-            startActivity(intent);
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.Warning)
+                    .setMessage(R.string.WarningMessageBack)
+                    .setPositiveButton(R.string.Ok,
+                            new DialogInterface.OnClickListener(){
+                                public void onClick(DialogInterface dialoginterface, int i)
+                                {
+                                    Intent intent = new Intent(getApplicationContext(),MainSeller.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                    .setNegativeButton(R.string.Cancel,
+                            new DialogInterface.OnClickListener(){
+                                public void onClick(DialogInterface dialoginterface, int i)
+                                {
+
+                                }
+                            })
+                    .show();
         }
         else
         {
@@ -104,7 +124,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
             bundle.putInt("parentId", 0);
             bundle.putParcelableArrayList("Kart list",listP);
             intent.putExtras(bundle);
-            startActivityForResult(intent, 1);
+            startActivity(intent);
             finish();
         }
 

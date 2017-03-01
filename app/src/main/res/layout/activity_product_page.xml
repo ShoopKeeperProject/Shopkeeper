@@ -17,6 +17,7 @@
             android:id="@+id/ProductSwitcher"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
 
             />
         <!--
@@ -55,7 +56,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="prix :"
+                android:text="@string/Price"
                 android:textColor="#000000"
                 />
             <TextView
@@ -71,19 +72,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textColor="#000000"
-                android:text="euro"/>
+                android:text="@string/currency"/>
             <TextView
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textColor="#000000"
-                android:text="ttc"/>
+                android:text="@string/ttc"/>
             <TextView
                 android:layout_marginLeft="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textColor="#000000"
-                android:text="taxe"/>
+                android:text="@string/taxe"/>
             <TextView
                 android:id="@+id/productTaxe"
                 android:layout_marginLeft="10dp"
