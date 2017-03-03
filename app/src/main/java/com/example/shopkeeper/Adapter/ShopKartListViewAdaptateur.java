@@ -1,11 +1,14 @@
 package com.example.shopkeeper.Adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,6 +41,7 @@ public class ShopKartListViewAdaptateur extends BaseAdapter {
         this.mtotal = total;
         this.mtotalht = mtotalht;
         dTotal = 0;
+        dtotalht = 0;
         for (int i = 0; i < items.size(); i++) {
             dTotal += items.get(i).getPu() * items.get(i).getQt();
             dtotalht += items.get(i).getPu() * items.get(i).getQt() * (100 - items.get(i).getTaxe())/100;
@@ -46,19 +50,21 @@ public class ShopKartListViewAdaptateur extends BaseAdapter {
         mtotalht.setText(String.format("%.2f", dtotalht));
     }
 
-    /*
+
         @Override
         public void notifyDataSetChanged()
         {
             super.notifyDataSetChanged();
             dTotal = 0;
-            for (int i = 0; i < items.size(); i++)
-            {
-                dTotal += items.get(i).getPu()*items.get(i).getQt();
+            dtotalht = 0;
+            for (int i = 0; i < items.size(); i++) {
+                dTotal += items.get(i).getPu() * items.get(i).getQt();
+                dtotalht += items.get(i).getPu() * items.get(i).getQt() * (100 - items.get(i).getTaxe())/100;
             }
-            mtotal.setText(String.format("%.2f",dTotal));
+            mtotal.setText(String.format("%.2f", dTotal));
+            mtotalht.setText(String.format("%.2f", dtotalht));
         }
-    */
+
     @Override
     public int getCount() {
         return items.size();
@@ -80,7 +86,7 @@ public class ShopKartListViewAdaptateur extends BaseAdapter {
         //(1) : Réutilisation des layouts
         if (convertView == null) {
             //Initialisation de notre item à partir du  layout XML "personne_layout.xml"
-            layoutItem = (LinearLayout) mInflater.inflate(R.layout.item_sell_listview, parent, false);
+            layoutItem = (LinearLayout) mInflater.inflate(R.layout.item_sell_listview2, parent, false);
         } else {
             layoutItem = (LinearLayout) convertView;
         }
@@ -89,7 +95,7 @@ public class ShopKartListViewAdaptateur extends BaseAdapter {
         TextView textItemName = (TextView) layoutItem.findViewById(R.id.ItemNameList);
         TextView textPu = (TextView) layoutItem.findViewById(R.id.pu);
         final TextView textPt = (TextView) layoutItem.findViewById(R.id.pt);
-        final TextView textqt = (TextView) layoutItem.findViewById(R.id.qt);
+        final EditText textqt = (EditText) layoutItem.findViewById(R.id.qt);
 
         //(3) : Renseignement des valeurs
         textItemName.setText(items.get(position).getName());
@@ -107,17 +113,16 @@ public class ShopKartListViewAdaptateur extends BaseAdapter {
                 int qt = items.get(position).getQt();
                 qt--;
                 dTotal -= items.get(position).getPu();
-                mtotal.setText(String.format("%.2f", dTotal));
+                //mtotal.setText(String.format("%.2f", dTotal));
                 dtotalht -= items.get(position).getPu() * (100 - items.get(position).getTaxe())/100;
-                mtotalht.setText(String.format("%.2f", dtotalht));
+                //mtotalht.setText(String.format("%.2f", dtotalht));
                 if (qt == 0) {
                     items.remove(position);
                     notifyDataSetChanged();
                 } else {
                     items.get(position).setQt(qt);
+                    //notifyDataSetChanged();
                     textqt.setText(String.format("%d", items.get(position).getQt()));
-                    textPt.setText(String.format("%.2f", items.get(position).getPu() * items.get(position).getQt()));
-
                 }
 
             }
@@ -129,13 +134,49 @@ public class ShopKartListViewAdaptateur extends BaseAdapter {
                 int qt = items.get(position).getQt();
                 qt++;
                 items.get(position).setQt(qt);
-                textqt.setText(String.format("%d", items.get(position).getQt()));
-                textPt.setText(String.format("%.2f", items.get(position).getPu() * items.get(position).getQt()));
+
                 dTotal += items.get(position).getPu();
-                mtotal.setText(String.format("%.2f", dTotal));
+                //mtotal.setText(String.format("%.2f", dTotal));
                 dtotalht += items.get(position).getPu() * (100 - items.get(position).getTaxe())/100;
-                mtotalht.setText(String.format("%.2f", dtotalht));
+                //mtotalht.setText(String.format("%.2f", dtotalht));
+                //notifyDataSetChanged();
+                textqt.setText(String.format("%d", items.get(position).getQt()));
             }
+        });
+
+        textqt.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+
+                // you can call or do what you want with your EditText here
+                if(!textqt.getText().toString().isEmpty()) {
+                    int qt = Integer.parseInt(textqt.getText().toString());
+                    if (qt < 0)
+                    {
+                        items.remove(position);
+                        notifyDataSetChanged();
+                    }
+                    else
+                    {
+                        items.get(position).setQt(qt);
+                        dTotal = 0;
+                        dtotalht = 0;
+                        for (int i = 0; i < items.size(); i++) {
+                            dTotal += items.get(i).getPu() * items.get(i).getQt();
+                            dtotalht += items.get(i).getPu() * items.get(i).getQt() * (100 - items.get(i).getTaxe()) / 100;
+                        }
+                        textPt.setText(String.format("%.2f", items.get(position).getPu() * items.get(position).getQt()));
+                        mtotal.setText(String.format("%.2f", dTotal));
+                        mtotalht.setText(String.format("%.2f", dtotalht));
+                        //notifyDataSetChanged();
+                    }
+                }
+
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
         //On retourne l'item créé.
