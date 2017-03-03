@@ -21,7 +21,8 @@
         <activity android:name=".Activity.MainSeller" />
         <activity android:name=".Activity.CatalogMakeSaleMain" />
         <activity android:name=".Activity.ProductPage" />
-        <activity android:name=".Activity.shopKart"></activity>
+        <activity android:name=".Activity.shopKart" />
+        <activity android:name=".Activity.OthersProductActivity"></activity>
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.shopkeeper.Activity.CatalogMakeSaleMain;
+import com.example.shopkeeper.Activity.OthersProductActivity;
 import com.example.shopkeeper.Activity.ProductPage;
 import com.example.shopkeeper.Model.Category;
 import com.example.shopkeeper.Model.ItemMakeSellListVew;
@@ -67,9 +68,20 @@ public class MakeSaleResiclerViewAdaptateur extends RecyclerView.Adapter<MakeSal
                 Category item2 = items.get(position);
                 if (item2.isProduct())
                 {
-                    Product item3 = (Product) item2;
-                    listViewAdaptateur.add(new ItemMakeSellListVew(item3.getmName(), 1, item3.getmPrice(),item3.getmTaxe()));
-
+                    if ( item2.getmName().equals(mContext.getString(R.string.Others)) )
+                    {
+                        Intent intent = new Intent(mContext,OthersProductActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelableArrayList("Kart list",listViewAdaptateur.items);
+                        intent.putExtras(bundle);
+                        //mContext.startActivityForResult(intent, 1);
+                        mContext.startActivity(intent);
+                    }
+                    else
+                    {
+                        Product item3 = (Product) item2;
+                        listViewAdaptateur.add(new ItemMakeSellListVew(item3.getmName(), 1, item3.getmPrice(), item3.getmTaxe()));
+                    }
                 }
                 else
                 {
@@ -89,7 +101,7 @@ public class MakeSaleResiclerViewAdaptateur extends RecyclerView.Adapter<MakeSal
                 int position = viewHolder.getAdapterPosition();
                 Category item2 = items.get(position);
 
-                if (item2.isProduct())
+                if (item2.isProduct() && !item2.getmName().equals(mContext.getString(R.string.Others)))
                 {
                     Product item3 = (Product) item2;
                     Intent intent = new Intent(mContext,ProductPage.class);

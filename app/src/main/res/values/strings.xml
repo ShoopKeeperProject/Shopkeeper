@@ -37,4 +37,6 @@
     <string name="TotalPrice">Total Price</string>
     <string name="Confirm">confirm</string>
     <string name="Submit">submit</string>
+    <string name="Others">Others</string>
+    <string name="Default">Default</string>
 </resources>

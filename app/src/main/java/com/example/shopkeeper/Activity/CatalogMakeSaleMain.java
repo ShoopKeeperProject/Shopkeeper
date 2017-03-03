@@ -34,16 +34,26 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog_make_sale_main);
 
+        if (savedInstanceState == null) {
+
+            // get parent id
+            Bundle bundle = getIntent().getExtras();
+            this.parentId = bundle.getInt("parentId");
+            this.listP = bundle.getParcelableArrayList("Kart list");
+
+        } else { // savedInstanceState has saved values
+
+            this.parentId = savedInstanceState.getInt("parentId3");
+            this.listP = savedInstanceState.getParcelableArrayList("Kart list3");
+        }
+
         // editing resicler view, item
 
         RecyclerView mResiclerView = (RecyclerView) findViewById(R.id.recycler_view);
         //mResiclerView.setItemAnimator(new DefaultItemAnimator());
         mResiclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
 
-        // get parent id
-        Bundle bundle = getIntent().getExtras();
-        this.parentId = bundle.getInt("parentId");
-        this.listP = bundle.getParcelableArrayList("Kart list");
+
 
         // get item from this id
         ArrayList<Category> items = new ArrayList<>();
@@ -64,10 +74,12 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
 
           rep.get(parentId, CallBack< List<Category> > items) => please help*/
 
-        items.add(new Category(1, parentId, "Alchool "+parentId, ""));
-        items.add(new Product(2, parentId, "Wine "+parentId,10.1,20, "", "Red wine"));
-        items.add(new Product(3, parentId, "Beer "+parentId,1.2,20, "", "ABC brand"));
-        items.add(new Product(4, parentId, "Hello "+parentId,3,20, "", "Testing product"));
+        items.add(new Category(2, parentId, "Alchool "+parentId, ""));
+        items.add(new Category(3, parentId, "cat2 "+parentId, ""));
+        items.add(new Product(4, parentId, "Wine "+parentId,10.2,20, "", "Red wine"));
+        items.add(new Product(5, parentId, "Beer "+parentId,1.3,20, "", "ABC brand"));
+        items.add(new Product(6, parentId, "Hello "+parentId,4,20, "", "Testing product"));
+        items.add(new Product(1, parentId, this.getString(R.string.Others),0,20, "", "Testing product"));
 
         Product productTest = new Product(5, parentId, "test description "+parentId,3,20, "");
         productTest.AddProductDescription(new ProductDescription("Le produit qui dechire","pour celement \n\t 1 oui celemenet 1 miliar de fucking euro\n\tun razour!!"));
@@ -144,4 +156,26 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+        savedInstanceState.putInt("parentId3", parentId);
+        savedInstanceState.putParcelableArrayList("Kart list3", listP);
+
+        // etc.
+        super.onSaveInstanceState(savedInstanceState);
+    }
+    //onRestoreInstanceState
+    /*
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore UI state from the savedInstanceState.
+        // This bundle has also been passed to onCreate.
+        listP = savedInstanceState.getParcelableArrayList("Kart list3");
+    }*/
 }
