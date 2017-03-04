@@ -3,19 +3,26 @@ package com.example.shopkeeper.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Tony on 2017/2/18.
  */
 
 public class Category  implements Parcelable{
 
-    protected int mId;
-    protected int mParentId;
+    protected String mId;
+    protected String mParentId;
     protected String mName;
     protected String mImageURL;
     protected boolean product;
 
-    public Category( int mId, int mParentId, String mName, String mImageURL){
+    public Category(JSONObject obj) throws JSONException{
+        this(obj.getString("id"), obj.getString("parentId"), obj.getString("name"), obj.getString("imageUrl"));
+    }
+
+    public Category( String mId, String mParentId, String mName, String mImageURL){
         this.mId = mId;
         this.mParentId = mParentId;
         this.mName = mName;
@@ -26,8 +33,8 @@ public class Category  implements Parcelable{
     // "De-parcel object
     public Category(Parcel in)
     {
-        mId = in.readInt();
-        mParentId = in.readInt();
+        mId = in.readString();
+        mParentId = in.readString();
         mName = in.readString();
         mImageURL = in.readString();
         this.product = false;
@@ -36,8 +43,8 @@ public class Category  implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-        dest.writeInt(mId);
-        dest.writeInt(mParentId);
+        dest.writeString(mId);
+        dest.writeString(mParentId);
         dest.writeString(mName);
         dest.writeString(mImageURL);
     }
@@ -75,19 +82,19 @@ public class Category  implements Parcelable{
         this.mName = mName;
     }
 
-    public int getmId() {
+    public String getmId() {
         return mId;
     }
 
-    public void setmId(int mId) {
+    public void setmId(String mId) {
         this.mId = mId;
     }
 
-    public int getmParentId() {
+    public String getmParentId() {
         return mParentId;
     }
 
-    public void setmParentId(int mParentId) {
+    public void setmParentId(String mParentId) {
         this.mParentId = mParentId;
     }
 

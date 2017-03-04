@@ -3,6 +3,7 @@ package com.example.shopkeeper.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.shopkeeper.Manager.CallBack;
+import com.example.shopkeeper.Manager.ProductManager;
+import com.example.shopkeeper.Manager.ShooperKeeperException;
+import com.example.shopkeeper.Manager.UserManager;
 import com.example.shopkeeper.Methode.CheckPassword;
+import com.example.shopkeeper.Model.User;
 import com.example.shopkeeper.R;
 
 public class Login extends AppCompatActivity {
@@ -67,6 +74,7 @@ public class Login extends AppCompatActivity {
 
     protected void onRegisterClick()
     {
+
         Intent intent = new Intent(getApplicationContext(),Register.class);
         //Bundle bundle = new Bundle();
         //bundle.putString("seller/customer", "seller");
@@ -75,6 +83,25 @@ public class Login extends AppCompatActivity {
 
     protected void onLoginClick()
     {
+        UserManager.getInstance().login(userNamev.getText().toString(), passwordv.getText().toString(), new CallBack<User>() {
+            @Override
+            public void onResponse(User result, ShooperKeeperException ex) {
+                if (null == ex){
+                    Intent intent = new Intent(getApplicationContext(),MainSeller.class);
+                    //Bundle bundle = new Bundle();
+                    //bundle.putString("seller/customer", "seller");
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(Login.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        if (true){
+            return;
+        }
+
+
         if (defaultNameCheck)
         {
             if (defaultName.equals(userNamev.getText().toString())) {

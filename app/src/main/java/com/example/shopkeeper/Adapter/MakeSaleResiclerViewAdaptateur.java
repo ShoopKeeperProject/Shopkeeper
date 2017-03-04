@@ -19,6 +19,7 @@ import com.example.shopkeeper.Model.Product;
 import com.example.shopkeeper.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dedel on 22/02/2017.
@@ -87,7 +88,7 @@ public class MakeSaleResiclerViewAdaptateur extends RecyclerView.Adapter<MakeSal
                 {
                     Intent intent = new Intent(mContext,CatalogMakeSaleMain.class);
                     Bundle bundle = new Bundle();
-                    bundle.putInt("parentId", item2.getmId());
+                    bundle.putString("parentId", item2.getmId());
                     bundle.putParcelableArrayList("Kart list",listViewAdaptateur.items);
                     intent.putExtras(bundle);
                         //mContext.startActivityForResult(intent, 1);
@@ -137,6 +138,17 @@ public class MakeSaleResiclerViewAdaptateur extends RecyclerView.Adapter<MakeSal
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void add(Category item){
+        items.add(item);
+        notifyItemInserted(items.size() - 1);
+    }
+
+    public void addAll(List<Category> categories){
+        int length = items.size();
+        items.addAll(categories);
+        notifyItemRangeInserted(length, categories.size());
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

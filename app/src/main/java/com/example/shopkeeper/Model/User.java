@@ -1,5 +1,8 @@
 package com.example.shopkeeper.Model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by dedel on 27/02/2017.
  */
@@ -7,6 +10,10 @@ package com.example.shopkeeper.Model;
 public class User {
 
     String nName;
+
+    public User(JSONObject jsonObject) throws JSONException{
+        this.nName = jsonObject.getString("name");
+    }
 
     public User(String name)
     {

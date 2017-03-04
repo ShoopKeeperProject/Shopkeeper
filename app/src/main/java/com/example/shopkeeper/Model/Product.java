@@ -3,6 +3,11 @@ package com.example.shopkeeper.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.shopkeeper.Utilities.Parser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -16,7 +21,11 @@ public class Product extends Category implements Parcelable{
     private double mPrice;
     private double mTaxe;
 
-    public Product( int mId, int mParentId, String mName,double mPrice,double mTaxe, String mImageURL){
+    public Product(JSONObject obj) throws JSONException{
+        this(obj.getString("id"), obj.getString("parentId"), obj.getString("name"), Parser.parseDouble( obj.getString("price"), 0), Parser.parseDouble( obj.getString("tax"), 0), obj.getString("imageUrl"), obj.getString("description"));
+    }
+
+    public Product( String mId, String mParentId, String mName,double mPrice,double mTaxe, String mImageURL){
         super(mId, mParentId, mName, mImageURL);
         this.mPrice = mPrice;
         this.mTaxe = mTaxe;
@@ -25,7 +34,7 @@ public class Product extends Category implements Parcelable{
         this.product = true;
     }
 
-    public Product( int mId, int mParentId, String mName,double mPrice,double mTaxe, String mImageURL, String mainDescription){
+    public Product( String mId, String mParentId, String mName,double mPrice,double mTaxe, String mImageURL, String mainDescription){
         super(mId, mParentId, mName, mImageURL);
         this.mPrice = mPrice;
         this.mTaxe = mTaxe;

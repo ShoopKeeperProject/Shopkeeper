@@ -1,12 +1,19 @@
 package com.example.shopkeeper.Manager;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.shopkeeper.Model.Product;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.shopkeeper.Model.User;
+import com.example.shopkeeper.R;
+import com.example.shopkeeper.Utilities.NetworkUtil;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Tony on 2017/2/26.
@@ -16,6 +23,11 @@ public class UserManager {
 
     private Handler mHandler;
     private static UserManager sManager;
+    private static Context sContext;
+
+    public static void init(Context context){
+        UserManager.sContext = context;
+    }
 
     private UserManager(){
         mHandler = new Handler(Looper.getMainLooper());
@@ -28,23 +40,66 @@ public class UserManager {
         return sManager;
     }
 
-    public void signUp(String name, String password, final CallBack<Void> callBack){
+    public void signUp(String email, String password, final CallBack<Void> callBack){
         if (callBack == null){
             return;
         }
 
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                callBack.onResponse(null, null);
-            }
-        });
+        JSONObject para = new JSONObject();
+        try {
+            para.put("email", email);
+            para.put("password", password);
+        } catch (JSONException ex){
+            throw new RuntimeException(ex);
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest
+                (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_signup), para, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        callBack.onResponse(null, null);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callBack.onResponse(null, new ShooperKeeperException(error));
+                    }
+                });
+        NetworkUtil.getInstance(sContext).getQueue().add(request);
     }
 
-    public void login(String name, String password, final CallBack<User> callBack){
+    public void login(String email, String password, final CallBack<User> callBack){
         if (callBack == null){
             return;
         }
+
+        JSONObject para = new JSONObject();
+        try {
+            para.put("email", email);
+            para.put("password", password);
+        } catch (JSONException ex){
+            throw new RuntimeException(ex);
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest
+                (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_login), para, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject jsonObject = response.getJSONObject("result");
+                            String token = jsonObject.getString("token");
+                            callBack.onResponse(new User(jsonObject), null);
+                        } catch (JSONException ex){
+                            callBack.onResponse(null, new ShooperKeeperException(ex));
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError ex) {
+                        callBack.onResponse(null, new ShooperKeeperException(ex));
+                    }
+                });
+        NetworkUtil.getInstance(sContext).getQueue().add(request);
 
         mHandler.post(new Runnable() {
             @Override

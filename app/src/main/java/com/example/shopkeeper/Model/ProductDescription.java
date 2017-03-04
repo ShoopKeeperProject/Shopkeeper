@@ -8,7 +8,6 @@ import android.os.Parcelable;
  */
 
 public class ProductDescription implements Parcelable {
-
     private String mtitle;
     private String mdescription;
     public ProductDescription(String title, String description)

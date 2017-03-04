@@ -5,5 +5,5 @@ package com.example.shopkeeper.Manager;
  */
 
 public interface CallBack <T> {
-    public void onResponse(T result, Exception ex);
+    public void onResponse(T result, ShooperKeeperException ex);
 }

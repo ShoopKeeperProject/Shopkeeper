@@ -23,7 +23,7 @@ public class MainSeller extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),CatalogMakeSaleMain.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("parentId", 0);
+                bundle.putString("parentId", "");
 
                 //
                 //Récupération de la liste des personnes

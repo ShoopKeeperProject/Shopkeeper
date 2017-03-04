@@ -11,9 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shopkeeper.Adapter.MakeSaleListViewAdaptateur;
 import com.example.shopkeeper.Adapter.MakeSaleResiclerViewAdaptateur;
+import com.example.shopkeeper.Manager.CallBack;
+import com.example.shopkeeper.Manager.ProductManager;
+import com.example.shopkeeper.Manager.ShooperKeeperException;
 import com.example.shopkeeper.Model.Category;
 import com.example.shopkeeper.Model.ItemMakeSellListVew;
 import com.example.shopkeeper.Model.Product;
@@ -21,13 +25,15 @@ import com.example.shopkeeper.Model.ProductDescription;
 import com.example.shopkeeper.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class CatalogMakeSaleMain extends AppCompatActivity {
 
-    int parentId;
+    String parentId;
 
     ArrayList<ItemMakeSellListVew> listP;
+    private MakeSaleResiclerViewAdaptateur mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +44,12 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
 
             // get parent id
             Bundle bundle = getIntent().getExtras();
-            this.parentId = bundle.getInt("parentId");
+            this.parentId = bundle.getString("parentId");
             this.listP = bundle.getParcelableArrayList("Kart list");
 
         } else { // savedInstanceState has saved values
 
-            this.parentId = savedInstanceState.getInt("parentId3");
+            this.parentId = savedInstanceState.getString("parentId3");
             this.listP = savedInstanceState.getParcelableArrayList("Kart list3");
         }
 
@@ -74,20 +80,23 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
 
           rep.get(parentId, CallBack< List<Category> > items) => please help*/
 
-        items.add(new Category(2, parentId, "Alchool "+parentId, ""));
-        items.add(new Category(3, parentId, "cat2 "+parentId, ""));
-        items.add(new Product(4, parentId, "Wine "+parentId,10.2,20, "", "Red wine"));
-        items.add(new Product(5, parentId, "Beer "+parentId,1.3,20, "", "ABC brand"));
-        items.add(new Product(6, parentId, "Hello "+parentId,4,20, "", "Testing product"));
-        items.add(new Product(1, parentId, this.getString(R.string.Others),0,20, "", "Testing product"));
+        /*
+        items.add(new Category("2", parentId, "Alchool "+parentId, ""));
+        items.add(new Category("3", parentId, "cat2 "+parentId, ""));
+        items.add(new Product("4", parentId, "Wine "+parentId,10.2,20, "", "Red wine"));
+        items.add(new Product("5", parentId, "Beer "+parentId,1.3,20, "", "ABC brand"));
+        items.add(new Product("6", parentId, "Hello "+parentId,4,20, "", "Testing product"));
+        items.add(new Product("1", parentId, this.getString(R.string.Others),0,20, "", "Testing product"));
 
-        Product productTest = new Product(5, parentId, "test description "+parentId,3,20, "");
+        Product productTest = new Product("5", parentId, "test description "+parentId,3,20, "");
         productTest.AddProductDescription(new ProductDescription("Le produit qui dechire","pour celement \n\t 1 oui celemenet 1 miliar de fucking euro\n\tun razour!!"));
         productTest.AddProductDescription(new ProductDescription("carateristique","Composer d'un putain de lame tranchate,\n\tOui une seulle lame\nil vous permetra de tancher la gorge de vos enemy\ntest\n" +
                  "test\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\n" ));
         items.add(productTest);
+        */
 
-        mResiclerView.setAdapter(new MakeSaleResiclerViewAdaptateur(this,items,listViewAdaptateur));
+        mAdapter = new MakeSaleResiclerViewAdaptateur(this,items,listViewAdaptateur);
+        mResiclerView.setAdapter(mAdapter);
 
         Button submit = (Button) findViewById(R.id.Submit);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -100,13 +109,24 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        ProductManager.getInstance().getList(parentId, new CallBack<List<Category>>() {
+            @Override
+            public void onResponse(List<Category> result, ShooperKeeperException ex) {
+                if (null != ex){
+                    Toast.makeText(CatalogMakeSaleMain.this, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                mAdapter.addAll(result);
+            }
+        });
     }
 
 
     @Override
     public void onBackPressed()
     {
-        if (parentId == 0)
+        if (parentId == null)
         {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.Warning)
@@ -163,7 +183,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
         // Save UI state changes to the savedInstanceState.
         // This bundle will be passed to onCreate if the process is
         // killed and restarted.
-        savedInstanceState.putInt("parentId3", parentId);
+        savedInstanceState.putString("parentId3", parentId);
         savedInstanceState.putParcelableArrayList("Kart list3", listP);
 
         // etc.

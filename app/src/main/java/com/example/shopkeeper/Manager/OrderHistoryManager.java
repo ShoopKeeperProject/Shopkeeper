@@ -89,7 +89,7 @@ public class OrderHistoryManager {
 
     private ProductHistoryRecord createRecord(String name, String desc, String userName, long time, int qut){
 
-        Product product = new Product(0, 1, name,1.0,20, "", desc); // need to be review
+        Product product = new Product("0", "1", name,1.0,20, "", desc); // need to be review
         ProductHistoryRecord productHistoryRecord = new ProductHistoryRecord("", userName, product, time, qut);
         return productHistoryRecord;
     }

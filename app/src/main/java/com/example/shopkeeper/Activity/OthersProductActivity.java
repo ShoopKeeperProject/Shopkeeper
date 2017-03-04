@@ -57,7 +57,7 @@ public class OthersProductActivity extends AppCompatActivity {
                 }
                 Intent intent = new Intent(getApplicationContext(),CatalogMakeSaleMain.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("parentId", 0);
+                bundle.putString("parentId", "");
                 bundle.putParcelableArrayList("Kart list",listP);
                 intent.putExtras(bundle);
                 startActivity(intent);
