@@ -5,8 +5,8 @@
     android:layout_height="fill_parent"
     android:padding="@dimen/activity_horizontal_margin">
     <ImageView android:id="@+id/image"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="111dp"
+        android:layout_height="111dp"
         android:layout_gravity="center_horizontal"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
@@ -37,52 +37,66 @@
         android:text="@string/RemeberMe"
         android:onClick="onCheckboxClicked"/>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
-        <Button android:id="@+id/EnterRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="#000000"
-            android:backgroundTint="#cac5bf"
-            android:text="@string/register"/>
-        <Button android:id="@+id/Login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_toRightOf="@id/EnterRegister"
-            android:layout_gravity="right"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="#ffffff"
-            android:backgroundTint="#2828d4"
-            android:text="@string/Login"/>
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
+
+        <Button android:id="@+id/forgetUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:text="@string/forgetUserName"
+            android:layout_below="@+id/EnterRegister"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
         <Button android:id="@+id/forgetPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:textAlignment="center"
             android:textColor="#000000"
-            android:backgroundTint="#cac5bf"
-            android:text="@string/forgetPassword"/>
-        <Button android:id="@+id/forgetUserName"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:text="@string/forgetPassword"
+            android:layout_below="@+id/EnterRegister"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button android:id="@+id/EnterRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_toRightOf="@id/forgetPassword"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:backgroundTint="#cac5bf"
-            android:text="@string/forgetUserName"/>
+            android:backgroundTint="@android:color/holo_green_light"
+            android:text="@string/register"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/forgetPassword"
+            android:layout_alignEnd="@+id/forgetPassword" />
+
+        <Button android:id="@+id/Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_gravity="right"
+            android:textColor="#ffffff"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:text="@string/Login"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignLeft="@+id/forgetUserName"
+            android:layout_alignStart="@+id/forgetUserName" />
     </RelativeLayout>
+
 </LinearLayout>
