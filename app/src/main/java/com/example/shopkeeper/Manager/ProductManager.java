@@ -71,7 +71,7 @@ public class ProductManager {
         }
 
         JsonObjectRequest request = new JsonObjectRequest
-                (Request.Method.GET, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_get_products), para, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_get_products) + "?parentId=" + parentId, para, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {

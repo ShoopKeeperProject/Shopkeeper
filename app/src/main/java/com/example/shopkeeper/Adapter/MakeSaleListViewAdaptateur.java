@@ -155,4 +155,10 @@ public class MakeSaleListViewAdaptateur extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void changeAll(ArrayList<ItemMakeSellListVew> items)
+    {
+        this.items = items;
+    }
+
+
 }

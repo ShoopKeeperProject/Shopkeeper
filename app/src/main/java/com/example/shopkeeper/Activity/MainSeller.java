@@ -31,18 +31,11 @@ public class MainSeller extends AppCompatActivity {
                 bundle.putParcelableArrayList("Kart list",listP);
 
                 intent.putExtras(bundle);
-                //startActivityForResult(intent, 1);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
+                //startActivity(intent);
             }
         });
     }
 
-    @Override
-    public void onBackPressed()
-    {
-        Intent intent = new Intent(getApplicationContext(),Login.class);
-        startActivity(intent);
-        finish();
-    }
 
 }

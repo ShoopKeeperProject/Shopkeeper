@@ -38,12 +38,10 @@ public class shopKart extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(),CatalogMakeSaleMain.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("parentId", "");
-        bundle.putParcelableArrayList("Kart list",listP);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        Intent intent = new Intent();
+        intent.putParcelableArrayListExtra("Kart list2", this.listP);
+        setResult(RESULT_OK, intent);
+        super.onBackPressed();
         finish();
     }
 }

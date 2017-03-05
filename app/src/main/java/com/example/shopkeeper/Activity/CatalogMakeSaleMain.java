@@ -33,6 +33,8 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
     ArrayList<ItemMakeSellListVew> listP;
     private MakeSaleResiclerViewAdaptateur mAdapter;
 
+     MakeSaleListViewAdaptateur listViewAdaptateur;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +66,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
 
         // editing list view, shoping kart
 
-        final MakeSaleListViewAdaptateur listViewAdaptateur;
+
         //Création et initialisation de l'Adapter pour les personnes
         listViewAdaptateur = new MakeSaleListViewAdaptateur(this.getApplicationContext(), listP,(TextView) findViewById(R.id.FinalPrice));
 
@@ -125,7 +127,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        if (parentId == null)
+        if (parentId == null || parentId.isEmpty())
         {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.Warning)
@@ -134,8 +136,10 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
                             new DialogInterface.OnClickListener(){
                                 public void onClick(DialogInterface dialoginterface, int i)
                                 {
-                                    Intent intent = new Intent(getApplicationContext(),MainSeller.class);
-                                    startActivity(intent);
+                                    Intent intent = new Intent();
+                                    intent.putParcelableArrayListExtra("Kart list2", listP);
+                                    setResult(RESULT_OK, intent);
+                                    CatalogMakeSaleMain.super.onBackPressed();
                                     finish();
                                 }
                             })
@@ -150,20 +154,15 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
         }
         else
         {
-            Intent intent = new Intent(getApplicationContext(),CatalogMakeSaleMain.class);
-            Bundle bundle = new Bundle();
-            bundle.putInt("parentId", 0);
-            bundle.putParcelableArrayList("Kart list",listP);
-            intent.putExtras(bundle);
-            startActivity(intent);
+            Intent intent = new Intent();
+            intent.putParcelableArrayListExtra("Kart list2", this.listP);
+            setResult(RESULT_OK, intent);
+            super.onBackPressed();
             finish();
         }
 
-        //super.onBackPressed();
-        /*Intent intent = new Intent();
-        intent.putParcelableArrayListExtra("Kart list2", this.listP);
-        setResult(RESULT_OK, intent);
-        finish();*/
+
+
     }
 
     @Override
@@ -172,6 +171,8 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 listP = intent.getParcelableArrayListExtra("Kart list2");
+                listViewAdaptateur.changeAll(listP);
+                listViewAdaptateur.notifyDataSetChanged();
             }
         }
     }

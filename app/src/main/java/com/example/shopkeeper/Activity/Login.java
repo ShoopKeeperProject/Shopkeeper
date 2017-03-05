@@ -3,7 +3,6 @@ package com.example.shopkeeper.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.shopkeeper.Manager.CallBack;
-import com.example.shopkeeper.Manager.ProductManager;
 import com.example.shopkeeper.Manager.ShooperKeeperException;
 import com.example.shopkeeper.Manager.UserManager;
 import com.example.shopkeeper.Methode.CheckPassword;
@@ -180,11 +178,4 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed()
-    {
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-        startActivity(intent);
-        this.finish();
-    }
 }
