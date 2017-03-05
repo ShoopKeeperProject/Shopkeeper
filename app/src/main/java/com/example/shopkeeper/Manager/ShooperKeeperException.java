@@ -14,6 +14,7 @@ public class ShooperKeeperException extends Exception {
 
     @Override
     public String getMessage(){
+        mException.printStackTrace();
         return mException.getMessage();
     }
 }
