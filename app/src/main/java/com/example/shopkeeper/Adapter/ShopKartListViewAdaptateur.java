@@ -1,8 +1,6 @@
 package com.example.shopkeeper.Adapter;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,6 +99,7 @@ public class ShopKartListViewAdaptateur extends BaseAdapter {
         textItemName.setText(items.get(position).getName());
         textPu.setText(String.format("%.2f", items.get(position).getPu()));
         textqt.setText(String.format("%d", items.get(position).getQt()));
+        textqt.setTag(new Integer(position));
         textPt.setText(String.format("%.2f", items.get(position).getPu() * items.get(position).getQt()));
 
         Button reduceQt = (Button) layoutItem.findViewById(R.id.ReduceQt);
@@ -113,16 +112,16 @@ public class ShopKartListViewAdaptateur extends BaseAdapter {
                 int qt = items.get(position).getQt();
                 qt--;
                 dTotal -= items.get(position).getPu();
-                //mtotal.setText(String.format("%.2f", dTotal));
+                mtotal.setText(String.format("%.2f", dTotal));
                 dtotalht -= items.get(position).getPu() * (100 - items.get(position).getTaxe())/100;
-                //mtotalht.setText(String.format("%.2f", dtotalht));
+                mtotalht.setText(String.format("%.2f", dtotalht));
                 if (qt == 0) {
                     items.remove(position);
                     notifyDataSetChanged();
                 } else {
                     items.get(position).setQt(qt);
-                    //notifyDataSetChanged();
-                    textqt.setText(String.format("%d", items.get(position).getQt()));
+                    //textqt.setText(String.format("%d", items.get(position).getQt()));
+                    notifyDataSetChanged();
                 }
 
             }
@@ -136,14 +135,14 @@ public class ShopKartListViewAdaptateur extends BaseAdapter {
                 items.get(position).setQt(qt);
 
                 dTotal += items.get(position).getPu();
-                //mtotal.setText(String.format("%.2f", dTotal));
+                mtotal.setText(String.format("%.2f", dTotal));
                 dtotalht += items.get(position).getPu() * (100 - items.get(position).getTaxe())/100;
-                //mtotalht.setText(String.format("%.2f", dtotalht));
-                //notifyDataSetChanged();
+                mtotalht.setText(String.format("%.2f", dtotalht));
+                notifyDataSetChanged();
                 textqt.setText(String.format("%d", items.get(position).getQt()));
             }
         });
-
+        /*
         textqt.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
@@ -151,21 +150,22 @@ public class ShopKartListViewAdaptateur extends BaseAdapter {
                 // you can call or do what you want with your EditText here
                 if(!textqt.getText().toString().isEmpty()) {
                     int qt = Integer.parseInt(textqt.getText().toString());
+                    int pos = (int) textqt.getTag();
                     if (qt < 0)
                     {
-                        items.remove(position);
+                        items.remove(pos);
                         notifyDataSetChanged();
                     }
                     else
                     {
-                        items.get(position).setQt(qt);
+                        items.get(pos).setQt(qt);
                         dTotal = 0;
                         dtotalht = 0;
                         for (int i = 0; i < items.size(); i++) {
                             dTotal += items.get(i).getPu() * items.get(i).getQt();
                             dtotalht += items.get(i).getPu() * items.get(i).getQt() * (100 - items.get(i).getTaxe()) / 100;
                         }
-                        textPt.setText(String.format("%.2f", items.get(position).getPu() * items.get(position).getQt()));
+                        textPt.setText(String.format("%.2f", items.get(pos).getPu() * items.get(pos).getQt()));
                         mtotal.setText(String.format("%.2f", dTotal));
                         mtotalht.setText(String.format("%.2f", dtotalht));
                         //notifyDataSetChanged();
@@ -178,7 +178,7 @@ public class ShopKartListViewAdaptateur extends BaseAdapter {
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
-
+        */
         //On retourne l'item créé.
         return layoutItem;
     }

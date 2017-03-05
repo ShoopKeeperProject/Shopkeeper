@@ -141,7 +141,7 @@ public class MakeSaleListViewAdaptateur extends BaseAdapter {
     void add(ItemMakeSellListVew item)
     {
         for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getName() == item.getName()) {
+            if (items.get(i).getName().equals(item.getName()) && (items.get(i).getPu() == item.getPu())) {
                 items.get(i).setQt(items.get(i).getQt()+item.getQt());
                 dTotal +=item.getPu()*item.getQt();
                 mtotal.setText(String.format("%.2f",dTotal));

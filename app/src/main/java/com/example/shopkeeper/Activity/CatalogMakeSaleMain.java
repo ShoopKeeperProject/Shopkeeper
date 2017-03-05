@@ -1,9 +1,9 @@
 package com.example.shopkeeper.Activity;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -20,8 +20,6 @@ import com.example.shopkeeper.Manager.ProductManager;
 import com.example.shopkeeper.Manager.ShooperKeeperException;
 import com.example.shopkeeper.Model.Category;
 import com.example.shopkeeper.Model.ItemMakeSellListVew;
-import com.example.shopkeeper.Model.Product;
-import com.example.shopkeeper.Model.ProductDescription;
 import com.example.shopkeeper.R;
 
 import java.util.ArrayList;
@@ -120,6 +118,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
                 mAdapter.addAll(result);
             }
         });
+
     }
 
 
