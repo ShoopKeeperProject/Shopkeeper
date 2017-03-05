@@ -22,7 +22,7 @@ public class Product extends Category implements Parcelable{
     private double mTaxe;
 
     public Product(JSONObject obj) throws JSONException{
-        this(obj.getString("id"), obj.getString("parentId"), obj.getString("name"), Parser.parseDouble( obj.getString("price"), 0), Parser.parseDouble( obj.getString("tax"), 0), obj.getString("imageUrl"), obj.getString("description"));
+        this(Parser.getString(obj, "id"), Parser.getString(obj, "parentId"), Parser.getString(obj, "name"), Parser.getDouble(obj, "price"),  Parser.getDouble(obj, "tax"),  Parser.getString(obj, "imageUrl"));
     }
 
     public Product( String mId, String mParentId, String mName,double mPrice,double mTaxe, String mImageURL){
