@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="server_base_url">http://shoopkeeper.azurewebsites.com</string>
+    <string name="path_signup">/signip</string>
+    <string name="path_login">/login</string>
+    <string name="path_get_products">/getProductList</string>
+    <string name="path_get_product">/getProduct</string>
+    <string name="path_create_or_update_product">/createOrUpdateProduct</string>
+    <string name="path_create_or_update_category">/createOrUpdateCategory</string>
+    <string name="path_upload_file">/file</string>
+
+</resources>
