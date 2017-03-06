@@ -39,5 +39,16 @@
     <string name="Submit">submit</string>
     <string name="Others">Others</string>
     <string name="Default">Default</string>
+    <string name="title_activity_edit_catalog_main">EditCatalogMainActivity</string>
+    <string name="addItem">Add item</string>
+    <string name="addCategory">Add category</string>
+    <string name="addImage">Add Image</string>
+    <string name="SetCurrentToMainImage">Set Current To Main Image</string>
+    <string name="addDescription">Add Description</string>
+    <string name="Save">Save</string>
+    <string name="exit">Exit</string>
+    <string name="editText">Edit Text</string>
+    <string name="title">title</string>
+    <string name="description">description</string>
 
 </resources>

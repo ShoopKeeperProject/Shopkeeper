@@ -20,6 +20,7 @@ import com.example.shopkeeper.Manager.ProductManager;
 import com.example.shopkeeper.Manager.ShooperKeeperException;
 import com.example.shopkeeper.Model.Category;
 import com.example.shopkeeper.Model.ItemMakeSellListVew;
+import com.example.shopkeeper.Model.Product;
 import com.example.shopkeeper.R;
 
 import java.util.ArrayList;
@@ -105,7 +106,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
                 Bundle bundle2 = new Bundle();
                 bundle2.putParcelableArrayList("Kart list",listViewAdaptateur.items );
                 intent.putExtras(bundle2);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -119,7 +120,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
                 mAdapter.addAll(result);
             }
         });
-
+        mAdapter.add(new Product("1", parentId, this.getString(R.string.Others),0,20, "", ""));
     }
 
 

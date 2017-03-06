@@ -3,6 +3,7 @@ package com.example.shopkeeper.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.shopkeeper.Utilities.JSONUtili;
 import com.example.shopkeeper.Utilities.Parser;
 
 import org.json.JSONException;
@@ -22,7 +23,7 @@ public class Product extends Category implements Parcelable{
     private double mTaxe;
 
     public Product(JSONObject obj) throws JSONException{
-        this(Parser.getString(obj, "id"), Parser.getString(obj, "parentId"), Parser.getString(obj, "name"), Parser.getDouble(obj, "price"),  Parser.getDouble(obj, "tax"),  Parser.getString(obj, "imageUrl"));
+        this(JSONUtili.getString(obj, "id"), JSONUtili.getString(obj, "parentId"), JSONUtili.getString(obj, "name"), JSONUtili.getDouble(obj, "price"),  JSONUtili.getDouble(obj, "tax"),  JSONUtili.getString(obj, "imageUrl"));
     }
 
     public Product( String mId, String mParentId, String mName,double mPrice,double mTaxe, String mImageURL){
@@ -105,6 +106,10 @@ public class Product extends Category implements Parcelable{
 
     public ProductDescription getmDescription(int i) {
         return mDescription.get(i);
+    }
+
+    public void setmDescription(ProductDescription description, int i) {
+        mDescription.set(i,description);
     }
 
     public int GetProductDescriptionSize()

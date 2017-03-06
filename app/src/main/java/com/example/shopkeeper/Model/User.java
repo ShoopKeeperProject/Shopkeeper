@@ -1,5 +1,8 @@
 package com.example.shopkeeper.Model;
 
+import com.example.shopkeeper.Utilities.JSONUtili;
+import com.example.shopkeeper.Utilities.Parser;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,22 +12,23 @@ import org.json.JSONObject;
 
 public class User {
 
-    String nName;
+    String mEmail;
+
 
     public User(JSONObject jsonObject) throws JSONException{
-        this.nName = jsonObject.getString("name");
+        this.mEmail = JSONUtili.getString(jsonObject, "email");
     }
 
     public User(String name)
     {
-        this.nName = name;
+        this.mEmail = name;
     }
 
     public String getnName() {
-        return nName;
+        return mEmail;
     }
 
     public void setnName(String nName) {
-        this.nName = nName;
+        this.mEmail = nName;
     }
 }
