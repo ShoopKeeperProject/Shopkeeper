@@ -30,7 +30,8 @@
         <activity android:name=".Activity.OthersProductActivity" />
         <activity android:name=".Activity.EditCatalogMainActivity" />
         <activity android:name=".Activity.EditableProductPage" />
-        <activity android:name=".Activity.EditCatalogChangeDescription"></activity>
+        <activity android:name=".Activity.EditCatalogChangeDescription" />
+        <activity android:name=".Activity.EditableCategoryPage"></activity>
     </application>
 
 </manifest>

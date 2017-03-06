@@ -126,6 +126,24 @@ public class EditCatalogMainActivity extends AppCompatActivity {
                 });
             }
         }
+        else if (requestCode == 5) {
+            if (resultCode == RESULT_OK) {
+                final Product[] product = {(Product) intent.getParcelableExtra("product")};
+                items.add( product[0]);
+                mAdapter.notifyItemInserted(items.size()-1);
+                //createOrUpdateProduct(Product product, final CallBack<Product> callBack)
+                ProductManager.getInstance().createOrUpdateProduct(product[0], new CallBack<Product>() {
+                    @Override
+                    public void onResponse(Product result, ShooperKeeperException ex) {
+                        if (null != ex){
+                            Toast.makeText(EditCatalogMainActivity.this, ex.getMessage(), Toast.LENGTH_LONG).show();
+                            product[0] = result;
+                            return;
+                        }
+                    }
+                });
+            }
+        }
     }
 
 
