@@ -31,8 +31,19 @@ public class MainSeller extends AppCompatActivity {
                 bundle.putParcelableArrayList("Kart list",listP);
 
                 intent.putExtras(bundle);
-                startActivityForResult(intent, 1);
-                //startActivity(intent);
+                //startActivityForResult(intent, 1);
+                startActivity(intent);
+            }
+        });
+        final Button buttonEditCatalog  = (Button) findViewById(R.id.editCatalog);
+        buttonEditCatalog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), EditCatalogMainActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("parentId", "");
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }

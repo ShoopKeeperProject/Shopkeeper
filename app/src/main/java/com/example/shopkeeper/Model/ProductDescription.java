@@ -61,4 +61,6 @@ public class ProductDescription implements Parcelable {
         this.mdescription = mdescription;
     }
 
+
+
 }

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_editable_product_page"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:paddingBottom="@dimen/activity_vertical_margin"
+android:paddingLeft="@dimen/activity_horizontal_margin"
+android:paddingRight="@dimen/activity_horizontal_margin"
+android:paddingTop="@dimen/activity_vertical_margin"
+tools:context="com.example.shopkeeper.Activity.EditableProductPage">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="left">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/ItemName"/>
+        <EditText
+            android:id="@+id/ItemName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/ProductSwitcher"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+
+        />
+    <!--
+    <ImageSwitcher
+        android:id="@+id/ProductSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
+    <Gallery
+        android:id="@+id/ProductGallery"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="#55000000"
+        android:gravity="center_vertical"
+        android:spacing="16dp" />
+        -->
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#55000000">
+        <LinearLayout
+            android:id="@+id/ProductGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+        </LinearLayout>
+    </HorizontalScrollView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <Button
+            android:id="@+id/SetCurrentToMainImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/SetCurrentToMainImage"/>
+        <Button
+            android:id="@+id/addImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/addImage"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/Price"
+            android:textColor="#000000"
+            android:gravity="center"
+            />
+        <EditText
+            android:id="@+id/productPrice"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:inputType="numberDecimal"
+            android:text="0"/>
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="#000000"
+            android:text="@string/currency"
+            android:gravity="center"/>
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="#000000"
+            android:text="@string/ttc"
+            android:gravity="center"/>
+        <TextView
+            android:layout_marginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="#000000"
+            android:text="@string/taxe"
+            android:gravity="center"/>
+        <EditText
+            android:id="@+id/productTaxe"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="#000000"
+            android:inputType="numberDecimal"
+            android:text="20"/>
+        <TextView
+            android:layout_marginLeft="1dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:text="%"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ProductDescription"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    </LinearLayout>
+    <Button
+        android:id="@+id/addDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="@string/addDescription"/>
+</LinearLayout>
+
+</ScrollView>

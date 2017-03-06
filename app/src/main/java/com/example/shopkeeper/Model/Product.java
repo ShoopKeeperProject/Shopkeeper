@@ -107,6 +107,10 @@ public class Product extends Category implements Parcelable{
         return mDescription.get(i);
     }
 
+    public void setmDescription(ProductDescription description, int i) {
+        mDescription.set(i,description);
+    }
+
     public int GetProductDescriptionSize()
     {
         return mDescription.size();
