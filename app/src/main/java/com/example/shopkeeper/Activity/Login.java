@@ -25,6 +25,7 @@ public class Login extends AppCompatActivity {
     boolean defaultNameCheck = false;
 
     String defaultName;
+    String defaultpassword;
 
     EditText userNamev;
     EditText passwordv;
@@ -81,25 +82,43 @@ public class Login extends AppCompatActivity {
 
     protected void onLoginClick()
     {
-        UserManager.getInstance().login(userNamev.getText().toString(), passwordv.getText().toString(), new CallBack<User>() {
+        CheckPassword checkPassword = new CheckPassword();
+        final String password = passwordv.getText().toString();;
+        final String name = userNamev.getText().toString();
+        UserManager.getInstance().login(name, password, new CallBack<User>() {
             @Override
             public void onResponse(User result, ShooperKeeperException ex) {
                 if (null == ex && result != null){
+                    if (remeberMe)
+                    {
+                        defaultName = name;
+                        defaultpassword = password;
+                        defaultNameCheck = true;
+                        savePreferences(defaultName,defaultpassword,defaultNameCheck);
+                    }
                     Intent intent = new Intent(getApplicationContext(),MainSeller.class);
                     //Bundle bundle = new Bundle();
                     //bundle.putString("seller/customer", "seller");
                     startActivity(intent);
                 } else {
+                    new AlertDialog.Builder(Login.this)
+                            .setTitle(R.string.IncorrectLogin)
+                            .setMessage(R.string.WrongPasswordOrName)
+                            .setPositiveButton(R.string.Ok,
+                                    new DialogInterface.OnClickListener(){
+                                        public void onClick(
+                                                DialogInterface dialoginterface, int i){
+                                        }
+                                    })
+                            .show();
+
                     Toast.makeText(Login.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        if (true){
-            return;
-        }
 
-
+        /*
         if (defaultNameCheck)
         {
             if (defaultName.equals(userNamev.getText().toString())) {
@@ -111,9 +130,7 @@ public class Login extends AppCompatActivity {
             }
         }
 
-        CheckPassword checkPassword = new CheckPassword();
-        String password = passwordv.getText().toString();;
-        String name = userNamev.getText().toString();
+
 
         if (checkPassword.checkPassword(name,password))
         {
@@ -142,6 +159,7 @@ public class Login extends AppCompatActivity {
                     .show();
             //Toast.makeText(Login.this, R.string.WrongPasswordOrName,Toast.LENGTH_LONG).show();
         }
+        */
     }
 
     @Override
@@ -151,19 +169,21 @@ public class Login extends AppCompatActivity {
         loadPreferences();
     }
 
-    public void savePreferences(String h,boolean checked) {
+    public void savePreferences(String name,String password,boolean checked) {
         SharedPreferences pref = getSharedPreferences("Login", MODE_PRIVATE);
-        pref.edit().putString("name", h).apply();
+        pref.edit().putString("name", name).apply();
+        pref.edit().putString("passwordv", password).apply();
         pref.edit().putBoolean("checked", checked).apply();
     }
 
     public void loadPreferences() {
         SharedPreferences pref = getSharedPreferences("Login", MODE_PRIVATE);
         defaultNameCheck = pref.getBoolean("checked", false);
-        defaultName = pref.getString("name", "0");
+        defaultName = pref.getString("name", "");
+        defaultpassword = pref.getString("passwordv", "");
         if (defaultNameCheck) {
             userNamev.setText(defaultName);
-            passwordv.setText("xxxx");
+            passwordv.setText(defaultpassword);
         }
     }
 
