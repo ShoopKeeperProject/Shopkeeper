@@ -84,7 +84,7 @@ public class Login extends AppCompatActivity {
         UserManager.getInstance().login(userNamev.getText().toString(), passwordv.getText().toString(), new CallBack<User>() {
             @Override
             public void onResponse(User result, ShooperKeeperException ex) {
-                if (null == ex){
+                if (null == ex && result != null){
                     Intent intent = new Intent(getApplicationContext(),MainSeller.class);
                     //Bundle bundle = new Bundle();
                     //bundle.putString("seller/customer", "seller");

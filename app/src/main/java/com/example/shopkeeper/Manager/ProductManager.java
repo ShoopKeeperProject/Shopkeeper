@@ -63,15 +63,9 @@ public class ProductManager {
             return;
         }
 
-        JSONObject para = new JSONObject();
-        try {
-            para.put("parentId", parentId == null ? "" : parentId);
-        } catch (JSONException ex){
-            throw new RuntimeException(ex);
-        }
-
+        String para = parentId == null || parentId.isEmpty() ? "" :  "?parentId=" + parentId;
         JsonObjectRequest request = new JsonObjectRequest
-                (Request.Method.GET, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_get_products) + "?parentId=" + parentId, para, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_get_products) + para, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
@@ -152,18 +146,18 @@ public class ProductManager {
         JSONObject para = new JSONObject();
         String url = null;
         try {
-            if (Parser.isEmpty(product.getmId())) {
+            if (!Parser.isEmpty(product.getmId())) {
                 para.put("id", product.getmId());
             }
-            if (Parser.isEmpty(product.getmName())) {
+            if (!Parser.isEmpty(product.getmName())) {
                 para.put("name", product.getmName());
             }
             para.put("price", Double.toString(product.getmPrice()));
             para.put("tax", Double.toString(product.getmTaxe()));
-            if (Parser.isEmpty(product.getmImageURL())) {
+            if (!Parser.isEmpty(product.getmImageURL())) {
                 para.put("imageUrl", product.getmImageURL());
             }
-            if (Parser.isEmpty(product.getmParentId())) {
+            if (!Parser.isEmpty(product.getmParentId())) {
                 para.put("parentId", product.getmParentId());
             }
 
@@ -184,7 +178,7 @@ public class ProductManager {
         }
 
         JsonObjectRequest request = new JsonObjectRequest
-                (Request.Method.GET, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_create_or_update_product), para, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_create_or_update_product), para, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
@@ -210,17 +204,17 @@ public class ProductManager {
         JSONObject para = new JSONObject();
         String url = null;
         try {
-            if (Parser.isEmpty(category.getmId())) {
+            if (!Parser.isEmpty(category.getmId())) {
                 para.put("id", category.getmId());
             }
-            if (Parser.isEmpty(category.getmName())) {
+            if (!Parser.isEmpty(category.getmName())) {
                 para.put("name", category.getmName());
             }
-            if (Parser.isEmpty(category.getmImageURL())) {
+            if (!Parser.isEmpty(category.getmImageURL())) {
                 para.put("imageUrl", category.getmImageURL());
             }
 
-            if (Parser.isEmpty(category.getmParentId())) {
+            if (!Parser.isEmpty(category.getmParentId())) {
                 para.put("parentId", category.getmParentId());
             }
         } catch (JSONException ex){
@@ -228,7 +222,7 @@ public class ProductManager {
         }
 
         JsonObjectRequest request = new JsonObjectRequest
-                (Request.Method.GET, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_create_or_update_category), para, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_create_or_update_category), para, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {

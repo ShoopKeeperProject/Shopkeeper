@@ -23,26 +23,4 @@ public class Parser {
     public static boolean isEmpty(String string){
         return string == null || string.isEmpty();
     }
-
-    public static Double getDouble(JSONObject jsonObject, String key){
-        try {
-            if (!jsonObject.isNull(key)) {
-                return jsonObject.getDouble(key);
-            }
-        } catch (JSONException ex){
-
-        }
-        return 0.0;
-    }
-
-    public static String getString(JSONObject jsonObject, String key){
-        try {
-            if (!jsonObject.isNull(key)) {
-                return jsonObject.getString(key);
-            }
-        } catch (JSONException ex){
-
-        }
-        return "";
-    }
 }

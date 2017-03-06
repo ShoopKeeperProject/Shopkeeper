@@ -10,7 +10,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.shopkeeper.Model.User;
 import com.example.shopkeeper.R;
+import com.example.shopkeeper.Utilities.JSONUtili;
 import com.example.shopkeeper.Utilities.NetworkUtil;
+import com.example.shopkeeper.Utilities.Parser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,7 +89,7 @@ public class UserManager {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject jsonObject = response.getJSONObject("result");
-                            String token = jsonObject.getString("token");
+                            String token = JSONUtili.getString(jsonObject, "token");
                             callBack.onResponse(new User(jsonObject), null);
                         } catch (JSONException ex){
                             callBack.onResponse(null, new ShooperKeeperException(ex));
@@ -100,14 +102,6 @@ public class UserManager {
                     }
                 });
         NetworkUtil.getInstance(sContext).getQueue().add(request);
-
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                User user = new User("David");
-                callBack.onResponse(user, null);
-            }
-        });
     }
 
     public void getCurrentUser(final CallBack<User> callBack){
