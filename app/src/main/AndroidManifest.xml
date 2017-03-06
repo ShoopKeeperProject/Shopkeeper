@@ -33,5 +33,5 @@
         <activity android:name=".Activity.EditCatalogChangeDescription" />
         <activity android:name=".Activity.EditableCategoryPage"></activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
