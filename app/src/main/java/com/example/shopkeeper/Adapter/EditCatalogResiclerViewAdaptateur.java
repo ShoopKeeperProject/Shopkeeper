@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.shopkeeper.Activity.EditCatalogMainActivity;
+import com.example.shopkeeper.Activity.EditableCategoryPage;
 import com.example.shopkeeper.Activity.EditableProductPage;
 import com.example.shopkeeper.Model.Category;
 import com.example.shopkeeper.Model.Product;
@@ -92,7 +93,12 @@ public class EditCatalogResiclerViewAdaptateur extends RecyclerView.Adapter<Edit
                 if (!item2.isProduct())
                 {
 
-
+                    Intent intent = new Intent(mContext,EditableCategoryPage.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("category", item2);
+                    bundle.putInt("position", position);
+                    intent.putExtras(bundle);
+                    mContext.startActivityForResult(intent,6);
                 }
                 return true;
             }
@@ -113,6 +119,7 @@ public class EditCatalogResiclerViewAdaptateur extends RecyclerView.Adapter<Edit
         }
         holder.ItemName.setText(item.getmName());
         holder.ItemImage.setImageResource(R.drawable.icon_128);
+        //holder.ItemImage.setScaleType(ImageView.ScaleType.FIT_XY);
 
 
     }

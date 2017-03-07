@@ -50,5 +50,7 @@
     <string name="editText">Edit Text</string>
     <string name="title">title</string>
     <string name="description">description</string>
+    <string name="CategoryName">Category name</string>
+    <string name="newImage">New Image</string>
 
 </resources>

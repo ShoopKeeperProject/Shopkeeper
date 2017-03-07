@@ -91,7 +91,13 @@ public class EditCatalogMainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.addCategory:
-
+                Category item2 = new Category("",parentId,"","");
+                Intent intent2 = new Intent(this,EditableCategoryPage.class);
+                Bundle bundle2 = new Bundle();
+                bundle2.putParcelable("category", item2);
+                bundle2.putInt("position", -1);
+                intent2.putExtras(bundle2);
+                startActivityForResult(intent2,7);
                 return true;
             case R.id.addItem:
                 Product item3 = new Product("",parentId,"",0,0,"");
@@ -138,6 +144,41 @@ public class EditCatalogMainActivity extends AppCompatActivity {
                         if (null != ex){
                             Toast.makeText(EditCatalogMainActivity.this, ex.getMessage(), Toast.LENGTH_LONG).show();
                             product[0] = result;
+                            return;
+                        }
+                    }
+                });
+            }
+        }
+        else if (requestCode == 6) {
+            if (resultCode == RESULT_OK) {
+                final Category[] category = {(Category) intent.getParcelableExtra("category")};
+                items.set(intent.getIntExtra("position",-1), category[0]);
+                //createOrUpdateProduct(Product product, final CallBack<Product> callBack)
+                ProductManager.getInstance().createOrUpdateCategory(category[0], new CallBack<Category>() {
+                    @Override
+                    public void onResponse(Category result, ShooperKeeperException ex) {
+                        if (null != ex){
+                            Toast.makeText(EditCatalogMainActivity.this, ex.getMessage(), Toast.LENGTH_LONG).show();
+                            category[0] = result;
+                            return;
+                        }
+                    }
+                });
+            }
+        }
+        else if (requestCode == 7) {
+            if (resultCode == RESULT_OK) {
+                final Category[] category = {(Category) intent.getParcelableExtra("category")};
+                items.add( category[0]);
+                mAdapter.notifyItemInserted(items.size()-1);
+                //createOrUpdateProduct(Product product, final CallBack<Product> callBack)
+                ProductManager.getInstance().createOrUpdateCategory(category[0], new CallBack<Category>() {
+                    @Override
+                    public void onResponse(Category result, ShooperKeeperException ex) {
+                        if (null != ex){
+                            Toast.makeText(EditCatalogMainActivity.this, ex.getMessage(), Toast.LENGTH_LONG).show();
+                            category[0] = result;
                             return;
                         }
                     }
