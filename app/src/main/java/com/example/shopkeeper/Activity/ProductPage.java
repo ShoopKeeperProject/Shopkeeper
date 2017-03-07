@@ -19,7 +19,7 @@ public class ProductPage extends AppCompatActivity {
 
     private ImageView mSwitcher;
 
-    private Integer[] mImageIds = { R.drawable.logo,R.drawable.icon_128,R.drawable.logo, R.drawable.icon_128 };
+    private Integer[] mImageIds = { R.drawable.prod1,R.drawable.prod2,R.drawable.prod1, R.drawable.prod2 };
     private Product product;
 
     @Override
@@ -53,11 +53,12 @@ public class ProductPage extends AppCompatActivity {
         {
             ImageView Image = new ImageView(this);
             Image.setImageResource(mImageIds[i]);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             DisplayMetrics dm = Image.getResources().getDisplayMetrics();
-            lp.setMargins(convertDpToPx(5, dm), convertDpToPx(1, dm), convertDpToPx(5, dm), convertDpToPx(1, dm));
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(convertDpToPx(50, dm)/*LinearLayout.LayoutParams.WRAP_CONTENT*/, ViewGroup.LayoutParams.MATCH_PARENT);
+
+            lp.setMargins(convertDpToPx(1, dm), convertDpToPx(1, dm), convertDpToPx(1, dm), convertDpToPx(1, dm));
             Image.setLayoutParams(lp);
-            Image.setScaleType(ImageView.ScaleType.FIT_XY);
+            Image.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             Image.setTag(new Integer(i));
             Image.setOnClickListener(new View.OnClickListener() {
                 @Override

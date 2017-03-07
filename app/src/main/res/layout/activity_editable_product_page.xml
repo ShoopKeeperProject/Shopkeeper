@@ -31,8 +31,8 @@ tools:context="com.example.shopkeeper.Activity.EditableProductPage">
     </LinearLayout>
     <ImageView
         android:id="@+id/ProductSwitcher"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_gravity="center"
 
         />
