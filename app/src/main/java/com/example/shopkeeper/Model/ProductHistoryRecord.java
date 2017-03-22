@@ -1,42 +1,36 @@
 package com.example.shopkeeper.Model;
 
+import com.example.shopkeeper.Utilities.JSONUtili;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Tony on 2017/2/26.
  */
 
 public class ProductHistoryRecord {
-    private String mUserId;
-    private String mUserName;
-
-    private long mTime;
+    private int mTotal;
     private Product mProduct;
-    private int mQuantity;
 
-    public ProductHistoryRecord(String mUserId, String mUserName, Product mProduct,  long mTime, int mQuantity){
-        this.mUserId = mUserId;
-        this.mUserName = mUserName;
-        this.mProduct = mProduct;
-        this.mTime = mTime;
-        this.mQuantity = mQuantity;
+    public ProductHistoryRecord(JSONObject jsonObject) {
+        this.mTotal = JSONUtili.getInteger(jsonObject, "total");
+
+        try {
+            JSONObject jsonObject1 = jsonObject.getJSONObject("product");
+            mProduct = new Product(jsonObject1);
+        } catch (JSONException ex) {
+
+        }
     }
 
-    public String getUserId() {
-        return mUserId;
+
+
+    public int getTotal(){
+        return this.mTotal;
     }
 
-    public String getUserName() {
-        return mUserName;
-    }
-
-    public long getTime() {
-        return mTime;
-    }
-
-    public Product getProduct() {
-        return mProduct;
-    }
-
-    public int getQuantity() {
-        return mQuantity;
+    public Product getProduct(){
+        return this.mProduct;
     }
 }

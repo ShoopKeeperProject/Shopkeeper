@@ -1,8 +1,13 @@
 package com.example.shopkeeper;
 
 import android.app.Application;
+import android.content.Context;
 
+import com.example.shopkeeper.Manager.OrderHistoryManager;
+import com.example.shopkeeper.Manager.OrderManager;
 import com.example.shopkeeper.Manager.ProductManager;
+import com.example.shopkeeper.Manager.ShopManager;
+import com.example.shopkeeper.Manager.TokenManager;
 import com.example.shopkeeper.Manager.UserManager;
 
 /**
@@ -14,7 +19,12 @@ public class ShoKeeperApplication extends Application {
     @Override
     public void onCreate(){
         super.onCreate();
-        UserManager.init(this.getApplicationContext());
-        ProductManager.init(this.getApplicationContext());
+        Context context = getApplicationContext();
+        UserManager.init(context);
+        ProductManager.init(context);
+        OrderManager.init(context);
+        OrderHistoryManager.init(context);
+        ShopManager.init(context);
+        TokenManager.init(context);
     }
 }

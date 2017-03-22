@@ -13,6 +13,7 @@ import com.example.shopkeeper.R;
 import com.example.shopkeeper.Utilities.JSONUtili;
 import com.example.shopkeeper.Utilities.NetworkUtil;
 import com.example.shopkeeper.Utilities.Parser;
+import com.example.shopkeeper.Utilities.ShopKeeperJsonAuthRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,16 +24,16 @@ import org.json.JSONObject;
 
 public class UserManager {
 
-    private Handler mHandler;
     private static UserManager sManager;
     private static Context sContext;
+    private TokenManager mTokenMgr;
 
     public static void init(Context context){
         UserManager.sContext = context;
     }
 
     private UserManager(){
-        mHandler = new Handler(Looper.getMainLooper());
+        mTokenMgr = TokenManager.getInstance();
     }
 
     public synchronized static UserManager getInstance(){
@@ -55,7 +56,7 @@ public class UserManager {
             throw new RuntimeException(ex);
         }
 
-        JsonObjectRequest request = new JsonObjectRequest
+        JsonObjectRequest request = new ShopKeeperJsonAuthRequest
                 (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_signup), para, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -83,13 +84,14 @@ public class UserManager {
             throw new RuntimeException(ex);
         }
 
-        JsonObjectRequest request = new JsonObjectRequest
+        JsonObjectRequest request = new ShopKeeperJsonAuthRequest
                 (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_login), para, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject jsonObject = response.getJSONObject("result");
                             String token = JSONUtili.getString(jsonObject, "token");
+                            mTokenMgr.setToken(token);
                             callBack.onResponse(new User(jsonObject), null);
                         } catch (JSONException ex){
                             callBack.onResponse(null, new ShooperKeeperException(ex));
@@ -104,30 +106,31 @@ public class UserManager {
         NetworkUtil.getInstance(sContext).getQueue().add(request);
     }
 
-    public void getCurrentUser(final CallBack<User> callBack){
-        if (callBack == null){
-            return;
-        }
-
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                User user = new User("David");
-                callBack.onResponse(user, null);
-            }
-        });
-    }
-
     public void logout(final CallBack<Void> callBack){
         if (callBack == null){
             return;
         }
 
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                callBack.onResponse(null, null);
-            }
-        });
+        mTokenMgr.setToken(null);
+
+        JsonObjectRequest request = new ShopKeeperJsonAuthRequest
+                (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_logout), null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject jsonObject = response.getJSONObject("result");
+                            mTokenMgr.setToken(null);
+                            callBack.onResponse(null, null);
+                        } catch (JSONException ex){
+                            callBack.onResponse(null, new ShooperKeeperException(ex));
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError ex) {
+                        callBack.onResponse(null, new ShooperKeeperException(ex));
+                    }
+                });
+        NetworkUtil.getInstance(sContext).getQueue().add(request);
     }
 }

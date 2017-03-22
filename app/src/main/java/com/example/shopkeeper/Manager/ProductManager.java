@@ -18,6 +18,7 @@ import com.example.shopkeeper.R;
 import com.example.shopkeeper.Utilities.MultiPartRequest;
 import com.example.shopkeeper.Utilities.NetworkUtil;
 import com.example.shopkeeper.Utilities.Parser;
+import com.example.shopkeeper.Utilities.ShopKeeperJsonAuthRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,7 +65,7 @@ public class ProductManager {
         }
 
         String para = parentId == null || parentId.isEmpty() ? "" :  "?parentId=" + parentId;
-        JsonObjectRequest request = new JsonObjectRequest
+        JsonObjectRequest request = new ShopKeeperJsonAuthRequest
                 (Request.Method.GET, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_get_products) + para, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -110,7 +111,7 @@ public class ProductManager {
             throw new RuntimeException(ex);
         }
 
-        JsonObjectRequest request = new JsonObjectRequest
+        JsonObjectRequest request = new ShopKeeperJsonAuthRequest
                 (Request.Method.GET, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_get_product), para, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -177,7 +178,7 @@ public class ProductManager {
             throw new RuntimeException(ex);
         }
 
-        JsonObjectRequest request = new JsonObjectRequest
+        JsonObjectRequest request = new ShopKeeperJsonAuthRequest
                 (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_create_or_update_product), para, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -221,7 +222,7 @@ public class ProductManager {
             throw new RuntimeException(ex);
         }
 
-        JsonObjectRequest request = new JsonObjectRequest
+        JsonObjectRequest request = new ShopKeeperJsonAuthRequest
                 (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_create_or_update_category), para, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -289,16 +290,4 @@ public class ProductManager {
         NetworkUtil.getInstance(sContext).getQueue().add(multipartRequest);
     }
 
-    public void delete(List<Product> products, final CallBack<Void> callBack){
-        if (callBack == null){
-            return;
-        }
-
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                callBack.onResponse(null, null);
-            }
-        });
-    }
 }

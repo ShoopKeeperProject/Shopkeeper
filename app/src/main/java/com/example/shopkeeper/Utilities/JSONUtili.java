@@ -19,6 +19,17 @@ public class JSONUtili {
         return 0.0;
     }
 
+    public static Integer getInteger(JSONObject jsonObject, String key){
+        try {
+            if (!jsonObject.isNull(key)) {
+                return jsonObject.getInt(key);
+            }
+        } catch (JSONException ex){
+
+        }
+        return 0;
+    }
+
     public static String getString(JSONObject jsonObject, String key){
         try {
             if (!jsonObject.isNull(key)) {

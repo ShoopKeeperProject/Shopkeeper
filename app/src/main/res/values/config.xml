@@ -3,10 +3,15 @@
     <string name="server_base_url">http://shoopkeeper.azurewebsites.net</string>
     <string name="path_signup">/signup</string>
     <string name="path_login">/login</string>
-    <string name="path_get_products">/getProductList</string>
-    <string name="path_get_product">/getProduct</string>
-    <string name="path_create_or_update_product">/createOrUpdateProduct</string>
-    <string name="path_create_or_update_category">/createOrUpdateCategory</string>
+    <string name="path_logout">/logout</string>
+    <string name="path_get_products">/productList</string>
+    <string name="path_get_product">/product</string>
+    <string name="path_create_or_update_product">/product</string>
+    <string name="path_create_or_update_category">/category</string>
     <string name="path_upload_file">/file</string>
+    <string name="path_shop_info">/shopInfo</string>
+    <string name="path_order">/order</string>
+    <string name="path_get_top_ten_products">/topTenProducts</string>
+    <string name="path_get_staff_stat">/getStaffStatistics</string>
 
 </resources>

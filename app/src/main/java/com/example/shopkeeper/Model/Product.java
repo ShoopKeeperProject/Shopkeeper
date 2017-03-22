@@ -22,7 +22,7 @@ public class Product extends Category implements Parcelable{
     private double mPrice;
     private double mTaxe;
 
-    public Product(JSONObject obj) throws JSONException{
+    public Product(JSONObject obj){
         this(JSONUtili.getString(obj, "id"), JSONUtili.getString(obj, "parentId"), JSONUtili.getString(obj, "name"), JSONUtili.getDouble(obj, "price"),  JSONUtili.getDouble(obj, "tax"),  JSONUtili.getString(obj, "imageUrl"));
     }
 

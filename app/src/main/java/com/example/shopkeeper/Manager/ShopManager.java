@@ -10,61 +10,58 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.shopkeeper.Model.Category;
 import com.example.shopkeeper.Model.Product;
-import com.example.shopkeeper.Model.ProductHistoryRecord;
-import com.example.shopkeeper.Model.SellerHistoryRecord;
-import com.example.shopkeeper.Model.TotalSaleHistoryRecord;
+import com.example.shopkeeper.Model.ShopInfo;
 import com.example.shopkeeper.R;
 import com.example.shopkeeper.Utilities.NetworkUtil;
 import com.example.shopkeeper.Utilities.ShopKeeperJsonAuthRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by Tony on 2017/2/26.
+ * Created by Tony on 2017/3/22.
  */
 
-public class OrderHistoryManager {
+public class ShopManager {
 
-    private static OrderHistoryManager sManager;
+    private static ShopManager mManager;
     private static Context sContext;
 
     public static void init(Context context){
-        OrderHistoryManager.sContext = context;
+        ShopManager.sContext = context;
     }
 
-    private OrderHistoryManager(){
+    private ShopManager(){
+
     }
 
-    public synchronized static OrderHistoryManager getInstance(){
-        if (sManager == null){
-            sManager = new OrderHistoryManager();
+    public synchronized static ShopManager getInstance(){
+        if (mManager == null){
+            mManager = new ShopManager();
         }
-        return sManager;
+        return mManager;
     }
 
-    public void getTopTenProduct(long fromTime, final CallBack<List<ProductHistoryRecord>> callBack){
+    public void get(String shopId, final CallBack<ShopInfo> callBack){
         if (callBack == null){
             return;
         }
 
+        JSONObject para = new JSONObject();
+        try {
+            para.put("id", shopId);
+        } catch (JSONException ex){
+            throw new RuntimeException(ex);
+        }
+
         JsonObjectRequest request = new ShopKeeperJsonAuthRequest
-                (Request.Method.GET, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_get_top_ten_products) + "?startTime=" + Long.toString(fromTime), null, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_shop_info), para, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray objs = response.getJSONArray("result");
-                            ArrayList<ProductHistoryRecord> record = new ArrayList<>();
-
-                            for (int cnt = 0; cnt < objs.length(); cnt++){
-                                record.add(new ProductHistoryRecord(objs.getJSONObject(cnt)));
-                            }
-
-                            callBack.onResponse(record, null);
+                            JSONObject obj = response.getJSONObject("result");
+                            ShopInfo shopInfo = new ShopInfo(obj);
+                            callBack.onResponse(shopInfo, null);
                         } catch (JSONException ex){
                             callBack.onResponse(null, new ShooperKeeperException(ex));
                         }
@@ -78,24 +75,28 @@ public class OrderHistoryManager {
         NetworkUtil.getInstance(sContext).getQueue().add(request);
     }
 
-    public void getSellerHistory(long fromTime, final CallBack<List<SellerHistoryRecord>> callBack){
+    public void set(ShopInfo shopInfo, final CallBack<ShopInfo> callBack){
         if (callBack == null){
             return;
         }
 
+        JSONObject para = new JSONObject();
+        try {
+            para.put("id", shopInfo.getId());
+            para.put("name", shopInfo.getName());
+            para.put("iconUrl", shopInfo.getIconUrl());
+        } catch (JSONException ex){
+            throw new RuntimeException(ex);
+        }
+
         JsonObjectRequest request = new ShopKeeperJsonAuthRequest
-                (Request.Method.GET, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_get_staff_stat) + "?startTime=" + Long.toString(fromTime), null, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_shop_info), para, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray objs = response.getJSONArray("result");
-                            ArrayList<SellerHistoryRecord> record = new ArrayList<>();
-
-                            for (int cnt = 0; cnt < objs.length(); cnt++){
-                                record.add(new SellerHistoryRecord(objs.getJSONObject(cnt)));
-                            }
-
-                            callBack.onResponse(record, null);
+                            JSONObject obj = response.getJSONObject("result");
+                            ShopInfo shopInfo = new ShopInfo(obj);
+                            callBack.onResponse(shopInfo, null);
                         } catch (JSONException ex){
                             callBack.onResponse(null, new ShooperKeeperException(ex));
                         }

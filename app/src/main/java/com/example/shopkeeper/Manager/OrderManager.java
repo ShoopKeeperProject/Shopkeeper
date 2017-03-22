@@ -1,0 +1,83 @@
+package com.example.shopkeeper.Manager;
+
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.shopkeeper.Model.Order;
+import com.example.shopkeeper.Model.ShopInfo;
+import com.example.shopkeeper.R;
+import com.example.shopkeeper.Utilities.NetworkUtil;
+import com.example.shopkeeper.Utilities.ShopKeeperJsonAuthRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * Created by Tony on 2017/3/22.
+ */
+
+public class OrderManager {
+
+    private static OrderManager sManager;
+    private static Context sContext;
+
+    public static void init(Context context){
+        OrderManager.sContext = context;
+    }
+
+    private OrderManager(){
+    }
+
+    public synchronized static OrderManager getInstance(){
+        if (sManager == null){
+            sManager = new OrderManager();
+        }
+        return sManager;
+    }
+
+    public void addOrders(Order[] orders, final CallBack<Void> callBack){
+        if (callBack == null){
+            return;
+        }
+
+        JSONObject para = new JSONObject();
+        try {
+            JSONArray jsonArray = new JSONArray();
+            for (Order order: orders){
+                JSONObject subOrder = new JSONObject();
+                subOrder.put("amount", order.getAmount());
+                subOrder.put("price", order.getPrice());
+                subOrder.put("productId", order.getProductId());
+                jsonArray.put(subOrder);
+            }
+            para.put("orders", jsonArray);
+        } catch (JSONException ex){
+            throw new RuntimeException(ex);
+        }
+
+        JsonObjectRequest request = new ShopKeeperJsonAuthRequest
+                (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_order), para, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject obj = response.getJSONObject("result");
+                            callBack.onResponse(null, null);
+                        } catch (JSONException ex){
+                            callBack.onResponse(null, new ShooperKeeperException(ex));
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callBack.onResponse(null, new ShooperKeeperException(error));
+                    }
+                });
+        NetworkUtil.getInstance(sContext).getQueue().add(request);
+    }
+}
