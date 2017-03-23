@@ -153,8 +153,8 @@ public class ProductManager {
             if (!Parser.isEmpty(product.getmName())) {
                 para.put("name", product.getmName());
             }
-            para.put("price", Double.toString(product.getmPrice()));
-            para.put("tax", Double.toString(product.getmTaxe()));
+            para.put("price", (int)(product.getmPrice() * 100));
+            para.put("tax", (int)(product.getmTaxe() * 100));
             if (!Parser.isEmpty(product.getmImageURL())) {
                 para.put("imageUrl", product.getmImageURL());
             }

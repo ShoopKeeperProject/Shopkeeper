@@ -52,7 +52,7 @@ public class OrderManager {
             for (Order order: orders){
                 JSONObject subOrder = new JSONObject();
                 subOrder.put("amount", order.getAmount());
-                subOrder.put("price", order.getPrice());
+                subOrder.put("price", (int)(order.getPrice() * 100));
                 subOrder.put("productId", order.getProductId());
                 jsonArray.put(subOrder);
             }
@@ -65,12 +65,12 @@ public class OrderManager {
                 (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_order), para, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject obj = response.getJSONObject("result");
+                        if (!response.isNull("result")){
                             callBack.onResponse(null, null);
-                        } catch (JSONException ex){
-                            callBack.onResponse(null, new ShooperKeeperException(ex));
+                        } else {
+                            callBack.onResponse(null, new ShooperKeeperException("System Error"));
                         }
+
                     }
                 }, new Response.ErrorListener() {
                     @Override

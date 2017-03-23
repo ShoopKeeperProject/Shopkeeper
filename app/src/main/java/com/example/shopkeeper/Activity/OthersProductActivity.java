@@ -52,7 +52,7 @@ public class OthersProductActivity extends AppCompatActivity {
                         {
                             name = "default";
                         }
-                        listP.add(new ItemMakeSellListVew(name,1,pu,taxe));
+                        listP.add(new ItemMakeSellListVew(null, name,1,pu,taxe));
                     }
                 }
                 Intent intent = new Intent(getApplicationContext(),CatalogMakeSaleMain.class);

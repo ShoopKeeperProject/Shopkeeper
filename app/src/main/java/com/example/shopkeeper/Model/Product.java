@@ -23,7 +23,7 @@ public class Product extends Category implements Parcelable{
     private double mTaxe;
 
     public Product(JSONObject obj){
-        this(JSONUtili.getString(obj, "id"), JSONUtili.getString(obj, "parentId"), JSONUtili.getString(obj, "name"), JSONUtili.getDouble(obj, "price"),  JSONUtili.getDouble(obj, "tax"),  JSONUtili.getString(obj, "imageUrl"));
+        this(JSONUtili.getString(obj, "id"), JSONUtili.getString(obj, "parentId"), JSONUtili.getString(obj, "name"), JSONUtili.getInteger(obj, "price") / 100.0,  JSONUtili.getInteger(obj, "tax") / 100.0,  JSONUtili.getString(obj, "imageUrl"));
     }
 
     public Product( String mId, String mParentId, String mName,double mPrice,double mTaxe, String mImageURL){

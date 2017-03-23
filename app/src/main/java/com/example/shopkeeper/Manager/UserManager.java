@@ -133,4 +133,31 @@ public class UserManager {
                 });
         NetworkUtil.getInstance(sContext).getQueue().add(request);
     }
+
+    public void forgetPassword(String email, final CallBack<Void> callBack){
+        if (callBack == null){
+            return;
+        }
+
+        JSONObject para = new JSONObject();
+        try {
+            para.put("email", email);
+        } catch (JSONException ex){
+            throw new RuntimeException(ex);
+        }
+
+        JsonObjectRequest request = new ShopKeeperJsonAuthRequest
+                (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_forget_password), para, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        callBack.onResponse(null, null);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callBack.onResponse(null, new ShooperKeeperException(error));
+                    }
+                });
+        NetworkUtil.getInstance(sContext).getQueue().add(request);
+    }
 }
