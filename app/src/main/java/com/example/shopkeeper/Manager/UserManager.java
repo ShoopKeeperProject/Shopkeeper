@@ -134,7 +134,7 @@ public class UserManager {
         NetworkUtil.getInstance(sContext).getQueue().add(request);
     }
 
-    public void forgetPassword(String email, final CallBack<Void> callBack){
+    public void forgetPassword(String email, final CallBack<String> callBack){
         if (callBack == null){
             return;
         }
@@ -150,7 +150,46 @@ public class UserManager {
                 (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_forget_password), para, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        callBack.onResponse(null, null);
+                        try {
+                            String secret = response.getString("result");
+                            callBack.onResponse(secret, null);
+                        } catch (JSONException ex){
+                            callBack.onResponse(null, new ShooperKeeperException(ex));
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callBack.onResponse(null, new ShooperKeeperException(error));
+                    }
+                });
+        NetworkUtil.getInstance(sContext).getQueue().add(request);
+    }
+
+
+    public void setNewPassword(String secret, String newPassword, final CallBack<Void> callBack){
+        if (callBack == null){
+            return;
+        }
+
+        JSONObject para = new JSONObject();
+        try {
+            para.put("resetSecret", secret);
+            para.put("newPassword", newPassword);
+        } catch (JSONException ex){
+            throw new RuntimeException(ex);
+        }
+
+        JsonObjectRequest request = new ShopKeeperJsonAuthRequest
+                (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_reset_password), para, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String secret = response.getString("result");
+                            callBack.onResponse(null, null);
+                        } catch (JSONException ex){
+                            callBack.onResponse(null, new ShooperKeeperException(ex));
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override

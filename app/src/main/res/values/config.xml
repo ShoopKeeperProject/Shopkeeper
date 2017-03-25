@@ -4,6 +4,7 @@
     <string name="path_signup">/signup</string>
     <string name="path_login">/login</string>
     <string name="path_forget_password">/forgetPassword</string>
+    <string name="path_reset_password">/resetPassword</string>
     <string name="path_logout">/logout</string>
     <string name="path_get_products">/productList</string>
     <string name="path_get_product">/product</string>
