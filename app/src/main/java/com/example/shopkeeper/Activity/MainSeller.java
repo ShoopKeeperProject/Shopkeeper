@@ -48,5 +48,13 @@ public class MainSeller extends AppCompatActivity {
         });
     }
 
+    //call for the Statistics page
+    public void makeReport(View v) {
+        Intent intent = new Intent(getApplicationContext(), Statistics.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("parentId", "");
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 
 }

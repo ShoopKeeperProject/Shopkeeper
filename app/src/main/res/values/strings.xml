@@ -52,5 +52,6 @@
     <string name="description">description</string>
     <string name="CategoryName">Category name</string>
     <string name="newImage">New Image</string>
-
+    <string name="topseller">Top Seller</string>
+    <string name="top10product">Top 10 Product</string>
 </resources>

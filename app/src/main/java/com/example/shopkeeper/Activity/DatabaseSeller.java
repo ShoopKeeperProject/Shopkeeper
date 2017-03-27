@@ -2,6 +2,7 @@ package com.example.shopkeeper.Activity;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -39,4 +40,10 @@ public class DatabaseSeller extends SQLiteOpenHelper    {
             return true;
     }
 
+    // Method to show all the records
+    public Cursor getAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
+        return res;
+    }
 }

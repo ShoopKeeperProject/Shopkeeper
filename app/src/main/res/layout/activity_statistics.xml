@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingTop = "50dp"
+    android:background="@drawable/bacpic">
+    <ImageView android:id="@+id/image"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="10dp"
+        android:src="@mipmap/ic_launcher" />
+    <Button android:id="@+id/topseller"
+        android:layout_width="111dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#000000"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="@string/topseller"
+        android:onClick="topseller"
+        android:layout_marginBottom="10dp" />
+
+    <Button android:id="@+id/top10"
+        android:layout_width="113dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#000000"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="@string/top10product"
+        android:onClick="top10product"/>
+
+</LinearLayout>

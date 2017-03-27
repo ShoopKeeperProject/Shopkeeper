@@ -77,7 +77,7 @@ public class shopKart extends AppCompatActivity {
                     }
                 }
 
-                //for the databasSeller
+                //for the databaseSeller
                 boolean isInserted = SellerDb.insertData(userN.getText().toString(), amounts.getText().toString());
                 if (isInserted)
                     ;
