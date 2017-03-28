@@ -1,14 +1,17 @@
 package com.example.shopkeeper.Activity;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.shopkeeper.R;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 
+import java.util.ArrayList;
+
+/*
 public class TopSeller extends AppCompatActivity {
 
     //for the databasSeller
@@ -43,4 +46,41 @@ public class TopSeller extends AppCompatActivity {
         results.setText(buffer.toString());
         //Double cnyRate = SellerDb.getDouble("CNY");
     }
+}
+*/
+public class TopSeller extends AppCompatActivity {
+
+    BarChart barchart;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        barchart = (BarChart) findViewById(R.id.bargraph);
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        barEntries.add(new BarEntry(44,0));
+        barEntries.add(new BarEntry(88,1));
+        barEntries.add(new BarEntry(66,2));
+        barEntries.add(new BarEntry(12,3));
+        barEntries.add(new BarEntry(19,4));
+        barEntries.add(new BarEntry(91,5));
+        BarDataSet barDataSet = new BarDataSet(barEntries,"Dates");
+
+        ArrayList<String> theDates = new ArrayList<>();
+        theDates.add("April");
+        theDates.add("May");
+        theDates.add("June");
+        theDates.add("July");
+        theDates.add("Au");
+        theDates.add("Sep");
+
+        BarData theData = new BarData(theDates, barDataSet);
+        barchart.setData(theData);
+
+        barchart.setTouchEnabled(true);
+        barchart.setDragEnabled(true);
+        barchart.setScaleEnabled(true);
+
+    }
+
 }

@@ -1,42 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
     tools:context="com.example.shopkeeper.Activity.TopSeller">
-    <LinearLayout
+
+    <com.github.mikephil.charting.charts.BarChart
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="First Name:" />
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/firstname"
-            />
+        android:layout_height="400dp"
+        android:id="@+id/bargraph"></com.github.mikephil.charting.charts.BarChart>
 
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent">
-
-        <TextView
-            android:id="@+id/tv_results"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:paddingLeft="5dp"
-            android:paddingTop="10dp"
-            android:text=""
-            android:textColor="#0000FF" />
-    </ScrollView>
-
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
