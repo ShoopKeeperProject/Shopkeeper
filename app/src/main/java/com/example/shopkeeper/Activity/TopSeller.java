@@ -2,7 +2,13 @@ package com.example.shopkeeper.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.example.shopkeeper.Manager.CallBack;
+import com.example.shopkeeper.Manager.OrderHistoryManager;
+import com.example.shopkeeper.Manager.ShooperKeeperException;
+import com.example.shopkeeper.Model.SellerHistoryRecord;
 import com.example.shopkeeper.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -10,6 +16,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*
 public class TopSeller extends AppCompatActivity {
@@ -54,32 +61,46 @@ public class TopSeller extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_top_seller);
 
         barchart = (BarChart) findViewById(R.id.bargraph);
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(44,0));
-        barEntries.add(new BarEntry(88,1));
-        barEntries.add(new BarEntry(66,2));
-        barEntries.add(new BarEntry(12,3));
-        barEntries.add(new BarEntry(19,4));
-        barEntries.add(new BarEntry(91,5));
-        BarDataSet barDataSet = new BarDataSet(barEntries,"Dates");
 
-        ArrayList<String> theDates = new ArrayList<>();
-        theDates.add("April");
-        theDates.add("May");
-        theDates.add("June");
-        theDates.add("July");
-        theDates.add("Au");
-        theDates.add("Sep");
-
-        BarData theData = new BarData(theDates, barDataSet);
-        barchart.setData(theData);
 
         barchart.setTouchEnabled(true);
         barchart.setDragEnabled(true);
         barchart.setScaleEnabled(true);
+
+        OrderHistoryManager.getInstance().getSellerHistory(0, new CallBack<List<SellerHistoryRecord>>() {
+            @Override
+            public void onResponse(List<SellerHistoryRecord> result, ShooperKeeperException ex) {
+                if (null != ex){
+                    Toast.makeText(TopSeller.this, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                Log.d("TopoSeller", "" + result.size());
+
+                final ArrayList<BarEntry> barEntries = new ArrayList<>();
+                final ArrayList<String> theDates = new ArrayList<>();
+                final BarDataSet barDataSet = new BarDataSet(barEntries,"Seller Performance");
+
+                for (int cnt = 0; cnt < result.size(); cnt++) {
+                    SellerHistoryRecord record = result.get(cnt);
+                    barEntries.add(new BarEntry(record.getTotalSales(), cnt));
+                    theDates.add(record.getEmail());
+
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        BarData theData = new BarData(theDates, barDataSet);
+                        barchart.setData(theData);
+                        barchart.invalidate();
+                    }
+                });
+            }
+        });
 
     }
 
