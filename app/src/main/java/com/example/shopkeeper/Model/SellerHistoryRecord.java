@@ -9,19 +9,25 @@ import org.json.JSONObject;
  */
 
 public class SellerHistoryRecord {
-    private int mTotalSales;
+    private double mTotalSales;
     private String mEmail;
+    private String mUserName;
 
     public SellerHistoryRecord(JSONObject jsonObject){
-        this.mTotalSales = JSONUtili.getInteger(jsonObject, "totalSales");
+        this.mTotalSales = JSONUtili.getInteger(jsonObject, "totalSales") / 100.0;
         this.mEmail = JSONUtili.getString(jsonObject, "email");
+        this.mUserName = JSONUtili.getString(jsonObject, "name");
     }
 
-    public int getTotalSales() {
+    public double getTotalSales() {
         return mTotalSales;
     }
 
     public String getEmail() {
         return mEmail;
+    }
+
+    public String getName(){
+        return this.mUserName;
     }
 }

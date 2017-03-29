@@ -54,6 +54,7 @@ public class OrderManager {
                 subOrder.put("amount", order.getAmount());
                 subOrder.put("price", (int)(order.getPrice() * 100));
                 subOrder.put("productId", order.getProductId());
+                subOrder.put("amount", order.getAmount());
                 jsonArray.put(subOrder);
             }
             para.put("orders", jsonArray);

@@ -14,6 +14,7 @@ import com.example.shopkeeper.R;
 
 public class Register extends AppCompatActivity {
 
+    private EditText mUserNameEditText;
     private EditText mEmailEditText;
     private EditText mPaswordEditText;
     private Button mRegisterBtn;
@@ -24,6 +25,7 @@ public class Register extends AppCompatActivity {
 
         setContentView(R.layout.activity_register);
 
+        mUserNameEditText = (EditText)findViewById(R.id.EnterUserName);
         mEmailEditText =(EditText) findViewById(R.id.EnterEmailAdd);
         mPaswordEditText = (EditText) findViewById(R.id.EnterPassword);
         mRegisterBtn = (Button)findViewById(R.id.register);
@@ -32,7 +34,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 UserManager userManager = UserManager.getInstance();
-                userManager.signUp(mEmailEditText.getText().toString(), mPaswordEditText.getText().toString(), new CallBack<Void>() {
+                userManager.signUp(mUserNameEditText.getText().toString(), mEmailEditText.getText().toString(), mPaswordEditText.getText().toString(), new CallBack<Void>() {
                     @Override
                     public void onResponse(Void result, ShooperKeeperException ex) {
                         if (null == ex){

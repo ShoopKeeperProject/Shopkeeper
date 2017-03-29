@@ -1,7 +1,10 @@
 package com.example.shopkeeper.Utilities;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by Tony on 2017/3/6.
@@ -28,6 +31,35 @@ public class JSONUtili {
 
         }
         return 0;
+    }
+
+    public static ArrayList<String> getStringArray(JSONObject jsonObject, String key){
+        ArrayList<String> res = new ArrayList<>();
+        try {
+            if (!jsonObject.isNull(key)) {
+                JSONArray jsonArray = jsonObject.getJSONArray(key);
+                for (int cnt = 0; cnt < jsonArray.length(); cnt++){
+                    res.add(jsonArray.getString(cnt));
+                }
+            }
+        } catch (JSONException ex){
+
+        }
+        return res;
+    }
+
+    public static String getFirstString(JSONObject jsonObject, String key){
+        try {
+            if (!jsonObject.isNull(key)) {
+                JSONArray jsonArray = jsonObject.getJSONArray(key);
+                if (jsonArray.length() > 0){
+                    return jsonArray.getString(0);
+                }
+            }
+        } catch (JSONException ex){
+
+        }
+        return "";
     }
 
     public static String getString(JSONObject jsonObject, String key){

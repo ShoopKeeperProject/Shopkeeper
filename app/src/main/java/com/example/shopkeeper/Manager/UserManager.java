@@ -43,7 +43,7 @@ public class UserManager {
         return sManager;
     }
 
-    public void signUp(String email, String password, final CallBack<Void> callBack){
+    public void signUp(String username, String email, String password, final CallBack<Void> callBack){
         if (callBack == null){
             return;
         }
@@ -52,6 +52,7 @@ public class UserManager {
         try {
             para.put("email", email);
             para.put("password", password);
+            para.put("username", username);
         } catch (JSONException ex){
             throw new RuntimeException(ex);
         }
@@ -166,7 +167,7 @@ public class UserManager {
         NetworkUtil.getInstance(sContext).getQueue().add(request);
     }
 
-
+    /*
     public void setNewPassword(String secret, String newPassword, final CallBack<Void> callBack){
         if (callBack == null){
             return;
@@ -199,4 +200,5 @@ public class UserManager {
                 });
         NetworkUtil.getInstance(sContext).getQueue().add(request);
     }
+    */
 }
