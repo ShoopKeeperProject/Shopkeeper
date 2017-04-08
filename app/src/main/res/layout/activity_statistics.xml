@@ -32,6 +32,6 @@
         android:textColor="#000000"
         android:backgroundTint="@android:color/holo_green_light"
         android:text="@string/top10product"
-        android:onClick="top10product"/>
+        android:onClick="topproduct"/>
 
 </LinearLayout>

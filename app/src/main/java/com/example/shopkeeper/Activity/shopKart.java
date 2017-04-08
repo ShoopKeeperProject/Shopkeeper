@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +19,6 @@ import com.example.shopkeeper.R;
 import java.util.ArrayList;
 
 public class shopKart extends AppCompatActivity {
-    //for the databasSeller
-    EditText userN;
-    String id;
-    TextView amounts;
-    DatabaseSeller SellerDb;
 
     ArrayList<ItemMakeSellListVew> listP;
     private View mConfirmBtn;
@@ -36,10 +30,6 @@ public class shopKart extends AppCompatActivity {
 
         mConfirmBtn = findViewById(R.id.Submit);
 
-        //for the databasSeller
-        userN = (EditText) findViewById(R.id.userName);
-        amounts = (TextView) findViewById(R.id.FinalPrice2);
-        SellerDb = new DatabaseSeller(this);
 
         Bundle bundle = getIntent().getExtras();
         this.listP = bundle.getParcelableArrayList("Kart list");
@@ -76,12 +66,6 @@ public class shopKart extends AppCompatActivity {
                         break;
                     }
                 }
-
-                //for the databaseSeller
-                boolean isInserted = SellerDb.insertData(userN.getText().toString(), amounts.getText().toString());
-                if (isInserted)
-                    ;
-
             }
         });
     }

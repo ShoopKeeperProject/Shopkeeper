@@ -21,8 +21,8 @@ public class Statistics extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
-    public void top10product(View v) {
-        Intent intent = new Intent(getApplicationContext(), Statistics.class);
+    public void topproduct(View v) {
+        Intent intent = new Intent(getApplicationContext(), TopProduct.class);
         Bundle bundle = new Bundle();
         bundle.putString("parentId", "");
         intent.putExtras(bundle);
