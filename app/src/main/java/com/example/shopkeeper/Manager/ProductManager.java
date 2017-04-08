@@ -155,9 +155,16 @@ public class ProductManager {
             }
             para.put("price", (int)(product.getmPrice() * 100));
             para.put("tax", (int)(product.getmTaxe() * 100));
-            if (!Parser.isEmpty(product.getmImageURL())) {
-                para.put("imageUrl", product.getmImageURL());
+
+            if (product.getOthersImagesURL() != null && !product.getOthersImagesURL().isEmpty()) {
+                ArrayList<String> urls = product.getOthersImagesURL();
+                JSONArray array = new JSONArray();
+                for (String myURL: urls){
+                    array.put(myURL);
+                }
+                para.put("imageUrl", array);
             }
+
             if (!Parser.isEmpty(product.getmParentId())) {
                 para.put("parentId", product.getmParentId());
             }
