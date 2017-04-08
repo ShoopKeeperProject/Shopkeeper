@@ -86,7 +86,7 @@ public class TopSeller extends AppCompatActivity {
 
                 for (int cnt = 0; cnt < result.size(); cnt++) {
                     SellerHistoryRecord record = result.get(cnt);
-                    barEntries.add(new BarEntry(record.getTotalSales(), cnt));
+                    barEntries.add(new BarEntry((float)record.getTotalSales(), cnt));
                     theDates.add(record.getEmail());
 
                 }
