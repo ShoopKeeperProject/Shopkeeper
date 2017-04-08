@@ -26,10 +26,6 @@ public class TopProduct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_product);
 
-        setuppiechart();
-    }
-
-    private void setuppiechart() {
 
         PieChart = (BarChart) findViewById(R.id.PieChart);
 
