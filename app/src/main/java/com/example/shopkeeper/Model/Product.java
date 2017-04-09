@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.example.shopkeeper.Utilities.JSONUtili;
 import com.example.shopkeeper.Utilities.Parser;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,6 +26,15 @@ public class Product extends Category implements Parcelable{
     public Product(JSONObject obj){
         this(JSONUtili.getString(obj, "id"), JSONUtili.getString(obj, "parentId"), JSONUtili.getString(obj, "name"), JSONUtili.getInteger(obj, "price") / 100.0,  JSONUtili.getInteger(obj, "tax") / 100.0,  JSONUtili.getFirstString(obj, "imageUrl"));
         this.OthersImagesURL = JSONUtili.getStringArray(obj, "imageUrl");
+        mDescription = new ArrayList<>();
+        try {
+            JSONArray items = obj.getJSONArray("productDescription");
+            for (int cnt = 0; cnt < items.length(); cnt++){
+                JSONObject item = items.getJSONObject(cnt);
+                AddProductDescription(new ProductDescription(JSONUtili.getString(item, "title"), (JSONUtili.getString(item, "description"))));
+            }
+        } catch (JSONException ex){
+        }
     }
 
     public Product( String mId, String mParentId, String mName,double mPrice,double mTaxe, String mImageURL){
