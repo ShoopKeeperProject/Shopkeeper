@@ -54,7 +54,7 @@ public class EditCatalogMainActivity extends AppCompatActivity {
         mAdapter = new EditCatalogResiclerViewAdaptateur(this,items);
         mResiclerView.setAdapter(mAdapter);
 
-        ProductManager.getInstance().getList(parentId, new CallBack<List<Category>>() {
+        ProductManager.getInstance().getList(parentId, null, new CallBack<List<Category>>() {
             @Override
             public void onResponse(List<Category> result, ShooperKeeperException ex) {
                 if (null != ex){

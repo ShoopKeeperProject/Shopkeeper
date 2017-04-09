@@ -60,12 +60,20 @@ public class ProductManager {
         return sProductRepo;
     }
 
-    public void getList(String parentId, final CallBack<List<Category>> callBack){
+    public void getList(String parentId, Boolean isEnabled, final CallBack<List<Category>> callBack){
         if (callBack == null){
             return;
         }
 
-        String para = parentId == null || parentId.isEmpty() ? "" :  "?parentId=" + parentId;
+        String para = (parentId == null || parentId.isEmpty()) ? "" :  "?parentId=" + parentId;
+        if (isEnabled != null){
+            if (para.isEmpty()){
+                para = "?";
+            } else {
+                para += "&";
+            }
+            para += ("isEnabled=" + isEnabled);
+        }
         JsonObjectRequest request = new ShopKeeperJsonAuthRequest
                 (Request.Method.GET, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_get_products) + para, null, new Response.Listener<JSONObject>() {
                     @Override

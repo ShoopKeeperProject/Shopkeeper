@@ -110,7 +110,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
             }
         });
 
-        ProductManager.getInstance().getList(parentId, new CallBack<List<Category>>() {
+        ProductManager.getInstance().getList(parentId, true, new CallBack<List<Category>>() {
             @Override
             public void onResponse(List<Category> result, ShooperKeeperException ex) {
                 if (null != ex){
