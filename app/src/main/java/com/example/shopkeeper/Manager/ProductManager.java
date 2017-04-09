@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.android.volley.NetworkResponse;
@@ -175,6 +176,54 @@ public class ProductManager {
                 for (int cnt = 0; cnt < descriptionSize; cnt++){
                     JSONObject jsonObject = new JSONObject();
                     ProductDescription description = product.getmDescription(cnt);
+                    jsonObject.put("title", description.getMtitle());
+                    jsonObject.put("description", description.getMdescription());
+                    jsonArray.put(jsonObject);
+                }
+                para.put("productDescription", jsonArray);
+            }
+        } catch (JSONException ex){
+            throw new RuntimeException(ex);
+        }
+
+        JsonObjectRequest request = new ShopKeeperJsonAuthRequest
+                (Request.Method.POST, NetworkUtil.buildURL(sContext, R.string.server_base_url, R.string.path_create_or_update_product), para, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject obj = response.getJSONObject("result");
+                            callBack.onResponse(new Product(obj), null);
+                        } catch (JSONException ex){
+                            callBack.onResponse(null, new ShooperKeeperException(ex));
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callBack.onResponse(null, new ShooperKeeperException(error));
+                    }
+                });
+        NetworkUtil.getInstance(sContext).getQueue().add(request);
+    }
+
+    public void updateProductDescription(@NonNull String productId, ProductDescription[] descriptions, final CallBack<Product> callBack){
+        if (callBack == null){
+            return;
+        }
+        if (productId == null || productId.isEmpty()){
+            throw new RuntimeException("Please enter product id");
+        }
+        JSONObject para = new JSONObject();
+        String url = null;
+        try {
+            para.put("id", productId);
+
+            int descriptionSize = descriptions.length;
+            if (descriptionSize > 0){
+                JSONArray jsonArray = new JSONArray();
+                for (int cnt = 0; cnt < descriptionSize; cnt++){
+                    JSONObject jsonObject = new JSONObject();
+                    ProductDescription description = descriptions[cnt];
                     jsonObject.put("title", description.getMtitle());
                     jsonObject.put("description", description.getMdescription());
                     jsonArray.put(jsonObject);
