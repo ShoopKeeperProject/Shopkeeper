@@ -18,15 +18,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.shopkeeper.Model.Product;
 import com.example.shopkeeper.Model.ProductDescription;
 import com.example.shopkeeper.R;
+
+import java.util.ArrayList;
 
 public class EditableProductPage extends AppCompatActivity {
 
     private ImageView mSwitcher;
 
-    private Integer[] mImageIds = { R.drawable.prod1,R.drawable.prod2,R.drawable.prod1, R.drawable.prod2 };
     private Product product;
     private boolean dataChange;
     private int position;
@@ -43,7 +45,15 @@ public class EditableProductPage extends AppCompatActivity {
         this.position = bundle.getInt("position");
 
         mSwitcher = (ImageView) findViewById(R.id.ProductSwitcher);
-        mSwitcher.setImageResource(mImageIds[0]);
+        ArrayList<String> images = product.getOthersImagesURL();
+        if (images != null && images.size() > 0) {
+            String url = images.get(0);
+            if (url != null && !url.isEmpty()) {
+                Glide.with(getApplicationContext())
+                        .load(url)
+                        .into(mSwitcher);
+            }
+        }
         ///
         /*
         mSwitcher = (ImageSwitcher) findViewById(R.id.ProductSwitcher);
@@ -63,26 +73,39 @@ public class EditableProductPage extends AppCompatActivity {
             ItemName.setText(product.getmName());
         }
         LinearLayout galery = (LinearLayout) findViewById(R.id.ProductGallery);
-        for (int i =0; i<4; i++)
+        for (int i =0; i<images.size(); i++)
         {
             ImageView Image = new ImageView(this);
-            Image.setImageResource(mImageIds[i]);
             DisplayMetrics dm = Image.getResources().getDisplayMetrics();
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(convertDpToPx(50, dm)/*LinearLayout.LayoutParams.WRAP_CONTENT*/, ViewGroup.LayoutParams.MATCH_PARENT);
 
             lp.setMargins(convertDpToPx(1, dm), convertDpToPx(1, dm), convertDpToPx(1, dm), convertDpToPx(1, dm));
             Image.setLayoutParams(lp);
             Image.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            Image.setTag(new Integer(i));
+            Image.setId(i);
             Image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v)
                 {
-                    int nb = (int) v.getTag();
-                    mSwitcher.setImageResource(mImageIds[nb]);
+                    int nb = (int) v.getId();
+                    ArrayList<String> images = product.getOthersImagesURL();
+                    if (images != null && images.size() > nb){
+                        String url = images.get(nb);
+                        if (url != null && !url.isEmpty()){
+                            Glide.with(getApplicationContext())
+                                    .load(url)
+                                    .into(mSwitcher);
+                        }
+                    }
                 }
             });
             galery.addView(Image);
+            String url = images.get(i);
+            if (url != null && !url.isEmpty()) {
+                Glide.with(getApplicationContext())
+                        .load(url)
+                        .into(Image);
+            }
         }
 
         price = (EditText) findViewById(R.id.productPrice);
@@ -127,7 +150,7 @@ public class EditableProductPage extends AppCompatActivity {
             com.example.shopkeeper.Model.ProductDescription productDescription= this.product.getmDescription(i);
             TextView title = new TextView(this);
             TextView description = new TextView(this);
-            description.setTag(new Integer(i));
+            description.setId(new Integer(i));
             title.setText(productDescription.getMtitle());
             title.setTextColor(0xff000000);
             title.setTypeface(null, Typeface.BOLD);
@@ -137,7 +160,7 @@ public class EditableProductPage extends AppCompatActivity {
             description.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    int pos = (int) v.getTag();
+                    int pos = (int) v.getId();
                     Intent intent = new Intent(getApplicationContext(),EditCatalogChangeDescription.class);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("description",product.getmDescription(pos));

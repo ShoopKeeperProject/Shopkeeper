@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.shopkeeper.Activity.CatalogMakeSaleMain;
 import com.example.shopkeeper.Activity.OthersProductActivity;
 import com.example.shopkeeper.Activity.ProductPage;
@@ -130,8 +131,13 @@ public class MakeSaleResiclerViewAdaptateur extends RecyclerView.Adapter<MakeSal
             view.setBackgroundColor(0xd8d8d8);
         }
         holder.ItemName.setText(item.getmName());
-        holder.ItemImage.setImageResource(R.drawable.icon_128);
-
+        if (mContext != null && item.getmImageURL() != null && !item.getmImageURL().isEmpty()) {
+            Glide.with(mContext.getApplicationContext())
+                    .load(item.getmImageURL())
+                    .into(holder.ItemImage);
+        } else {
+            holder.ItemImage.setImageResource(R.drawable.icon_128);
+        }
 
     }
 

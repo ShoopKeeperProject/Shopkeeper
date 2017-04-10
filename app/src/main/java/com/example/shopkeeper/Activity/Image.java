@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -23,6 +22,7 @@ import android.widget.ZoomControls;
 
 import com.example.shopkeeper.Manager.ShooperKeeperException;
 import com.example.shopkeeper.Model.Category;
+import com.example.shopkeeper.Model.Product;
 import com.example.shopkeeper.R;
 
 import java.io.ByteArrayOutputStream;
@@ -178,22 +178,25 @@ public class Image extends Activity {
 			e.printStackTrace();
 		}
 
-		//****use uploadImage() to get the ****
+		//****use uploadImage() to get the code****
 
-		//Toast.makeText(getBaseContext(), (CharSequence) destination, Toast.LENGTH_LONG).show();
-		Log.d("image", "img: " + destination.getAbsolutePath());
-		Uri uri = Uri.parse("file://" + destination.getAbsolutePath());
+		Uri uri = Uri.parse(String.valueOf(destination));
 
 		ProductManager.getInstance().uploadImage(uri, new CallBack<String>() {
 			@Override
 			public void onResponse(String result, ShooperKeeperException ex) {
-				if (ex != null) {
-					ex.printStackTrace();
-					return;
-				}
+				//for getting the code
 				Toast.makeText(getBaseContext(), result, Toast.LENGTH_LONG).show();
 			}
 		});
+
+		ProductManager.getInstance().createOrUpdateProduct(result,new CallBack<Product>() {
+			@Override
+			public void onResponse(Product result, ShooperKeeperException ex) {
+				//for update the server
+			}
+		});
+
 		//for testing if the image is taken
 		ivImage.setImageBitmap(thumbnail);
 	}

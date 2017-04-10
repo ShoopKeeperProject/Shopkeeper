@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.shopkeeper.Activity.EditCatalogMainActivity;
 import com.example.shopkeeper.Activity.EditableCategoryPage;
 import com.example.shopkeeper.Activity.EditableProductPage;
@@ -121,7 +122,13 @@ public class EditCatalogResiclerViewAdaptateur extends RecyclerView.Adapter<Edit
         holder.ItemImage.setImageResource(R.drawable.icon_128);
         //holder.ItemImage.setScaleType(ImageView.ScaleType.FIT_XY);
 
-
+        if (mContext != null && item.getmImageURL() != null && !item.getmImageURL().isEmpty()) {
+            Glide.with(mContext.getApplicationContext())
+                    .load(item.getmImageURL())
+                    .into(holder.ItemImage);
+        } else {
+            holder.ItemImage.setImageResource(R.drawable.icon_128);
+        }
     }
 
     @Override

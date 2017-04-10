@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.shopkeeper.Model.Category;
 import com.example.shopkeeper.R;
 
@@ -38,6 +39,11 @@ public class EditableCategoryPage extends AppCompatActivity {
         categoryName = (EditText) findViewById(R.id.CategoryName);
         if (!category.getmName().isEmpty()) {
             categoryName.setText(category.getmName());
+        }
+        if (category.getmImageURL() != null && !category.getmImageURL().isEmpty()){
+            Glide.with(getApplicationContext())
+                    .load(category.getmImageURL())
+                    .into(image);
         }
     }
 
