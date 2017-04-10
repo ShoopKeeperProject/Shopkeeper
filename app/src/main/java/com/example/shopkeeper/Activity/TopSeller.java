@@ -1,5 +1,6 @@
 package com.example.shopkeeper.Activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +12,7 @@ import com.example.shopkeeper.Manager.ShooperKeeperException;
 import com.example.shopkeeper.Model.SellerHistoryRecord;
 import com.example.shopkeeper.R;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -70,6 +72,11 @@ public class TopSeller extends AppCompatActivity {
         barchart.setDragEnabled(true);
         barchart.setScaleEnabled(true);
 
+        XAxis xAxis = barchart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextSize(10f);
+        xAxis.setTextColor(Color.BLACK);
+
         OrderHistoryManager.getInstance().getSellerHistory(0, new CallBack<List<SellerHistoryRecord>>() {
             @Override
             public void onResponse(List<SellerHistoryRecord> result, ShooperKeeperException ex) {
@@ -87,7 +94,7 @@ public class TopSeller extends AppCompatActivity {
                 for (int cnt = 0; cnt < result.size(); cnt++) {
                     SellerHistoryRecord record = result.get(cnt);
                     barEntries.add(new BarEntry((float)record.getTotalSales(), cnt));
-                    theDates.add(record.getEmail());
+                    theDates.add(record.getName());
                     Log.d("geztTotalSales", "" + record.getTotalSales() + " " + cnt + " " + record.getEmail());
                 }
 
