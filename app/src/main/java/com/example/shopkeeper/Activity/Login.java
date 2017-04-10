@@ -3,6 +3,7 @@ package com.example.shopkeeper.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shopkeeper.Manager.CallBack;
@@ -30,6 +32,10 @@ public class Login extends AppCompatActivity {
     EditText userNamev;
     EditText passwordv;
 
+    TextView no_attempt;
+    int counter = 3;
+    Button LoginButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +43,10 @@ public class Login extends AppCompatActivity {
 
         userNamev = (EditText) findViewById(R.id.userName);
         passwordv = (EditText) findViewById(R.id.password);
+        no_attempt = (TextView) findViewById(R.id.textView_no_attempt);
 
-        final Button LoginButton = (Button) findViewById(R.id.Login);
+        //final Button LoginButton = (Button) findViewById(R.id.Login);
+        LoginButton = (Button) findViewById(R.id.Login);
         LoginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 onLoginClick();
@@ -63,7 +71,7 @@ public class Login extends AppCompatActivity {
         final Button ForgetPasswordButton = (Button) findViewById(R.id.forgetPassword);
         ForgetPasswordButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),ForgetPassword.class);
+                Intent intent = new Intent(getApplicationContext(), ForgetPassword.class);
                 //Bundle bundle = new Bundle();
                 //bundle.putString("seller/customer", "seller");
                 startActivity(intent);
@@ -71,32 +79,30 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    protected void onRegisterClick()
-    {
+    protected void onRegisterClick() {
 
-        Intent intent = new Intent(getApplicationContext(),Register.class);
+        Intent intent = new Intent(getApplicationContext(), Register.class);
         //Bundle bundle = new Bundle();
         //bundle.putString("seller/customer", "seller");
         startActivity(intent);
     }
 
-    protected void onLoginClick()
-    {
+    protected void onLoginClick() {
         CheckPassword checkPassword = new CheckPassword();
-        final String password = passwordv.getText().toString();;
+        final String password = passwordv.getText().toString();
+        ;
         final String name = userNamev.getText().toString();
         UserManager.getInstance().login(name, password, new CallBack<User>() {
             @Override
             public void onResponse(User result, ShooperKeeperException ex) {
-                if (null == ex && result != null){
-                    if (remeberMe)
-                    {
+                if (null == ex && result != null) {
+                    if (remeberMe) {
                         defaultName = name;
                         defaultpassword = password;
                         defaultNameCheck = true;
-                        savePreferences(defaultName,defaultpassword,defaultNameCheck);
+                        savePreferences(defaultName, defaultpassword, defaultNameCheck);
                     }
-                    Intent intent = new Intent(getApplicationContext(),MainSeller.class);
+                    Intent intent = new Intent(getApplicationContext(), MainSeller.class);
                     //Bundle bundle = new Bundle();
                     //bundle.putString("seller/customer", "seller");
                     startActivity(intent);
@@ -105,14 +111,21 @@ public class Login extends AppCompatActivity {
                             .setTitle(R.string.IncorrectLogin)
                             .setMessage(R.string.WrongPasswordOrName)
                             .setPositiveButton(R.string.Ok,
-                                    new DialogInterface.OnClickListener(){
+                                    new DialogInterface.OnClickListener() {
                                         public void onClick(
-                                                DialogInterface dialoginterface, int i){
+                                                DialogInterface dialoginterface, int i) {
                                         }
                                     })
                             .show();
 
                     Toast.makeText(Login.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    counter--;
+                    no_attempt.setText(Integer.toString(counter));
+                    if (counter==0){
+                        LoginButton.setTextColor(Color.parseColor("red"));
+                        LoginButton.setEnabled(false);
+                    }
                 }
             }
         });
@@ -163,13 +176,12 @@ public class Login extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart()
-    {
+    protected void onStart() {
         super.onStart();
         loadPreferences();
     }
 
-    public void savePreferences(String name,String password,boolean checked) {
+    public void savePreferences(String name, String password, boolean checked) {
         SharedPreferences pref = getSharedPreferences("Login", MODE_PRIVATE);
         pref.edit().putString("name", name).apply();
         pref.edit().putString("passwordv", password).apply();

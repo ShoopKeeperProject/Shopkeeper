@@ -98,5 +98,27 @@
             android:layout_alignLeft="@+id/forgetUserName"
             android:layout_alignStart="@+id/forgetUserName" />
     </RelativeLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TableRow>
+            <TextView
+                android:id="@+id/textView_attempt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="#000000"
+
+                android:text="Number of Attempts left:  " />
+
+            <TextView
+                android:id="@+id/textView_no_attempt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                />
+        </TableRow>
+    </TableLayout>
 
 </LinearLayout>
