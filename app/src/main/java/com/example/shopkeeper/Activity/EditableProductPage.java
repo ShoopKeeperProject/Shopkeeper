@@ -109,8 +109,7 @@ public class EditableProductPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),Image.class);
-                Bundle bundle = new Bundle();
-                startActivityForResult(intent, 2);
+                startActivity(intent);
             }
         });
 
