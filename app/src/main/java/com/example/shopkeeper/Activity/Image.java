@@ -17,7 +17,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ZoomControls;
+
+import com.example.shopkeeper.Manager.ShooperKeeperException;
+import com.example.shopkeeper.Model.Category;
 import com.example.shopkeeper.R;
 
 import java.io.ByteArrayOutputStream;
@@ -25,6 +29,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
+
+import com.example.shopkeeper.Manager.ProductManager;
+import com.example.shopkeeper.Manager.CallBack;
+
 
 public class Image extends Activity {
 
@@ -153,7 +162,7 @@ public class Image extends Activity {
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
-		File destination = new File(Environment.getExternalStorageDirectory(),
+		final File destination = new File(Environment.getExternalStorageDirectory(),
 				System.currentTimeMillis() + ".jpg");
 
 		FileOutputStream fo;
@@ -168,15 +177,19 @@ public class Image extends Activity {
 			e.printStackTrace();
 		}
 
-		//****should be return to david page and give him the image****
-		//Intent data = new Intent();
-		//EditText returnMessage = (EditText) findViewById(R.id.editText);
-		//data.setData(Uri.parse(returnMessage.getText().toString()));
-		//setResult(RESULT_OK, data);
-		//finish();
+		//****use uploadImage() to get the ****
 
+		Toast.makeText(getBaseContext(), (CharSequence) destination, Toast.LENGTH_LONG).show();
 
+		Uri uri = Uri.parse(String.valueOf(destination));
 
+		ProductManager.getInstance().uploadImage(uri, new CallBack<String>() {
+			@Override
+			public void onResponse(String result, ShooperKeeperException ex) {
+				//Toast.makeText(getBaseContext(), result, Toast.LENGTH_LONG).show();
+			}
+		});
+		//for testing if the image is taken
 		ivImage.setImageBitmap(thumbnail);
 	}
 
