@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -179,14 +180,18 @@ public class Image extends Activity {
 
 		//****use uploadImage() to get the ****
 
-		Toast.makeText(getBaseContext(), (CharSequence) destination, Toast.LENGTH_LONG).show();
-
-		Uri uri = Uri.parse(String.valueOf(destination));
+		//Toast.makeText(getBaseContext(), (CharSequence) destination, Toast.LENGTH_LONG).show();
+		Log.d("image", "img: " + destination.getAbsolutePath());
+		Uri uri = Uri.parse("file://" + destination.getAbsolutePath());
 
 		ProductManager.getInstance().uploadImage(uri, new CallBack<String>() {
 			@Override
 			public void onResponse(String result, ShooperKeeperException ex) {
-				//Toast.makeText(getBaseContext(), result, Toast.LENGTH_LONG).show();
+				if (ex != null) {
+					ex.printStackTrace();
+					return;
+				}
+				Toast.makeText(getBaseContext(), result, Toast.LENGTH_LONG).show();
 			}
 		});
 		//for testing if the image is taken
