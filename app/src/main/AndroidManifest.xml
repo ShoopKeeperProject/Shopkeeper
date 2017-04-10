@@ -36,7 +36,8 @@
         <activity android:name=".Activity.EditableCategoryPage" />
         <activity android:name=".Activity.Statistics" />
         <activity android:name=".Activity.TopSeller" />
-        <activity android:name=".Activity.TopProduct"></activity>
+        <activity android:name=".Activity.TopProduct" />
+        <activity android:name=".Activity.SettingActivity" />
     </application>
 
 </manifest>

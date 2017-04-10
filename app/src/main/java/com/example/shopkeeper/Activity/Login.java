@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -40,6 +41,9 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = preferences.getString("Name", "");
+        setTitle(name);
 
         userNamev = (EditText) findViewById(R.id.userName);
         passwordv = (EditText) findViewById(R.id.password);

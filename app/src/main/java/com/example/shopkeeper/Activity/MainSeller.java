@@ -57,4 +57,11 @@ public class MainSeller extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void setting(View v) {
+        Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("parentId", "");
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

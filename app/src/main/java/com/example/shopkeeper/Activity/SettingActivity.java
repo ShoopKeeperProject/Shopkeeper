@@ -1,17 +1,16 @@
 package com.example.shopkeeper.Activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.shopkeeper.R;
 
-public class MainActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity {
+
     EditText mCoName;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
@@ -19,19 +18,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        final Button button = (Button) findViewById(R.id.seller);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Login.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("seller/customer", "seller");
-                startActivity(intent);
-            }
-        });
+        setContentView(R.layout.activity_setting);
+        mCoName = (EditText) findViewById(R.id.name_change);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String name = preferences.getString("Name", "");
         setTitle(name);
     }
+
+    public void mClick(View v) {
+        //Log.v("EditText", mCoName.getText().toString());
+        setTitle(mCoName.getText().toString());
+        editor = preferences.edit();
+        editor.putString("Name", mCoName.getText().toString());
+        editor.apply();
+    }
+
 }
+
