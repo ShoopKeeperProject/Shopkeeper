@@ -42,14 +42,8 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         this.parentId = bundle.getString("parentId");
         if (savedInstanceState == null) {
-
-            // get parent id
-
-
             this.listP = bundle.getParcelableArrayList("Kart list");
-
         } else { // savedInstanceState has saved values
-
             this.listP = savedInstanceState.getParcelableArrayList("Kart list3");
         }
 
@@ -137,9 +131,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
                             new DialogInterface.OnClickListener(){
                                 public void onClick(DialogInterface dialoginterface, int i)
                                 {
-                                    Intent intent = new Intent(getApplicationContext(),MainSeller.class);
-                                    startActivity(intent);
-                                    finish();
+                                    CatalogMakeSaleMain.super.onBackPressed();
                                 }
                             })
                     .setNegativeButton(R.string.Cancel,
@@ -153,6 +145,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
         }
         else
         {
+            /*
             Intent intent = new Intent(getApplicationContext(),CatalogMakeSaleMain.class);
             Bundle bundle = new Bundle();
             bundle.putString("parentId", "");
@@ -160,6 +153,11 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
             intent.putExtras(bundle);
             startActivity(intent);
             finish();
+            */
+            Intent intent = new Intent();
+            intent.putExtra("parentId", "");
+            intent.putParcelableArrayListExtra("Kart list",listP);
+            super.onBackPressed();
         }
 
         /*
@@ -182,14 +180,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-
-        // Save UI state changes to the savedInstanceState.
-        // This bundle will be passed to onCreate if the process is
-        // killed and restarted.
-        //savedInstanceState.putString("parentId3", parentId);
         savedInstanceState.putParcelableArrayList("Kart list3", listP);
-
-        // etc.
         super.onSaveInstanceState(savedInstanceState);
     }
     //onRestoreInstanceState

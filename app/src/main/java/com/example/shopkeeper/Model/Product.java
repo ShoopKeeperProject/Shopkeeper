@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.example.shopkeeper.Utilities.JSONUtili;
-import com.example.shopkeeper.Utilities.Parser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +34,7 @@ public class Product extends Category implements Parcelable{
             }
         } catch (JSONException ex){
         }
+
     }
 
     public Product( String mId, String mParentId, String mName,double mPrice,double mTaxe, String mImageURL){

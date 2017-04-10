@@ -54,4 +54,6 @@
     <string name="newImage">New Image</string>
     <string name="topseller">Top Seller</string>
     <string name="top10product">Top 10 Product</string>
+    <string name="delete">delete</string>
+    <string name="WarningMessageDelete">If you go back the current item will be delete</string>
 </resources>

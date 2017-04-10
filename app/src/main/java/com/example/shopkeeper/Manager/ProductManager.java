@@ -58,7 +58,7 @@ public class ProductManager {
             sProductRepo = new ProductManager();
         }
         return sProductRepo;
-    }
+}
 
     public void getList(String parentId, Boolean isEnabled, final CallBack<List<Category>> callBack){
         if (callBack == null){

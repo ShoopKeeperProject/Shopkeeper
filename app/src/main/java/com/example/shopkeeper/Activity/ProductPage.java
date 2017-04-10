@@ -70,6 +70,21 @@ public class ProductPage extends AppCompatActivity {
             });
             galery.addView(Image);
         }
+        /*
+        ProductDescription[] descriptions;
+        ProductManager.getInstance().updateProductDescription(product.getmId(),descriptions , new CallBack<Product>() {
+            @Override
+            public void onResponse(Product result, ShooperKeeperException ex) {
+                if (null != ex){
+                    Toast.makeText(ProductPage.this, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                product
+            }
+
+
+        });
+        */
 
         LinearLayout ProductDescription = (LinearLayout) findViewById(R.id.ProductDescription);
         for(int i=0; i<this.product.GetProductDescriptionSize();i++)

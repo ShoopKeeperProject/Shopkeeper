@@ -1,7 +1,9 @@
 package com.example.shopkeeper.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,6 +58,31 @@ public class EditableCategoryPage extends AppCompatActivity {
                 return true;
             case R.id.menu_exit:
                 onBackPressed();
+                return true;
+            case R.id.menu_delete:
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.Warning)
+                        .setMessage(R.string.WarningMessageDelete)
+                        .setPositiveButton(R.string.Ok,
+                                new DialogInterface.OnClickListener(){
+                                    public void onClick(DialogInterface dialoginterface, int i)
+                                    {
+                                        //
+                                        dataChange = true;
+
+                                        EditableCategoryPage.this.onBackPressed();
+
+                                    }
+                                })
+                        .setNegativeButton(R.string.Cancel,
+                                new DialogInterface.OnClickListener(){
+                                    public void onClick(DialogInterface dialoginterface, int i)
+                                    {
+
+                                    }
+                                })
+                        .show();
+
                 return true;
         }
         return false;

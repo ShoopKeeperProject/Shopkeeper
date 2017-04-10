@@ -1,8 +1,10 @@
 package com.example.shopkeeper.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -103,7 +105,7 @@ public class EditableProductPage extends AppCompatActivity {
         });
 
         Button addImage = (Button) findViewById(R.id.addImage);
-        addDescription.setOnClickListener(new View.OnClickListener() {
+        addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),Image.class);
@@ -173,6 +175,32 @@ public class EditableProductPage extends AppCompatActivity {
                 return true;
             case R.id.menu_exit:
                 onBackPressed();
+                return true;
+
+            case R.id.menu_delete:
+
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.Warning)
+                        .setMessage(R.string.WarningMessageDelete)
+                        .setPositiveButton(R.string.Ok,
+                                new DialogInterface.OnClickListener(){
+                                    public void onClick(DialogInterface dialoginterface, int i)
+                                    {
+                                        //
+                                        dataChange = true;
+
+                                        EditableProductPage.this.onBackPressed();
+
+                                    }
+                                })
+                        .setNegativeButton(R.string.Cancel,
+                                new DialogInterface.OnClickListener(){
+                                    public void onClick(DialogInterface dialoginterface, int i)
+                                    {
+
+                                    }
+                                })
+                        .show();
                 return true;
         }
         return false;
