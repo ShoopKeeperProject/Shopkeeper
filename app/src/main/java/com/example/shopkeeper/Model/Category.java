@@ -17,6 +17,7 @@ public class Category  implements Parcelable{
     protected String mName;
     protected String mImageURL;
     protected boolean product;
+    protected boolean mIsEnable = true;
 
     public Category(JSONObject obj) throws JSONException{
         this(obj.getString("id"), obj.getString("parentId"), obj.getString("name"), obj.getString("imageUrl"));
@@ -37,6 +38,9 @@ public class Category  implements Parcelable{
         mParentId = in.readString();
         mName = in.readString();
         mImageURL = in.readString();
+        boolean[] value = new boolean[1];
+        in.readBooleanArray(value);
+        mIsEnable = value[0];
         this.product = false;
     }
 
@@ -47,6 +51,9 @@ public class Category  implements Parcelable{
         dest.writeString(mParentId);
         dest.writeString(mName);
         dest.writeString(mImageURL);
+        boolean[]value = new boolean[1];
+        value[0] = mIsEnable;
+        dest.writeBooleanArray(value);
     }
 
     // Creator
@@ -108,5 +115,13 @@ public class Category  implements Parcelable{
 
     public double getmPrice() {
         return 0;
+    }
+
+    public boolean isEnable() {
+        return mIsEnable;
+    }
+
+    public void setIsEnable(boolean mIsEnable) {
+        this.mIsEnable = mIsEnable;
     }
 }

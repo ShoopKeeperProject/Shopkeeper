@@ -88,7 +88,7 @@ public class TopSeller extends AppCompatActivity {
                     SellerHistoryRecord record = result.get(cnt);
                     barEntries.add(new BarEntry((float)record.getTotalSales(), cnt));
                     theDates.add(record.getEmail());
-
+                    Log.d("geztTotalSales", "" + record.getTotalSales() + " " + cnt + " " + record.getEmail());
                 }
 
                 runOnUiThread(new Runnable() {
@@ -96,6 +96,7 @@ public class TopSeller extends AppCompatActivity {
                     public void run() {
                         BarData theData = new BarData(theDates, barDataSet);
                         barchart.setData(theData);
+
                         barchart.invalidate();
                     }
                 });
