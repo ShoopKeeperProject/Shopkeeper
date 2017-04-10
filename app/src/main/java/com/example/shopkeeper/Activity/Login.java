@@ -44,7 +44,7 @@ public class Login extends AppCompatActivity {
         userNamev = (EditText) findViewById(R.id.userName);
         passwordv = (EditText) findViewById(R.id.password);
         no_attempt = (TextView) findViewById(R.id.textView_no_attempt);
-
+        no_attempt.setText(Integer.toString(counter));
         //final Button LoginButton = (Button) findViewById(R.id.Login);
         LoginButton = (Button) findViewById(R.id.Login);
         LoginButton.setOnClickListener(new View.OnClickListener() {
