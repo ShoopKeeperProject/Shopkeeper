@@ -76,8 +76,8 @@ public class MakeSaleResiclerViewAdaptateur extends RecyclerView.Adapter<MakeSal
                         Bundle bundle = new Bundle();
                         bundle.putParcelableArrayList("Kart list",listViewAdaptateur.items);
                         intent.putExtras(bundle);
-                        //mContext.startActivityForResult(intent, 1);
-                        mContext.startActivity(intent);
+                        mContext.startActivityForResult(intent, 1);
+                        //mContext.startActivity(intent);
                     }
                     else
                     {
@@ -92,8 +92,9 @@ public class MakeSaleResiclerViewAdaptateur extends RecyclerView.Adapter<MakeSal
                     bundle.putString("parentId", item2.getmId());
                     bundle.putParcelableArrayList("Kart list",listViewAdaptateur.items);
                     intent.putExtras(bundle);
-                        mContext.startActivityForResult(intent, 1);
-                   // mContext.startActivity(intent);
+                        mContext.startActivityForResult(intent, 10);
+                    //mContext.startActivity(intent);
+
                 }
 
             }
@@ -147,14 +148,21 @@ public class MakeSaleResiclerViewAdaptateur extends RecyclerView.Adapter<MakeSal
     }
 
     public void add(Category item){
-        items.add(item);
-        notifyItemInserted(items.size() - 1);
+        if (item.isEnable()) {
+            items.add(item);
+            notifyItemInserted(items.size() - 1);
+        }
     }
 
     public void addAll(List<Category> categories){
-        int length = items.size();
-        items.addAll(categories);
-        notifyItemRangeInserted(length, categories.size());
+
+        int length = categories.size();
+        for (int i = 0; i< length; i++)
+        {
+            add(categories.get(i));
+        }
+        //items.addAll(categories);
+        //notifyItemRangeInserted(length, categories.size());
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

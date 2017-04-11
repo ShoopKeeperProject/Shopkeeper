@@ -24,7 +24,7 @@ public class shopKart extends AppCompatActivity {
 
     ArrayList<ItemMakeSellListVew> listP;
     private View mConfirmBtn;
-
+    private int resultAct = RESULT_OK;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +65,9 @@ public class shopKart extends AppCompatActivity {
                                 if (ex != null){
                                     Toast.makeText(shopKart.this, ex.getMessage(), Toast.LENGTH_LONG).show();
                                 } else {
-                                    finish();
+                                   // finish();
+                                    resultAct = RESULT_CANCELED;
+                                    onBackPressed();
                                 }
                             }
                         });
@@ -81,7 +83,7 @@ public class shopKart extends AppCompatActivity {
         //super.onBackPressed();
         Intent intent = new Intent();
         intent.putParcelableArrayListExtra("Kart list2", this.listP);
-        setResult(RESULT_OK, intent);
+        setResult(resultAct, intent);
         super.onBackPressed();
         finish();
     }

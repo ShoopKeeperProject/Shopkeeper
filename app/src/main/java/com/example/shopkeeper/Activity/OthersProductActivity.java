@@ -24,6 +24,8 @@ public class OthersProductActivity extends AppCompatActivity {
     EditText ETpu;
     EditText ETtaxe;
 
+    private int resultAct = RESULT_CANCELED;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,15 +64,29 @@ public class OthersProductActivity extends AppCompatActivity {
                         listP.add(new ItemMakeSellListVew(null, name,1,pu,taxe));
                     }
                 }
+                /*
                 Intent intent = new Intent(getApplicationContext(),CatalogMakeSaleMain.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("parentId", "");
                 bundle.putParcelableArrayList("Kart list",listP);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                finish();*/
+                resultAct = RESULT_OK;
+                OthersProductActivity.this.onBackPressed();
             }
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent intent = new Intent();
+        intent.putParcelableArrayListExtra("Kart list2", this.listP);
+        setResult(resultAct, intent);
+        super.onBackPressed();
+        finish();
     }
 }

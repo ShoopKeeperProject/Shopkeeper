@@ -36,7 +36,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
 
     ArrayList<ItemMakeSellListVew> listP;
     private MakeSaleResiclerViewAdaptateur mAdapter;
-
+    private MakeSaleListViewAdaptateur listViewAdaptateur;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +47,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
         setTitle(name);
 
         Bundle bundle = getIntent().getExtras();
+
         this.parentId = bundle.getString("parentId");
         if (savedInstanceState == null) {
             this.listP = bundle.getParcelableArrayList("Kart list");
@@ -67,7 +68,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
 
         // editing list view, shoping kart
 
-        final MakeSaleListViewAdaptateur listViewAdaptateur;
+
         //Création et initialisation de l'Adapter pour les personnes
         listViewAdaptateur = new MakeSaleListViewAdaptateur(this.getApplicationContext(), listP,(TextView) findViewById(R.id.FinalPrice));
 
@@ -172,6 +173,7 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
             Intent intent = new Intent();
             intent.putExtra("parentId", "");
             intent.putParcelableArrayListExtra("Kart list",listP);
+            setResult(RESULT_OK, intent);
             super.onBackPressed();
         }
 
@@ -189,8 +191,24 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 listP = intent.getParcelableArrayListExtra("Kart list2");
+                listViewAdaptateur.items = listP;
+                listViewAdaptateur.notifyDataSetChanged();
+            }
+            else if (resultCode == RESULT_CANCELED)
+            {
+                listP.clear();
+                listViewAdaptateur.items = listP;
+                listViewAdaptateur.notifyDataSetChanged();
             }
         }
+        if (requestCode == 10) {
+            if (resultCode == RESULT_OK) {
+                listP = intent.getParcelableArrayListExtra("Kart list");
+                listViewAdaptateur.items = listP;
+                listViewAdaptateur.notifyDataSetChanged();
+            }
+        }
+
     }
 
     @Override

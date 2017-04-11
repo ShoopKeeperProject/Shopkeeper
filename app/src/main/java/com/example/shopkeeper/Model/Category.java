@@ -19,7 +19,7 @@ public class Category  implements Parcelable{
     protected String mName;
     protected String mImageURL;
     protected boolean product;
-    protected boolean mIsEnable = true;
+    public boolean mIsEnable = true;
 
     public Category(JSONObject obj) throws JSONException{
         this(obj.getString("id"), obj.getString("parentId"), obj.getString("name"), JSONUtili.getFirstString(obj, "imageUrl"));

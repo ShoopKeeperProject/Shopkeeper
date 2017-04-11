@@ -217,7 +217,7 @@ public class EditableProductPage extends AppCompatActivity {
                                     {
                                         //
                                         dataChange = true;
-
+                                        product.setIsEnable(false);
                                         EditableProductPage.this.onBackPressed();
 
                                     }

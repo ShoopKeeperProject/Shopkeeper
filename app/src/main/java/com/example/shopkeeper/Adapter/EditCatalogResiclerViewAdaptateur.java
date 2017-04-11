@@ -137,14 +137,21 @@ public class EditCatalogResiclerViewAdaptateur extends RecyclerView.Adapter<Edit
     }
 
     public void add(Category item){
-        items.add(item);
-        notifyItemInserted(items.size() - 1);
+        if (item.isEnable()) {
+            items.add(item);
+            notifyItemInserted(items.size() - 1);
+        }
     }
 
     public void addAll(List<Category> categories){
-        int length = items.size();
-        items.addAll(categories);
-        notifyItemRangeInserted(length, categories.size());
+
+        int length = categories.size();
+        for (int i = 0; i< length; i++)
+        {
+            add(categories.get(i));
+        }
+        //items.addAll(categories);
+        //notifyItemRangeInserted(length, categories.size());
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

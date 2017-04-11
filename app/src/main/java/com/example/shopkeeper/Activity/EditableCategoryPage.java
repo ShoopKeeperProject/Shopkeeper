@@ -81,7 +81,7 @@ public class EditableCategoryPage extends AppCompatActivity {
                                     {
                                         //
                                         dataChange = true;
-
+                                        category.setIsEnable(false);
                                         EditableCategoryPage.this.onBackPressed();
 
                                     }
