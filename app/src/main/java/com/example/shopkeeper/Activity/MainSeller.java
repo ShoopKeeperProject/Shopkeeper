@@ -1,7 +1,9 @@
 package com.example.shopkeeper.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,11 @@ public class MainSeller extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_seller);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = preferences.getString("CoName", "");
+        setTitle(name);
+
         final Button buttonMakeSell  = (Button) findViewById(R.id.makeSell);
         buttonMakeSell.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +53,15 @@ public class MainSeller extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = preferences.getString("CoName", "");
+        setTitle(name);
     }
 
     //call for the Statistics page

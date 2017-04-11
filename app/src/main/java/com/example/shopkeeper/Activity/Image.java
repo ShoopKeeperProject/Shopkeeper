@@ -5,24 +5,25 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 
+import com.example.shopkeeper.Manager.CallBack;
+import com.example.shopkeeper.Manager.ProductManager;
 import com.example.shopkeeper.Manager.ShooperKeeperException;
-import com.example.shopkeeper.Model.Category;
-import com.example.shopkeeper.Model.Product;
 import com.example.shopkeeper.R;
 
 import java.io.ByteArrayOutputStream;
@@ -30,10 +31,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
-
-import com.example.shopkeeper.Manager.ProductManager;
-import com.example.shopkeeper.Manager.CallBack;
 
 
 public class Image extends Activity {
@@ -48,6 +45,11 @@ public class Image extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_image);
+
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		String name = preferences.getString("CoName", "");
+		setTitle(name);
+
 		btnSelect = (Button) findViewById(R.id.btnSelectPhoto);
 		btnSelect.setOnClickListener(new OnClickListener() {
 
@@ -189,14 +191,14 @@ public class Image extends Activity {
 				Toast.makeText(getBaseContext(), result, Toast.LENGTH_LONG).show();
 			}
 		});
-
+/**Leslie
 		ProductManager.getInstance().createOrUpdateProduct(result,new CallBack<Product>() {
 			@Override
 			public void onResponse(Product result, ShooperKeeperException ex) {
 				//for update the server
 			}
 		});
-
+Leslie***/
 		//for testing if the image is taken
 		ivImage.setImageBitmap(thumbnail);
 	}

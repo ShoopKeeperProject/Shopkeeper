@@ -1,7 +1,9 @@
 package com.example.shopkeeper.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -13,7 +15,12 @@ public class Statistics extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String CoName = preferences.getString("CoName", "");
+        setTitle(CoName);
     }
+
     public void topseller(View v) {
         Intent intent = new Intent(getApplicationContext(), TopSeller.class);
         Bundle bundle = new Bundle();

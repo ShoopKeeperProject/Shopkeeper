@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String name = preferences.getString("Name", "");
+        String name = preferences.getString("CoName", "");
         setTitle(name);
     }
 }

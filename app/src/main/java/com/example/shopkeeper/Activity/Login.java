@@ -83,6 +83,15 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = preferences.getString("CoName", "");
+        setTitle(name);
+    }
+
     protected void onRegisterClick() {
 
         Intent intent = new Intent(getApplicationContext(), Register.class);

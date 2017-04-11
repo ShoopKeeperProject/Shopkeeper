@@ -21,15 +21,15 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         mCoName = (EditText) findViewById(R.id.name_change);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String name = preferences.getString("Name", "");
-        setTitle(name);
+        String CoName = preferences.getString("CoName", "");
+        setTitle(CoName);
     }
 
     public void mClick(View v) {
         //Log.v("EditText", mCoName.getText().toString());
         setTitle(mCoName.getText().toString());
         editor = preferences.edit();
-        editor.putString("Name", mCoName.getText().toString());
+        editor.putString("CoName", mCoName.getText().toString());
         editor.apply();
     }
 

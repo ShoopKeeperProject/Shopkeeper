@@ -1,6 +1,8 @@
 package com.example.shopkeeper.Activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -21,10 +23,16 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = preferences.getString("CoName", "");
+        setTitle(name);
+
         mEditText = (EditText)findViewById(R.id.EmailAdd);
         mBtn = (Button)findViewById(R.id.SendForgetPassword);
         mBtn.setOnClickListener(this);
     }
+
 
     @Override
     public void onClick(View v) {

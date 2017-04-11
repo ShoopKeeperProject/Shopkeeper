@@ -2,8 +2,10 @@ package com.example.shopkeeper.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -39,6 +41,10 @@ public class EditableProductPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editable_product_page);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = preferences.getString("CoName", "");
+        setTitle(name);
 
         Bundle bundle = getIntent().getExtras();
         this.product = bundle.getParcelable("product");
@@ -137,6 +143,7 @@ public class EditableProductPage extends AppCompatActivity {
         });
 
     }
+
 
     @Override
     public void onResume()

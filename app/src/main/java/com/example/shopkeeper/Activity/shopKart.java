@@ -1,7 +1,9 @@
 package com.example.shopkeeper.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
@@ -27,6 +29,10 @@ public class shopKart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_kart);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String CoName = preferences.getString("CoName", "");
+        setTitle(CoName);
 
         mConfirmBtn = findViewById(R.id.Submit);
 

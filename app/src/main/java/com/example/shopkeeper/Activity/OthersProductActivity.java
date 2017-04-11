@@ -1,7 +1,9 @@
 package com.example.shopkeeper.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +28,11 @@ public class OthersProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_others_product);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String CoName = preferences.getString("CoName", "");
+        setTitle(CoName);
+
         taxe = 0;
         pu = 0;
         Bundle bundle = getIntent().getExtras();

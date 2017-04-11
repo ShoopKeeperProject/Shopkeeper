@@ -2,7 +2,9 @@ package com.example.shopkeeper.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +31,7 @@ import java.util.List;
 
 public class CatalogMakeSaleMain extends AppCompatActivity {
 
+
     String parentId;
 
     ArrayList<ItemMakeSellListVew> listP;
@@ -38,6 +41,10 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog_make_sale_main);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = preferences.getString("CoName", "");
+        setTitle(name);
 
         Bundle bundle = getIntent().getExtras();
         this.parentId = bundle.getString("parentId");
@@ -117,6 +124,14 @@ public class CatalogMakeSaleMain extends AppCompatActivity {
         mAdapter.add(new Product("1", parentId, this.getString(R.string.Others),0,20, "", ""));
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = preferences.getString("CoName", "");
+        setTitle(name);
+    }
 
     @Override
     public void onBackPressed()

@@ -1,7 +1,9 @@
 package com.example.shopkeeper.Activity;
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -26,6 +28,10 @@ public class ProductPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_page);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String CoName = preferences.getString("CoName", "");
+        setTitle(CoName);
 
         ///
         Bundle bundle = getIntent().getExtras();

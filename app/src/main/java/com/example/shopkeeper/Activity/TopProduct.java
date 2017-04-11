@@ -1,6 +1,8 @@
 package com.example.shopkeeper.Activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -28,6 +30,9 @@ public class TopProduct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_product);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String CoName = preferences.getString("CoName", "");
+        setTitle(CoName);
 
         PieChart = (PieChart) findViewById(R.id.PieChart);
         PieChart.setRotationEnabled(true);
