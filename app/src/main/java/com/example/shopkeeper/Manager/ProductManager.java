@@ -90,6 +90,10 @@ public class ProductManager {
                                     category = new Category(obj);
                                 } else {
                                     category = new Product(obj);
+                                    Log.d("catalog", "prod: " +( (Product)category).getmImageURL());
+                                    for (int cnt = 0; cnt < ((Product)category).GetProductDescriptionSize(); cnt++){
+                                        Log.d("catalog", "proddesc: " + ((Product)category).getmDescription(cnt).getMdescription() + ":" +  ((Product)category).getmDescription(cnt).getMtitle());
+                                    }
                                 }
                                 arrayList.add(category);
                             }
@@ -162,6 +166,7 @@ public class ProductManager {
             if (!Parser.isEmpty(product.getmName())) {
                 para.put("name", product.getmName());
             }
+            para.put("isEnabled", product.isEnable());
             para.put("price", (int)(product.getmPrice() * 100));
             para.put("tax", (int)(product.getmTaxe() * 100));
 
@@ -282,6 +287,7 @@ public class ProductManager {
             if (!Parser.isEmpty(category.getmParentId())) {
                 para.put("parentId", category.getmParentId());
             }
+            para.put("isEnabled", category.isEnable());
         } catch (JSONException ex){
             throw new RuntimeException(ex);
         }

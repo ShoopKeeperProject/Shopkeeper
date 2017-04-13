@@ -23,6 +23,7 @@ public class Category  implements Parcelable{
 
     public Category(JSONObject obj) throws JSONException{
         this(obj.getString("id"), obj.getString("parentId"), obj.getString("name"), JSONUtili.getFirstString(obj, "imageUrl"));
+        this.mIsEnable = JSONUtili.getBoolean(obj, "isEnabled", true);
     }
 
     public Category( String mId, String mParentId, String mName, String mImageURL){

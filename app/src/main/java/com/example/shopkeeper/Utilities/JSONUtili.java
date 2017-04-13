@@ -62,6 +62,21 @@ public class JSONUtili {
         return "";
     }
 
+    public static boolean getBoolean(JSONObject jsonObject, String key, boolean defaultValue){
+        boolean result = defaultValue;
+        try {
+            if (!jsonObject.isNull(key)) {
+                Boolean value = jsonObject.getBoolean(key);
+                if (value != null){
+                    result =  value;
+                }
+            }
+        } catch (JSONException ex){
+
+        }
+        return result;
+    }
+
     public static String getString(JSONObject jsonObject, String key){
         try {
             if (!jsonObject.isNull(key)) {
