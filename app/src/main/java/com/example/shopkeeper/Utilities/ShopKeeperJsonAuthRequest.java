@@ -1,6 +1,7 @@
 package com.example.shopkeeper.Utilities;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.shopkeeper.Manager.TokenManager;
@@ -20,11 +21,19 @@ public class ShopKeeperJsonAuthRequest extends JsonObjectRequest {
     public ShopKeeperJsonAuthRequest(int method, String url, JSONObject jsonRequest,
                              Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         super(method, url, jsonRequest, listener, errorListener);
+        setRetryPolicy(new DefaultRetryPolicy(
+                20000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     public ShopKeeperJsonAuthRequest(String url, JSONObject jsonRequest, Response.Listener<JSONObject> listener,
                              Response.ErrorListener errorListener) {
         super(url, jsonRequest, listener, errorListener);
+        setRetryPolicy(new DefaultRetryPolicy(
+                20000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     public Map<String, String> getHeaders() throws AuthFailureError {
