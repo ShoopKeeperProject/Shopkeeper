@@ -3,10 +3,12 @@ package com.example.shopkeeper.Activity;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -31,7 +33,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.net.URI;
 
 public class Image extends Activity {
 
@@ -50,7 +52,7 @@ public class Image extends Activity {
 		String name = preferences.getString("CoName", "");
 		setTitle(name);
 
-		btnSelect = (Button) findViewById(R.id.btnSelectPhoto);
+		btnSelect = (Button) findViewById(R.id.selectPhoto_Button);
 		btnSelect.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -58,7 +60,7 @@ public class Image extends Activity {
 				selectImage();
 			}
 		});
-		ivImage = (ImageView) findViewById(R.id.ivImage);
+		ivImage = (ImageView) findViewById(R.id.imageDisplay);
 
 		simpleZoomControls = (ZoomControls) findViewById(R.id.simpleZoomControl); // initiate a ZoomControls
 
@@ -161,61 +163,58 @@ public class Image extends Activity {
 	}
 
 	private void onCaptureImageResult(Intent data) {
-		Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-		thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+		Bitmap newImage = data.getParcelableExtra("data");
+		ivImage.setImageBitmap(newImage);
 
-		final File destination = new File(Environment.getExternalStorageDirectory(),
-				System.currentTimeMillis() + ".jpg");
+		// CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+		Uri tempUri = getImageUri(getApplicationContext(), newImage);
 
-		FileOutputStream fo;
-		try {
-			destination.createNewFile();
-			fo = new FileOutputStream(destination);
-			fo.write(bytes.toByteArray());
-			fo.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// CALL THIS METHOD TO GET THE ACTUAL PATH
+		File finalFile = new File(getRealPathFromURI(tempUri));
 
-		//****use uploadImage() to get the code****
-
-		Uri uri = Uri.parse(String.valueOf(destination));
-
-		ProductManager.getInstance().uploadImage(uri, new CallBack<String>() {
-			@Override
-			public void onResponse(String result, ShooperKeeperException ex) {
-				//for getting the code
-				Toast.makeText(getBaseContext(), result, Toast.LENGTH_LONG).show();
-			}
-		});
-/**Leslie
-		ProductManager.getInstance().createOrUpdateProduct(result,new CallBack<Product>() {
-			@Override
-			public void onResponse(Product result, ShooperKeeperException ex) {
-				//for update the server
-			}
-		});
-Leslie***/
-		//for testing if the image is taken
-		ivImage.setImageBitmap(thumbnail);
+		// *****newImagePath is the new image URL*****
+		String newImagePath = finalFile.toString();
+		Toast.makeText(getBaseContext(), newImagePath, Toast.LENGTH_LONG).show();
 	}
 
-	@SuppressWarnings("deprecation")
 	private void onSelectFromGalleryResult(Intent data) {
 
-		Bitmap bm=null;
+		Bitmap selectedImage=null;
 		if (data != null) {
 			try {
-				bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+				selectedImage = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 
 		//****should be return to david page and give him the image****
-		ivImage.setImageBitmap(bm);
+		ivImage.setImageBitmap(selectedImage);
+
+		// CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+		Uri tempUri = getImageUri(getApplicationContext(), selectedImage);
+
+		// CALL THIS METHOD TO GET THE ACTUAL PATH
+		File finalFile = new File(getRealPathFromURI(tempUri));
+
+		// *****newImagePath is the new image URL*****
+		String newImagePath = finalFile.toString();
+		Toast.makeText(getBaseContext(), newImagePath, Toast.LENGTH_LONG).show();
+	}
+
+	//method to get the Image URI
+	public Uri getImageUri(Context inContext, Bitmap inImage) {
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+		inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+		String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+		return Uri.parse(path);
+	}
+
+	//method to get the Image Path
+	public String getRealPathFromURI(Uri uri) {
+		Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+		cursor.moveToFirst();
+		int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+		return cursor.getString(idx);
 	}
 }

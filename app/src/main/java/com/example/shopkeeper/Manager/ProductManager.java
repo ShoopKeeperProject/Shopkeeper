@@ -359,5 +359,4 @@ public class ProductManager {
         };
         NetworkUtil.getInstance(sContext).getQueue().add(multipartRequest);
     }
-
 }
