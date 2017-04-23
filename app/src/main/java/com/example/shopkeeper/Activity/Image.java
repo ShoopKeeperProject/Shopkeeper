@@ -19,12 +19,14 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 
 import com.example.shopkeeper.Manager.CallBack;
 import com.example.shopkeeper.Manager.ProductManager;
+import com.example.shopkeeper.Model.Product;
 import com.example.shopkeeper.Manager.ShooperKeeperException;
 import com.example.shopkeeper.R;
 
@@ -42,6 +44,9 @@ public class Image extends Activity {
 	private ImageView ivImage;
 	private String userChoosenTask;
 	ZoomControls zoomControls;
+	private Product product;
+	int request_Code = 1;
+	String newImagePath;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -188,8 +193,8 @@ public class Image extends Activity {
 		File finalFile = new File(getRealPathFromURI(tempUri));
 
 		// *****newImagePath is the new image URL*****
-		String newImagePath = finalFile.toString();
-		Toast.makeText(getBaseContext(), newImagePath, Toast.LENGTH_LONG).show();
+		newImagePath = finalFile.toString();
+		//Toast.makeText(getBaseContext(), newImagePath, Toast.LENGTH_LONG).show();
 	}
 
 	// "select exist photo" method
@@ -214,7 +219,7 @@ public class Image extends Activity {
 		File finalFile = new File(getRealPathFromURI(tempUri));
 
 		// *****newImagePath is the new image URL*****
-		String newImagePath = finalFile.toString();
+		newImagePath = finalFile.toString();
 		Toast.makeText(getBaseContext(), newImagePath, Toast.LENGTH_LONG).show();
 	}
 
@@ -232,5 +237,13 @@ public class Image extends Activity {
 		cursor.moveToFirst();
 		int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
 		return cursor.getString(idx);
+	}
+
+	// send the url back to EditableProductPage
+	public void backButton (View view) {
+		Intent data_url = new Intent();
+		data_url.setData(Uri.parse(newImagePath));
+		setResult(RESULT_OK, data_url);
+		finish();
 	}
 }

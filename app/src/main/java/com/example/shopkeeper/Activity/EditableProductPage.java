@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.shopkeeper.Model.Product;
@@ -26,6 +27,8 @@ import com.example.shopkeeper.Model.ProductDescription;
 import com.example.shopkeeper.R;
 
 import java.util.ArrayList;
+
+import static android.R.attr.data;
 
 public class EditableProductPage extends AppCompatActivity {
 
@@ -37,6 +40,10 @@ public class EditableProductPage extends AppCompatActivity {
     EditText ItemName;
     EditText price;
     EditText taxe;
+
+    //colman added
+    String imageURL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,17 +140,17 @@ public class EditableProductPage extends AppCompatActivity {
             }
         });
 
+        //colman's modification start
         Button addImage = (Button) findViewById(R.id.addImage);
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),Image.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
-
+        //colman's modification end
     }
-
 
     @Override
     public void onResume()
@@ -201,6 +208,7 @@ public class EditableProductPage extends AppCompatActivity {
                 product.setmName(ItemName.getText().toString());
                 product.setmPrice(Double.parseDouble(price.getText().toString()));
                 product.setmTaxe(Double.parseDouble(taxe.getText().toString()));
+                product.AddImage(imageURL);
                 return true;
             case R.id.menu_exit:
                 onBackPressed();
@@ -238,6 +246,16 @@ public class EditableProductPage extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
+
+        //colman's modification start
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                imageURL = intent.getData().toString();
+                Toast.makeText(getBaseContext(), imageURL, Toast.LENGTH_LONG).show();
+            }
+        }
+        //colman's modification end
+
         if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 product.AddProductDescription((ProductDescription) intent.getParcelableExtra("description"));

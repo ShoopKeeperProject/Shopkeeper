@@ -11,20 +11,27 @@
             android:layout_height="wrap_content"
             android:text="Select Photo" />
 
+        <Button
+            android:id="@+id/back_Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm and Back"
+            android:onClick="backButton" />
+
         <HorizontalScrollView
             android:layout_width="300dp"
-            android:layout_height="400dp"
+            android:layout_height="300dp"
             android:layout_gravity="center">
 
                 <ScrollView
                     android:layout_width="300dp"
-                    android:layout_height="400dp"
+                    android:layout_height="300dp"
                     android:layout_gravity="center">
 
                         <ImageView
                             android:id="@+id/imageDisplay"
                             android:layout_width="300dp"
-                            android:layout_height="400dp"
+                            android:layout_height="300dp"
                             android:layout_gravity="center"
                             android:src="@drawable/camera" />
 
