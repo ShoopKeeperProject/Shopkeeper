@@ -33,7 +33,7 @@
         </HorizontalScrollView>
 
         <ZoomControls
-            android:id="@+id/simpleZoomControl"
+            android:id="@+id/zoomControl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />

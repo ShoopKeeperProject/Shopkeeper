@@ -41,7 +41,7 @@ public class Image extends Activity {
 	private Button btnSelect;
 	private ImageView ivImage;
 	private String userChoosenTask;
-	ZoomControls simpleZoomControls;
+	ZoomControls zoomControls;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,31 +62,34 @@ public class Image extends Activity {
 		});
 		ivImage = (ImageView) findViewById(R.id.imageDisplay);
 
-		simpleZoomControls = (ZoomControls) findViewById(R.id.simpleZoomControl); // initiate a ZoomControls
+		// initiate a ZoomControls
+		zoomControls = (ZoomControls) findViewById(R.id.zoomControl);
 
 		// perform setOnZoomInClickListener event on ZoomControls
-		simpleZoomControls.setOnZoomInClickListener(new View.OnClickListener() {
-			@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+		zoomControls.setOnZoomInClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// calculate current scale x and y value of ImageView
 				float x = ivImage.getScaleX();
 				float y = ivImage.getScaleY();
 				// set increased value of scale x and y to perform zoom in functionality
-				ivImage.setScaleX((float) (x + 0.5));
-				ivImage.setScaleY((float) (y + 0.5));
+				if (x < 6) {
+					ivImage.setScaleX((float) (x + 1));
+					ivImage.setScaleY((float) (y + 1));
+				}
 			}
 		});
-		simpleZoomControls.setOnZoomOutClickListener(new View.OnClickListener() {
-			@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+		zoomControls.setOnZoomOutClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// calculate current scale x and y value of ImageView
 				float x = ivImage.getScaleX();
 				float y = ivImage.getScaleY();
 				// set decreased value of scale x and y to perform zoom out functionality
-				ivImage.setScaleX((float) (x - 0.5));
-				ivImage.setScaleY((float) (y - 0.5));
+				if (x > 1) {
+					ivImage.setScaleX((float) (x - 1));
+					ivImage.setScaleY((float) (y - 1));
+				}
 			}
 		});
 	}
@@ -107,6 +110,7 @@ public class Image extends Activity {
 		}
 	}
 
+	//AlertDialog for user to select "take new photo" or "select exist photo"
 	private void selectImage() {
 		final CharSequence[] items = { "Take Photo", "Choose from Library",
 				"Cancel" };
@@ -118,16 +122,19 @@ public class Image extends Activity {
 			public void onClick(DialogInterface dialog, int item) {
 				boolean result=Utility.checkPermission(Image.this);
 
+				//select "take new photo"
 				if (items[item].equals("Take Photo")) {
 					userChoosenTask ="Take Photo";
 					if(result)
 						cameraIntent();
 
+				//select "select exist photo"
 				} else if (items[item].equals("Choose from Library")) {
 					userChoosenTask ="Choose from Library";
 					if(result)
 						galleryIntent();
 
+				//select to exist
 				} else if (items[item].equals("Cancel")) {
 					dialog.dismiss();
 				}
@@ -136,6 +143,7 @@ public class Image extends Activity {
 		builder.show();
 	}
 
+	// create an intent for "select exist photo"
 	private void galleryIntent()
 	{
 		Intent intent = new Intent();
@@ -144,24 +152,31 @@ public class Image extends Activity {
 		startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
 	}
 
+	// create an intent for "take new photo"
 	private void cameraIntent()
 	{
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		startActivityForResult(intent, REQUEST_CAMERA);
 	}
 
+	// determine the resultCode
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (resultCode == Activity.RESULT_OK) {
+
+			// go to "select exist photo" method
 			if (requestCode == SELECT_FILE)
 				onSelectFromGalleryResult(data);
+
+			// go to "take new photo" method
 			else if (requestCode == REQUEST_CAMERA)
 				onCaptureImageResult(data);
 		}
 	}
 
+	// "take new photo" method
 	private void onCaptureImageResult(Intent data) {
 		Bitmap newImage = data.getParcelableExtra("data");
 		ivImage.setImageBitmap(newImage);
@@ -177,6 +192,7 @@ public class Image extends Activity {
 		Toast.makeText(getBaseContext(), newImagePath, Toast.LENGTH_LONG).show();
 	}
 
+	// "select exist photo" method
 	private void onSelectFromGalleryResult(Intent data) {
 
 		Bitmap selectedImage=null;
