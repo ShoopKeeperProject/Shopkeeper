@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.example.shopkeeper.Activity.EditCatalogMainActivity">
+    tools:context="com.dedelefoudu88.shopkeeper.Activity.EditCatalogMainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

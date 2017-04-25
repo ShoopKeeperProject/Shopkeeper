@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.shopkeeper">
+    package="com.dedelefoudu88.shopkeeper">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,36 +8,36 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".ShoKeeperApplication"
+        android:name="com.dedelefoudu88.shopkeeper.ShoKeeperApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.Login" />
-        <activity android:name=".Activity.Image" />
-        <activity android:name=".Activity.ForgetPassword" />
-        <activity android:name=".Activity.Register" />
-        <activity android:name=".Activity.MainSeller" />
-        <activity android:name=".Activity.CatalogMakeSaleMain" />
-        <activity android:name=".Activity.ProductPage" />
-        <activity android:name=".Activity.shopKart" />
-        <activity android:name=".Activity.OthersProductActivity" />
-        <activity android:name=".Activity.EditCatalogMainActivity" />
-        <activity android:name=".Activity.EditableProductPage" />
-        <activity android:name=".Activity.EditCatalogChangeDescription" />
-        <activity android:name=".Activity.EditableCategoryPage" />
-        <activity android:name=".Activity.Statistics" />
-        <activity android:name=".Activity.TopSeller" />
-        <activity android:name=".Activity.TopProduct" />
-        <activity android:name=".Activity.SettingActivity" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.Login" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.Image" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.ForgetPassword" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.Register" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.MainSeller" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.CatalogMakeSaleMain" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.ProductPage" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.shopKart" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.OthersProductActivity" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.EditCatalogMainActivity" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.EditableProductPage" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.EditCatalogChangeDescription" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.EditableCategoryPage" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.Statistics" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.TopSeller" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.TopProduct" />
+        <activity android:name="com.dedelefoudu88.shopkeeper.Activity.SettingActivity" />
     </application>
 
 </manifest>
